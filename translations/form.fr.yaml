@@ -1,0 +1,36 @@
+address: Adresse
+create: Créer
+center:
+  employee: Votre centre
+  list: Liste des centres
+  select: Selectionner un centre
+contract:
+  contract: Contrat
+  start_date: Date de début
+  end_date: Date de fin
+player:
+  add: Ajouter un joueur
+team:
+  add: Ajouter une équipe
+room:
+  list: Liste des Rooms
+game:
+  date: Date de la session
+amount: Montant
+description: Description
+number_of_games_fidelity_pricing: Nombre de parties pour applicabilité (tarif fidélité uniquement)
+number_of_players_group_pricing: Nombre de joueurs pour applicabilité (tarif de groupe uniquement)
+add: Ajouter
+card_number: Numéro de carte
+username: Pseudo
+email: Email
+search: Chercher
+article:
+  title: Titre de l'article
+  validate: Valider
+yes: Oui
+no: Non
+input_card_number: Veuillez rentrer le numéro de votre carte
+activate: Activer
+card_quantity: Quantité de cartes
+order: Commander

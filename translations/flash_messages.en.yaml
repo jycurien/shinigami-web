@@ -1,0 +1,32 @@
+search:
+  error: Please input at least one search criteria.
+  customer_found: Customer found!
+  customer_not_found: No custromer found...
+article:
+  add:
+    error: Something went wrong. Please check your informations.
+    ok: Article added!
+  delete:
+    ok: Article deleted!
+  update:
+    ok: Article updated!
+card:
+  created:
+    ok: The numeric card was created.
+  activate:
+    error: L'activation de la carte n'a pas pu être traitée.
+    ok: Card activated!
+    already_activated: This card is already linked to your account.
+  order:
+    ok: Card order is now created.
+contract:
+  date_error: Wrong contract dates.
+  employee_added: New employee added.
+game:
+  create:
+    error:
+      no_player: At least one player is needed to create a game.
+      capacity: Room capacity is exceeded.
+pricing:
+  update:
+    ok: Pricing has been modified.

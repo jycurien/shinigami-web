@@ -1,0 +1,49 @@
+#user-suggestions {
+    padding-top: 10px;
+    cursor: pointer;
+}
+
+#user-suggestions a {
+    color: white;
+    padding: 10px 15px;
+    border-radius: .25rem;
+    margin: 5px;
+    font-weight: 500;
+}
+
+#display-players{
+    margin: 50px 0;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+}
+
+#display-players .user-thumb {
+    text-align: center;
+}
+
+#display-players .user-thumb .pic {
+    height: 150px;
+}
+
+#display-players .user-thumb .pic img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+form[name=game] .center,
+form[name=game] .room,
+form[name=game] .date,
+form[name=game] .player {
+        margin-top: 20px;
+}
+
+form[name=game] .room {
+    display: none;
+}
+
+.capacity-reached {
+    display: none;
+    margin-top: 50px;
+}

@@ -1,0 +1,15 @@
+footer {
+    margin-top: 80px;
+    color: var(--main-color-grey);
+}
+
+footer .card-title {
+    color: var(--main-color-orange);
+    font-weight: normal;
+}
+
+@media (max-width: 992px) {
+    footer .footer-sub  {
+        margin-bottom: 40px;
+    }
+}

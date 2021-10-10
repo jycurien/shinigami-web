@@ -1,0 +1,32 @@
+search:
+  error: Veuillez renseigner au moins un critère de recherche.
+  customer_found: Client trouvé !
+  customer_not_found: Aucun client trouvé...
+article:
+  add:
+    error: Une erreur est survenue. Vérifiez vos informations.
+    ok: L'article a bien été crée !
+  delete:
+    ok: L'article a bien été supprimé !
+  update:
+    ok: Modification Effectuée !
+card:
+  created:
+    ok: La carte numérique a bien été créée.
+  activate:
+    error: L'activation de la carte n'a pas pu être traitée.
+    ok: La carte a été activée !
+    already_activated: La carte est déjà rattachée à votre compte.
+  order:
+    ok: La commande de cartes a bien été créée.
+contract:
+  date_error: Dates de contrat erronées.
+  employee_added: Nouvel employé ajouté.
+game:
+  create:
+    error:
+      no_player: Il faut au minimum un joueur pour créer une partie.
+      capacity: La capacité de la salle est dépassée.
+pricing:
+  update:
+    ok: Le tarif a bien été modifié.

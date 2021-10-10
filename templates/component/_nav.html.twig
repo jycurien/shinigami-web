@@ -1,0 +1,50 @@
+{% trans_default_domain 'nav' %}
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" aria-label="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ path('index') }}">
+                <img class="logo" src="{{ asset('picture/logo.png') }}" alt="Shinigami Laser Logo">
+            </a>
+            <button id="navbar-toggler" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link  {% if active == 'concept' %} active {% endif %}" href="{{ path('index_concept') }}">{{ 'concept' | trans }}</a>
+                    </li>
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link  {% if active == 'centers' %} active {% endif %}" href="{{ path('center_centers') }}">{{ 'centers' | trans }}</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link  {% if active == 'news' %} active {% endif %}" href="{{ path('article_articles') }}">{{ 'news' | trans }}</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        {% if is_granted('ROLE_STAFF') %}#}
+{#                            <a class="nav-link  {% if active == 'admin' %} active {% endif %}" href="{{ path('admin_index') }}">{{ 'administration' | trans }}</a>#}
+{#                        {% endif %}#}
+{#                    </li>#}
+                </ul>
+                <ul class="navbar-nav">
+{#                {% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link {% if active == 'profile' %} active {% endif %}" href="{{ path('fos_user_profile_show') }}">{{ 'my_account' | trans }}</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="{{ path('fos_user_security_logout') }}">{{ 'logout' | trans }}</a>#}
+{#                    </li>#}
+{#                {% else %}#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link {% if active == 'register' %} active {% endif %}" href="{{ path('fos_user_registration_register') }}">{{ 'register' | trans }}</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link {% if active == 'login' %} active {% endif %}" href="{{ path('fos_user_security_login') }}">{{ 'login' | trans }}</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,131 @@
+{% extends "layout.html.twig" %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'concept' %}
+
+{% block page_title %}
+    {{ 'concept' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container marketing mb-5">
+
+        <h2>{{ 'concept' | trans | title }}</h2>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-lg-7 order-lg-2">
+                <h2 class="featurette-heading">Laser game : le principe du jeu</h2>
+                <p class="lead">L'adrénaline est de mise !</p>
+                <p>Votre session de laser game (laser tag) se joue en SOLO (chacun pour soi) ou en TEAM (en équipe), avec plusieurs possibilités de scénarii dans nos labyrinthes avec des effets spéciaux, des lumières noires, des graphes futuristes fluorescents et une musique Remix enivrante.</p>
+                <p>Chaque joueur est équipé d'un gilet électronique ultra léger et d'un pistolet qui envoie un rayon laser inoffensif pour les yeux et ce pour la visée des adversaires.
+                    Les gilets envoient à l'ordinateur central en temps réel les données de jeu, tirs émis, tirs reçus, pourcentage de précision, mines, pouvoirs obtenus, et qui affiche sur écran en "live" ceux-ci
+                    et donnent à la sortie une fiche de score personnalisée et détaillée pour chaque joueur.</p>
+            </div>
+            <div class="col-lg-5 order-lg-1">
+                <img class="featurette-image img-fluid mx-auto" src="{{ asset('picture/principe.jpg') }}" alt="Laser game">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="parallax">
+        <div class="container pt-5 pb-5">
+            <div class="row featurette">
+                <div class="col-lg-10 offset-lg-1">
+                    <h2 class="featurette-heading mb-5 text-center">Gardez une trace de votre combat</span></h2>
+                    <div class="row">
+                        <div class="col-lg-6 d-flex flex-column justify-content-center">
+                            <div class="card-shinigami mb-3">
+                                <div class="qrcode">
+                                    <img src="{{ asset('picture/qrcode.png') }}" alt="qr-code">
+                                </div>
+                                <div class="datas">
+                                    <img src="{{ asset('picture/logo.png') }}" alt="Shinigami">
+                                    <p><span class="title">Activation</span><br>01/01/2015</p>
+                                    <p><span class="title">N°:</span> 1221000232</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <p class="lead mb-5">Grâce à votre compte fidélité, consultez l'historique des parties jouées et vos statistiques : meilleur score, nombre de victoire ...</p>
+                            <p class="lead mb-5">Votre compte fidélité vous permet également de bénéficier d'offres exceptionnelles : partie gratuite ...</p>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <p><a href="{{ path('fos_user_profile_show') }}" class="btn btn-warning">Consulter mon compte</a></p>
+                            {% else %}
+                                <p class="lead mb-5">Pas encore inscrit ? Créez vite un compte et demandez notre carte de fidélité !</p>
+                                <p><a href="{{ path('fos_user_registration_register') }}" class="btn btn-warning">Créer un compte</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container marketing mt-5">
+        <div class="row featurette">
+            <div class="col-lg-7 mb-3 order-lg-1">
+                <h2 class="featurette-heading">Nos centres</h2>
+                <p class="lead">Les meilleures salles de laser game !</p>
+                <p>Tous nos centres possèdent un à plusieurs labyrinthes de grande superficie, avec des effets spéciaux, des lumières noires, des graphes futuristes fluorescents et une musique Remix enivrante.</p>
+                <p><a href="{{ path('center_centers') }}" class="btn btn-info">Voir la liste de nos centres</a></p>
+            </div>
+            <div class="col-lg-5 order-lg-2">
+                <img class="featurette-image img-fluid mx-auto" src="{{ asset('picture/salle-vue-de-haut.jpg') }}" alt="Laser game">
+            </div>
+        </div>
+
+
+        <div class="row featurette mt-5">
+            <div class="col-12">
+                <h2 class="featurette-heading">Les tarifs</h2>
+                {% if pricings is not empty %}
+
+                    <table class="table table-striped mt-5">
+                        <thead>
+                        <tr>
+                            <th>Désignation</th>
+                            <th>Montant</th>
+                            <th>Condition d'applicabilité</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for pricing in pricings  %}
+                            <tr>
+                                <td>{{ pricing.code | trans }}</td>
+                                <td>{{ pricing.amount }} €</td>
+                                <td>
+                                    {% if pricing.numberOfGames %}
+                                        Tarif applicable toutes les <strong>{{ pricing.numberOfGames }}</strong> parties.
+                                    {% elseif pricing.numberOfPlayers %}
+                                        Tarif applicable à partir de <strong>{{ pricing.numberOfPlayers }}</strong> joueurs.
+                                    {% else %}
+                                        Pas de condition
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="alert alert-info" role="alert">
+                        <p>Aucune tarif à afficher.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('concept') }}
+{% endblock %}

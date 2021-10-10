@@ -1,0 +1,18 @@
+{% trans_default_domain 'app' %}
+
+<hr class="featurette-divider">
+
+<div class="row featurette">
+    <div class="col-lg-7 mb-3 {% if 0 == loop.index % 2  %}order-lg-2{% endif %}">
+
+        <h2 class="featurette-heading">{{ article.title }}</h2>
+        <p class="text-muted fst-italic">{{ article.createdAt | date('d-m-Y') }}</p>
+        <p class="lead">{{ article.content | summary }}</p>
+        <p class="{% if 0 == loop.index % 2  %}text-lg-end{% endif %}">test
+{#            <a class="btn btn-lg btn-warning" href="{{ path('article_article', {'slug': article.slug, 'id': article.id }) }}" role="button">{{ 'read_more' | trans }}</a>#}
+        </p>
+    </div>
+    <div class="col-lg-5 {% if 0 == loop.index % 2  %}order-lg-1{% endif %}">
+        <img class="featurette-image img-fluid mx-auto" src="{{ asset('picture/articles/' ~ article.picture) }}" alt="{{ article.title }}">
+    </div>
+</div>

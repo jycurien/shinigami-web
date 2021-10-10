@@ -1,0 +1,19 @@
+#play-gif {
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+#play-gif.active {
+    opacity: 1;
+    margin: 0 auto;
+    position: absolute;
+    top: 10vh;
+    bottom: 10vh;
+    left: 10vw;
+    right: 10vw;
+}
+
+#play-gif img {
+    width: 100%;
+    height: auto;
+}

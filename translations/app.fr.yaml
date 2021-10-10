@@ -1,0 +1,102 @@
+material: Matérielle
+numeric: Numérique
+standard: Standard
+fidelity: Fidélité
+group: Groupe
+pricing.update: Modifier le tarif
+capacity:
+  full: La capacity est atteinte. Vous devez supprimer des Players ou changer de Room
+administration: Administration
+admin:
+  home: Administration - Accueil
+  search_account: Rechercher un compte
+  search_account.impossible: Impossible de faire une recherche. Veuillez réessayer ultérieurement.
+  news: Administration - Articles
+  articles:
+    manage: Gérer les articles
+  article:
+    image: Image
+    title: Titre
+    date: Date
+    excerpt: Extrait
+    actions: Actions
+    add: Ajouter un article
+    edit: Editer
+    delete: Supprimer
+    confirm_delete: Êtes-vous sûr de bien vouloir supprimer cet article ?
+    update: Modifier un article
+  cards:
+    manage: Gérer les cartes de fidélité
+    create_numeric: Créer une carte de fidélité Numérique
+    number: Numéro
+    type: Type
+    activation: Activation
+    send_email: Envoyer mail pour activation
+    email_modal_title: Envoie de la carte numérique
+    send: Envoyer
+    no_cards: Aucune carte à afficher.
+    api_error: Impossible de récupérer les cartes de fidélité. Veuillez réessayer ultérieurement.
+    create: Créer une carte de fidélité
+  card_orders:
+    title: Administration - Commandes de cartes
+    manage: Gérer les commandes de cartes
+    order: Commander des cartes
+    date: Date
+    center: Centre
+    quantity: Quantité
+    numbers: Numéros
+    status: Statut
+    receive: Réceptionner
+    received: Reçue
+    pending: En cours
+    none: Aucune commande à afficher.
+    api_error: Impossible de récupérer les commandes de cartes. Veuillez réessayer ultérieurement.
+  employees: Administrations - Employés
+  employees.manage: Gérer les employés
+  employee:
+    update: Modifier un employé
+    update.btn: Modifier
+    update_infos: Modifier les informations de
+    add: Ajouter un employé
+    picture: Photo
+    name: Nom
+    role: Rôle
+    center: Centre
+    contract:
+      start: Début de contrat
+      end: Fin de contrat
+  games: Administration - Games
+  games.manage: Gérer les parties
+  game:
+    create: Créer une partie
+    date: Date
+    details: Détails
+    players: Joueurs
+    player: Joueur
+    team: Equipe
+    score: Score
+    update: Modifier
+    play: Jouer la partie
+    ended: Partie terminée
+    total_players: 'Nombre Total de Joueurs :'
+    total_price: 'Prix Total :'
+    price: Prix
+  pricings: Administration - Tarifs
+  pricings.manage: Gérer les tarifs
+  pricing:
+    designation: Désignation
+    amount: Montant
+    description: Description
+    conditions: Conditions d'applicatbilité
+    update: Modifier
+    no_condition: Pas de condition
+    fidelity_conditions: Tarif applicable toutes les <strong> %nbOfGames% </strong> parties.
+    group_conditions: Tarif applicable à partir de <strong> %numberOfPlayers% </strong> joueurs.
+news: Actualités
+read_more: Lire la suite
+card_activation_email_title: Activation de votre carte de fidélité numérique
+activate_card: Activation de ma carte
+our_centers: Nos centres
+home: Accueil
+concept: Le concept
+reservation: Réservation

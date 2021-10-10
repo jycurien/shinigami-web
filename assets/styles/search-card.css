@@ -1,0 +1,55 @@
+
+.searched-card {
+    margin-bottom: 50px;
+    margin-top: 40px;
+}
+
+.card-shinigami {
+    width: 330px;
+    border: 1px solid orange;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0 auto;
+    font-size: 13px;
+    box-shadow: 5px 5px 20px grey;
+}
+
+.card-shinigami p {
+    margin-bottom: 5px;
+}
+
+.card-shinigami .title {
+    font-weight: 500;
+}
+
+.card-shinigami .qrcode {
+    vertical-align: top;
+}
+
+.card-shinigami .datas {
+    padding-left: 10px;
+}
+
+.card-shinigami .qrcode img {
+    width: 100%;
+}
+
+.card-shinigami .qrcode,
+.card-shinigami .datas {
+    width: 48%;
+    display: inline-block;
+}
+
+.card-shinigami .datas img{
+    width: 115px;
+    margin-bottom: 15px;
+}
+
+/*Partie User*/
+.searched-card .user img {
+    margin-top: 30px;
+    width: 100%;
+}
+.searched-card .user .title {
+    font-weight: 500;
+}

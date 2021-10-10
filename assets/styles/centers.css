@@ -1,0 +1,7 @@
+.centers .address {
+    font-size: 25px;
+}
+
+.centers .address .city {
+    color: var(--main-color-orange );
+}

@@ -1,0 +1,36 @@
+address: Address
+create: Create
+center:
+  employee: Your center
+  list: Centers list
+  select: Select a center
+contract:
+  contract: Contract
+  start_date: Start Date
+  end_date: End Date
+player:
+  add: Add Player
+team:
+  add: Add Team
+room:
+  list: Rooms List
+game:
+  date: Session Date
+amount: Amount
+description: Description
+number_of_games_fidelity_pricing: Number of games for applicability (fidelity pricing only)
+number_of_players_group_pricing: Number of players for applicability (group pricing only)
+add: Add
+card_number: Card Number
+username: Pseudo
+email: Email
+search: Search
+article:
+  title: Article title
+  validate: Validate
+yes: Yes
+no: No
+input_card_number:  Please input your card number
+activate: Activate
+card_quantity: Cards quantity
+order: Order

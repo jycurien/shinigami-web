@@ -1,0 +1,136 @@
+.my-account .infos {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.my-account .infos .picture {
+    border-right: 1px solid var(--main-color-orange );
+    text-align: right;
+}
+
+.my-account .infos img{
+    width: 280px;
+}
+
+.my-account .infos .datas {
+    padding-left: 50px;
+}
+.my-account h2 {
+    margin-top: 30px;
+}
+
+.my-account {
+    margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+    .my-account .infos h2 {
+        margin-top: 0;
+    }
+
+    .my-account .infos img{
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .my-account .infos .picture {
+        margin-bottom: 30px;
+        text-align: center;
+        border: none;
+    }
+
+    .my-account .infos img{
+        width: 200px;
+    }
+}
+
+
+/** OFFER **/
+.offer {
+    margin-top: 70px;
+    margin-bottom: 70px;
+    text-align: center;
+}
+
+.offer h2 {
+    margin-bottom: 30px;
+}
+
+/** FIDELITY CARD **/
+.fidelity-card {
+    margin-top: 70px;
+    margin-bottom: 70px;
+    text-align: center;
+}
+
+.fidelity-card h2 {
+    margin-bottom: 30px;
+}
+
+/** GAMES **/
+.games {
+    margin-top: 70px;
+    margin-bottom: 70px;
+    text-align: center;
+}
+
+.games h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/** COUNTER FOR STATS **/
+.counter {
+    margin-top: 50px;
+    background-color: #eaecf0;
+    text-align: center;
+}
+.counter-admin {
+    margin-top: 50px;
+    text-align: center;
+}
+.employees,.customer,.design,.order {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+.counter-count {
+    font-size: 45px;
+    background-color: var(--main-color-orange );
+    border-radius: 50%;
+    position: relative;
+    color: #ffffff;
+    text-align: center;
+    line-height: 150px;
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    font-weight: 100;
+}
+.employee-p,.customer-p,.order-p,.design-p {
+    font-size: 24px;
+    line-height: 34px;
+}
+
+/* ACTIVATION CARD */
+.activate-card {
+    margin: 20px 0 60px;
+}
+
+.activate-card .card-number input {
+    width: 200px;
+    margin: 20px auto;
+}
+
+.activate-card label {
+    padding-top: 7px;
+}
+
+.btn-activate-card {
+    margin: 10px 0 30px;
+}
+
+.info-admin p{
+    margin: 0 auto;
+}

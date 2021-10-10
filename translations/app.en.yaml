@@ -1,0 +1,101 @@
+material: Material
+numeric: Numeric
+standard: Standard
+fidelity: Fidelity
+group: Group
+pricing.update: Update pricing
+capacity:
+  full: Capacity is reached. You need to remove players or change the room...
+administration: Administration
+admin:
+  home: Administration-Home
+  search_account: Search account
+  search_account.impossible: Search account is not available. Please try again later.
+  news: Administration-News
+  articles:
+    manage: Manage articles
+  article:
+    image: Image
+    title: Title
+    date: Date
+    excerpt: Excerpt
+    actions: Actions
+    add: Add article
+    edit: Edit
+    delete: Delete
+    confirm_delete: Do you really want to delete this article?
+    update: Update article
+  cards:
+    manage: Manage fidelity cards
+    create_numeric: Create numeric fidelity card
+    number: Number
+    type: Type
+    activation: Activation
+    send_email: Send email for activation
+    email_modal_title: Send numeric card
+    send: Send
+    no_cards: No card to display.
+    api_error: Impossible to get fidelity cards. Please try again later.
+    create: Create fidelity card
+  card_orders:
+    title: Administration-Card Orders
+    manage: Manage Card Orders
+    order: Order cards
+    date: Date
+    center: Center
+    quantity: Quantity
+    numbers: Numbers
+    status: Status
+    receive: Receive
+    received: Received
+    pending: Pending
+    none: No order to display.
+    api_error: Impossible to get card orders. Please try again later.
+  employees: Administrations - Employees
+  employees.manage: Manage employees
+  employee:
+    update: Update employee
+    update.btn: Update
+    update_infos: Update the informations of
+    add: Add new employee
+    picture: Picture
+    name: Name
+    role: Role
+    center: Center
+    contract:
+      start: Contract start
+      end: Contract end
+  games: Administration - Games
+  games.manage: Manage games
+  game:
+    create: Create new game
+    date: Date
+    details: Details
+    players: Players
+    player: Player
+    team: Team
+    score: Score
+    update: Update
+    play: Play game
+    ended: Game over
+    total_players: 'Total Number of Players:'
+    total_price: 'Total Price:'
+    price: Price
+  pricings: Administration - Pricings
+  pricings.manage: Manage pricings
+  pricing:
+    designation: Designation
+    amount: Amount
+    description: Description
+    conditions: Conditions
+    update: Update
+    no_condition: No condition
+    group_conditions: "Applicable every <strong>%nbOfGames%</strong> games."
+news: News
+read_more: Read More
+card_activation_email_title: Activation of your numeric fidelity card
+activate_card: Activate my card
+our_centers: Our centers
+home: Home
+concept: The concept
+reservation: Reservation
