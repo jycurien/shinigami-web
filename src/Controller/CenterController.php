@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Center;
 use App\Repository\CenterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CenterController extends AbstractController
@@ -17,9 +17,9 @@ class CenterController extends AbstractController
      *     name="center_centers",
      *     methods={"GET"})
      * @param CenterRepository $centerRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function centers(CenterRepository $centerRepository)
+    public function centers(CenterRepository $centerRepository): Response
     {
         $centers = $centerRepository->findAll();
         return $this->render("center/centers.html.twig", [

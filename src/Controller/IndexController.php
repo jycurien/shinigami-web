@@ -1,10 +1,10 @@
 <?php
 namespace App\Controller;
 
-//use App\Entity\Article;
-//use App\Entity\Pricing;
 use App\Repository\ArticleRepository;
+use App\Repository\PricingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
@@ -12,9 +12,9 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      * @param ArticleRepository $articleRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function index(ArticleRepository $articleRepository)
+    public function index(ArticleRepository $articleRepository): Response
     {
         $sliderArticles = $articleRepository->findSliderArticles();
         $latestArticles = $articleRepository->findLatestArticles();
@@ -32,15 +32,16 @@ class IndexController extends AbstractController
      *      },
      *     name="index_concept",
      *     methods={"GET"})
+     * @param PricingRepository $pricingRepository
+     * @return Response
      */
-    public function concept()
+    public function concept(PricingRepository $pricingRepository): Response
     {
-        dd('TODO');
-//        $pricings = $this->getDoctrine()->getRepository(Pricing::class)->findAll();
-//
-//        return $this->render('index/concept.html.twig', [
-//            'pricings' => $pricings
-//        ]);
+        $pricings = $pricingRepository->findAll();
+
+        return $this->render('index/concept.html.twig', [
+            'pricings' => $pricings
+        ]);
     }
 
 }

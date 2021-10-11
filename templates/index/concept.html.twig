@@ -54,12 +54,12 @@
                         <div class="col-lg-6 text-center">
                             <p class="lead mb-5">Grâce à votre compte fidélité, consultez l'historique des parties jouées et vos statistiques : meilleur score, nombre de victoire ...</p>
                             <p class="lead mb-5">Votre compte fidélité vous permet également de bénéficier d'offres exceptionnelles : partie gratuite ...</p>
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <p><a href="{{ path('fos_user_profile_show') }}" class="btn btn-warning">Consulter mon compte</a></p>
-                            {% else %}
-                                <p class="lead mb-5">Pas encore inscrit ? Créez vite un compte et demandez notre carte de fidélité !</p>
-                                <p><a href="{{ path('fos_user_registration_register') }}" class="btn btn-warning">Créer un compte</a></p>
-                            {% endif %}
+{#                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+{#                                <p><a href="{{ path('fos_user_profile_show') }}" class="btn btn-warning">Consulter mon compte</a></p>#}
+{#                            {% else %}#}
+{#                                <p class="lead mb-5">Pas encore inscrit ? Créez vite un compte et demandez notre carte de fidélité !</p>#}
+{#                                <p><a href="{{ path('fos_user_registration_register') }}" class="btn btn-warning">Créer un compte</a></p>#}
+{#                            {% endif %}#}
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,6 @@
     </div>
 
 {% endblock %}
-
 
 {% block javascripts %}
     {{ parent() }}
