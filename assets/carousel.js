@@ -1,3 +1,3 @@
-import {Carousel} from 'bootstrap'
+// import {Carousel} from 'bootstrap'
 
-new Carousel(document.querySelector('#myCarousel'))
+// new Carousel(document.querySelector('#myCarousel'))

@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block content %}
-{#    TODO INIT NAVBAR MENU#}
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             {% for article in sliderArticles %}
@@ -70,9 +69,4 @@
         {% endfor %}
 
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('carousel') }}
 {% endblock %}
