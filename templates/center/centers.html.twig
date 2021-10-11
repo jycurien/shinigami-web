@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'centers' %}
+
+{% block page_title %}
+    {{ 'our_centers' | trans | title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 centers">
+
+        <h2>{{ 'our_centers' | trans | title }}</h2>
+
+        {% for center in centers %}
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-lg-7 {% if 0 == loop.index % 2  %}order-lg-2{% endif %}">
+                    <h2 class="featurette-heading">{{ center.name }}</h2>
+                    <p class="lead address"><span class="city">{{ center.city }} ({{ center.zipCode }})</span> - {{ center.address }}</p>
+                    <p class="lead">{{ center.description }}</p>
+                </div>
+                <div class="col-lg-5 {% if 0 == loop.index % 2  %}order-lg-1{% endif %}">
+                    <img class="featurette-image img-fluid mx-auto" src="{{ asset('picture/centers/'~center.code~'.jpg') }}" alt="{{ center.name }}">
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
