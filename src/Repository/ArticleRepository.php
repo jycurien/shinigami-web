@@ -49,4 +49,13 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function findAllArticlesOrdered()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
