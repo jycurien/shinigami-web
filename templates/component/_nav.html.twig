@@ -28,21 +28,21 @@
 {#                    </li>#}
                 </ul>
                 <ul class="navbar-nav">
-{#                {% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 {#                    <li class="nav-item">#}
 {#                        <a class="nav-link {% if active == 'profile' %} active {% endif %}" href="{{ path('fos_user_profile_show') }}">{{ 'my_account' | trans }}</a>#}
 {#                    </li>#}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="{{ path('fos_user_security_logout') }}">{{ 'logout' | trans }}</a>#}
-{#                    </li>#}
-{#                {% else %}#}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('security_logout') }}">{{ 'logout' | trans }}</a>
+                    </li>
+                {% else %}
 {#                    <li class="nav-item">#}
 {#                        <a class="nav-link {% if active == 'register' %} active {% endif %}" href="{{ path('fos_user_registration_register') }}">{{ 'register' | trans }}</a>#}
 {#                    </li>#}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link {% if active == 'login' %} active {% endif %}" href="{{ path('fos_user_security_login') }}">{{ 'login' | trans }}</a>#}
-{#                    </li>#}
-{#                {% endif %}#}
+                    <li class="nav-item">
+                        <a class="nav-link {% if active == 'login' %} active {% endif %}" href="{{ path('security_login') }}">{{ 'login' | trans }}</a>
+                    </li>
+                {% endif %}
                 </ul>
             </div>
         </div>
