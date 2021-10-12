@@ -19,7 +19,7 @@
             <div class="row featurette">
                 <div class="col-lg-7 {% if 0 == loop.index % 2  %}order-lg-2{% endif %}">
                     <h2 class="featurette-heading">{{ center.name }}</h2>
-                    <p class="lead address"><span class="city">{{ center.city }} ({{ center.zipCode }})</span> - {{ center.address }}</p>
+                    <p class="lead address"><span class="city">{{ center.address.city }} ({{ center.address.zipCode }})</span> - {{ center.address.address }}</p>
                     <p class="lead">{{ center.description }}</p>
                 </div>
                 <div class="col-lg-5 {% if 0 == loop.index % 2  %}order-lg-1{% endif %}">

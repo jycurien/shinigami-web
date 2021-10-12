@@ -21,7 +21,7 @@ class CenterController extends AbstractController
      */
     public function centers(CenterRepository $centerRepository): Response
     {
-        $centers = $centerRepository->findAll();
+        $centers = $centerRepository->findAllWithAddress();
         return $this->render("center/centers.html.twig", [
             'centers' => $centers,
         ]);

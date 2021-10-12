@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Address;
 use App\Entity\Center;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -19,12 +20,17 @@ class CenterFixtures extends Fixture
             // Center
             $center = New Center();
             $center->setName($centers['name'][$i]);
-            $center->setAddress($centers['address'][$i]);
-            $center->setCity($centers['city'][$i]);
             $center->setCode(124 + $i);
             $center->setPicture((124 + $i).'.jpg');
-            $center->setZipCode($centers['zipCode'][$i]);
             $center->setDescription($centers['description'][$i]);
+
+            $address = new Address();
+            $address->setAddress($centers['address'][$i]);
+            $address->setCity($centers['city'][$i]);
+            $address->setZipCode($centers['zipCode'][$i]);
+
+            $center->setAddress($address);
+
             $this->addReference("center".$i, $center);
 
             $manager->persist($center);
