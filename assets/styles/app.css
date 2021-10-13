@@ -1,6 +1,7 @@
 @import '~bootstrap';
 /*@import "~font-awesome/css/font-awesome.min.css";*/
 @import "variables.css";
+@import "login.css";
 @import "account.css";
 @import "nav.css";
 /*@import "~cookieconsent/build/cookieconsent.min.css";*/
@@ -16,7 +17,7 @@
 @import "games.css";
 
 body {
-    padding-top: 4rem;
+    padding-top: 3.5rem;
     color: #5a5a5a;
 }
 

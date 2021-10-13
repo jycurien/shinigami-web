@@ -30,7 +30,7 @@ class ArticleFixtures extends Fixture /* implements DependentFixtureInterface */
             $createdAt = (new \DateTimeImmutable())->setTimestamp(rand(time() - (60 * 24 * 3600), time()));
             $article->setCreatedAt($createdAt);
             $article->setPicture($key.'.jpg');
-            $article->setIsSlider($key != 1 );
+            $article->setSlider($key != 1 );
             // TODO
 //            $article->setAuthor($this->getReference('admin'));
 

@@ -26,7 +26,7 @@ class ArticleRepository extends ServiceEntityRepository
     public static function createIsSliderCriteria(): Criteria
     {
         return Criteria::create()
-            ->andWhere(Criteria::expr()->eq('isSlider', true));
+            ->andWhere(Criteria::expr()->eq('slider', true));
     }
 
     public function findSliderArticles()

@@ -71,11 +71,11 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $admin->setFirstName('Géraldine');
         $admin->setLastName('Leclerc');
-//        $admin->setUsername('admin');
+        $admin->setUsername('admin');
         $admin->setPassword($this->passwordHasher->hashPassword($admin,'password'));
         $admin->setEmail('admin@shinigami.com');
         $admin->setRoles(['ROLE_ADMIN']);
-//        $admin->setEnabled(1);
+        $admin->setEnabled(true);
         $admin->setImage('admin.jpg');
 
         $admin->setBirthDate(new \DateTimeImmutable('1977-07-23 07:00:00'));

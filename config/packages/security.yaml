@@ -13,7 +13,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -24,6 +24,7 @@ security:
             form_login:
                 login_path: security_login
                 check_path: security_login
+                enable_csrf: true
             login_throttling:
                 max_attempts: 3
                 interval: '15 minutes'

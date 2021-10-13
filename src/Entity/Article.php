@@ -43,7 +43,7 @@ class Article
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isSlider = false;
+    private $slider = false;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -110,12 +110,12 @@ class Article
 
     public function isSlider(): ?bool
     {
-        return $this->isSlider;
+        return $this->slider;
     }
 
-    public function setIsSlider(bool $isSlider): self
+    public function setSlider(bool $slider): self
     {
-        $this->isSlider = $isSlider;
+        $this->slider = $slider;
 
         return $this;
     }

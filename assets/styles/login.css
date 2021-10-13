@@ -1,0 +1,13 @@
+.login {
+    background: linear-gradient(135deg, var(--main-color-orange), rgba(255, 255, 255, 1));
+    margin-bottom: -80px;
+}
+
+.login .card {
+    border-radius: 1rem;
+}
+
+.login .invalid-feedback {
+    display: block;
+    height: 2.5rem!important;
+}

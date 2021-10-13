@@ -67,6 +67,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $address;
 
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -224,6 +234,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(?Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
 
         return $this;
     }
