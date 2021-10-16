@@ -24,3 +24,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Security\PasswordAuthenticator:
+        bind:
+            array $options:
+                login_path: security_login
+                check_path: security_login
+                enable_csrf: true
