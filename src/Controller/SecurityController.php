@@ -34,6 +34,20 @@ class SecurityController extends  AbstractController
     }
 
     /**
+     * @Route({
+     *     "en": "/register",
+     *     "fr": "/inscription"
+     *      }, name="security_register", methods={"GET", "POST"})
+     * @return Response
+     */
+    public function register(): Response
+    {
+        return $this->render('security/register.html.twig', [
+            'error'         => null,
+        ]);
+    }
+
+    /**
      * @Route("/logout", name="security_logout", methods={"GET"})
      * @throws \Exception
      */

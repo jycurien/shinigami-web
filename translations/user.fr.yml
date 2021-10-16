@@ -18,6 +18,9 @@ security:
         forgot_password?: 'Mot de passe oublié ?'
         sign_up: "Inscrivez-vous"
         dont_have_account?: 'Pas encore de compte ?'
+    register:
+        already_have_account?: 'Déjà inscrit ?'
+        sign_in: "Connectez-vous"
 profile:
     show:
         username: 'Pseudo'
