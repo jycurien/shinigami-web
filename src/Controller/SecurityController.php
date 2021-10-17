@@ -4,8 +4,10 @@
 namespace App\Controller;
 
 
-use App\Dto\UserDto;
+use App\Dto\UserRegistrationDto;
+use App\Factory\UserFactory;
 use App\Form\UserRegistrationType;
+use App\Handler\User\RegistrationHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,16 +43,18 @@ class SecurityController extends  AbstractController
      *     "en": "/register",
      *     "fr": "/inscription"
      *      }, name="security_register", methods={"GET", "POST"})
+     * @param Request $request
+     * @param RegistrationHandler $registrationHandler
      * @return Response
      */
-    public function register(Request $request): Response
+    public function register(Request $request, RegistrationHandler $registrationHandler): Response
     {
-        $userDto = new UserDto();
+        $userDto = new UserRegistrationDto();
         $registrationForm = $this->createForm(UserRegistrationType::class, $userDto)
             ->handleRequest($request);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
-            dd($registrationForm, $userDto);
+            $user = $registrationHandler->handle($userDto);
         }
 
         return $this->render('security/register.html.twig', [

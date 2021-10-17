@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Dto\UserDto;
+use App\Dto\UserRegistrationDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,7 +32,7 @@ class UserRegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => UserDto::class,
+            'data_class' => UserRegistrationDto::class,
             'required' => false,
             'attr' => [
                 'novalidate' => 'novalidate'

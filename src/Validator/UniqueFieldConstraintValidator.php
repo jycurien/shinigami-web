@@ -32,15 +32,15 @@ class UniqueFieldConstraintValidator extends ConstraintValidator
         }
 
         if (!class_exists($constraint->entityRepository)) {
+            throw new InvalidArgumentException(sprintf('No class %s found for $entityRepository', $constraint->entityRepository));
+        }
+
+        $repository = new ($constraint->entityRepository)($this->registry);
+        if(!$repository instanceof EntityRepository) {
             throw new InvalidArgumentException(sprintf('You must provide an argument $entityRepository of type %s to %s constraint', EntityRepository::class, get_class($constraint)));
         }
 
-        $repoClass = new ($constraint->entityRepository)($this->registry);
-        if(!$repoClass instanceof EntityRepository) {
-            throw new InvalidArgumentException(sprintf('You must provide an argument $entityRepository of type %s to %s constraint', EntityRepository::class, get_class($constraint)));
-        }
-
-        if (null !== $repoClass->findOneBy([$this->context->getPropertyName() => $value])) {
+        if (null !== $repository->findOneBy([$this->context->getPropertyName() => $value])) {
             $this->context->addViolation($constraint->message);
         }
     }
