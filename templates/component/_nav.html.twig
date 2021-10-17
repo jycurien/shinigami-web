@@ -36,9 +36,9 @@
                         <a class="nav-link" href="{{ path('security_logout') }}">{{ 'logout' | trans }}</a>
                     </li>
                 {% else %}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link {% if active == 'register' %} active {% endif %}" href="{{ path('fos_user_registration_register') }}">{{ 'register' | trans }}</a>#}
-{#                    </li>#}
+                    <li class="nav-item">
+                        <a class="nav-link {% if active == 'register' %} active {% endif %}" href="{{ path('security_register') }}">{{ 'register' | trans }}</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link {% if active == 'login' %} active {% endif %}" href="{{ path('security_login') }}">{{ 'login' | trans }}</a>
                     </li>

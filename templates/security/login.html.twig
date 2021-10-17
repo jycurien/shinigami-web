@@ -12,17 +12,17 @@
     {% embed "component/_black_card.twig" %}
         {% trans_default_domain 'user' %}
         {% block card_content %}
-            <h2 class="fw-bold mb-5 text-uppercase">{{ 'layout.login' | trans | title}}</h2>
+            <h1 class="fw-bold mb-5 text-uppercase">{{ 'layout.login' | trans | title}}</h1>
 
             <form action="{{ path('security_login') }}" method="post" class="mb-5">
-                <div class="form-outline form-white mb-4">
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control form-control-lg {% if error %}is-invalid{% endif %}" />
+                <div class="mb-4">
                     <label class="form-label" for="typeEmailX">{{ 'security.login.username' | trans }}</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control {% if error %}is-invalid{% endif %}" />
                 </div>
 
-                <div class="form-outline form-white mb-4">
-                    <input type="password" id="password" name="_password" class="form-control form-control-lg {% if error %}is-invalid{% endif %}" />
+                <div class="mb-4">
                     <label class="form-label" for="typePasswordX">{{ 'security.login.password' | trans }}</label>
+                    <input type="password" id="password" name="_password" class="form-control {% if error %}is-invalid{% endif %}" />
                     <p class="invalid-feedback">{% if error %}{{ error.messageKey|trans(error.messageData, 'security') }}{% endif %}</p>
                 </div>
 

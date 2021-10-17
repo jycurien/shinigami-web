@@ -4,7 +4,10 @@
 namespace App\Controller;
 
 
+use App\Dto\UserDto;
+use App\Form\UserRegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -40,10 +43,19 @@ class SecurityController extends  AbstractController
      *      }, name="security_register", methods={"GET", "POST"})
      * @return Response
      */
-    public function register(): Response
+    public function register(Request $request): Response
     {
+        $userDto = new UserDto();
+        $registrationForm = $this->createForm(UserRegistrationType::class, $userDto)
+            ->handleRequest($request);
+
+        if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            dd($registrationForm, $userDto);
+        }
+
         return $this->render('security/register.html.twig', [
-            'error'         => null,
+            'registration_form' => $registrationForm->createView(),
+            'error'             => null,
         ]);
     }
 

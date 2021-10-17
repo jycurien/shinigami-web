@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'user' %}
 
-{% set active = 'login' %}
+{% set active = 'register' %}
 
 {% block page_title %}
     {{ 'layout.register' | trans | title }}
@@ -12,26 +12,15 @@
     {% embed "component/_black_card.twig" %}
         {% trans_default_domain 'user' %}
         {% block card_content %}
-            <h2 class="fw-bold mb-5 text-uppercase">{{ 'layout.register' | trans | title}}</h2>
+            <h1 class="fw-bold mb-5 text-uppercase">{{ 'layout.register' | trans | title}}</h1>
 
-            <form action="{{ path('security_register') }}" method="post" class="mb-5">
-                <div class="form-outline form-white mb-4">
-                    <input type="text" id="username" name="_username" class="form-control form-control-lg {% if error %}is-invalid{% endif %}" />
-                    <label class="form-label" for="typeEmailX">{{ 'form.username' | trans }}</label>
-                </div>
+            {{ form_start(registration_form) }}
+                {{ form_row(registration_form.username) }}
+                {{ form_row(registration_form.email) }}
+                <button class="btn btn-lg btn-warning mt-4" type="submit">{{ 'layout.register' | trans }}</button>
+            {{ form_end(registration_form) }}
 
-                <div class="form-outline form-white mb-4">
-                    <input type="email" id="email" name="_email" class="form-control form-control-lg {% if error %}is-invalid{% endif %}" />
-                    <label class="form-label" for="email">{{ 'form.email' | trans }}</label>
-{#                    <p class="invalid-feedback">{% if error %}{{ error.messageKey|trans(error.messageData, 'security') }}{% endif %}</p>#}
-                </div>
-
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('_register') }}">
-
-                <button class="btn btn-lg btn-warning" type="submit">{{ 'layout.register' | trans }}</button>
-            </form>
-
-            <p class="mb-0">{{ 'security.register.already_have_account?' | trans }} <a href="{{ path('security_login') }}" class="text-white-50 fw-bold">{{ 'security.register.sign_in' | trans }}</a></p>
+            <p class="mt-5 mb-0">{{ 'security.register.already_have_account?' | trans }} <a href="{{ path('security_login') }}" class="text-white-50 fw-bold">{{ 'security.register.sign_in' | trans }}</a></p>
         {% endblock %}
     {% endembed %}
 {% endblock %}
