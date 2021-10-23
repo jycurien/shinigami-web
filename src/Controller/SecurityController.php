@@ -64,6 +64,19 @@ class SecurityController extends  AbstractController
     }
 
     /**
+     * @Route({
+     *     "en": "/registration_confirmation",
+     *     "fr": "/confirmation_inscription"
+     *      }, name="security_registration_confirmation", methods={"GET"})
+     * @return Response
+     */
+    public function registrationConfirmation(): Response
+    {
+        dd('test');
+        // TODO
+    }
+
+    /**
      * @Route("/logout", name="security_logout", methods={"GET"})
      * @throws \Exception
      */
