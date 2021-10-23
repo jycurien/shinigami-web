@@ -58,6 +58,8 @@ class RegistrationHandler
             $user->getEmail()
         );
 
+        dd($signatureComponents);
+
         // TODO
 //        $email = new TemplatedEmail();
 //        $email->from('send@example.com');

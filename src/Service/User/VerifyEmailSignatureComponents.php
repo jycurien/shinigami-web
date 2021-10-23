@@ -11,18 +11,36 @@ class VerifyEmailSignatureComponents
      */
     private $expiresAt;
     /**
-     * @var string
+     * @var string the full signed URL that should be sent to the user
      */
-    private $uri;
+    private $signedUrl;
     /**
      * @var int
      */
     private $generatedAt;
 
-    public function __construct(\DateTimeInterface $expiresAt, string $uri, int $generatedAt)
+    public function __construct(\DateTimeInterface $expiresAt, string $signedUrl, int $generatedAt)
     {
         $this->expiresAt = $expiresAt;
-        $this->uri = $uri;
+        $this->signedUrl = $signedUrl;
         $this->generatedAt = $generatedAt;
     }
+
+    /**
+     * @return \DateTimeInterface
+     */
+    public function getExpiresAt(): \DateTimeInterface
+    {
+        return $this->expiresAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSignedUrl(): string
+    {
+        return $this->signedUrl;
+    }
+
+
 }
