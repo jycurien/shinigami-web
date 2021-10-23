@@ -32,3 +32,4 @@ pricing:
     ok: Pricing has been modified.
 registration:
   check_email: Thank you for registering! An email has been sent to %email%. It contains an activation link you must click to activate your account.
+  confirmed: Congrats, your account is now activated. You can login with your username and password.

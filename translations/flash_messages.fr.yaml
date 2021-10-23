@@ -32,3 +32,4 @@ pricing:
     ok: Le tarif a bien été modifié.
 registration:
   check_email: 'Merci pour votre inscription ! Un e-mail vous a été envoyé. Il contient un lien d''activation sur lequel il vous faudra cliquer afin d''activer votre compte.'
+  confirmed: Félicitations, votre compte est maintenant activé. Vous pouvez vous connecter avec votre pseudo et mot de passe.

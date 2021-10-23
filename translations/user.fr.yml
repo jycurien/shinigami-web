@@ -43,7 +43,6 @@ change_password:
         success: 'Le mot de passe a été modifié.'
 
 registration:
-    confirmed: 'Félicitations %username%, votre compte est maintenant activé.'
     back: 'Retour à la page d''origine.'
     submit: 'Créer un compte'
     flash:

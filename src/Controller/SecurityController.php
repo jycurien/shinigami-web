@@ -6,8 +6,8 @@ namespace App\Controller;
 
 use App\Dto\UserRegistrationDto;
 use App\Form\UserRegistrationType;
+use App\Handler\User\RegistrationConfirmationHandler;
 use App\Handler\User\RegistrationHandler;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,39 +75,18 @@ class SecurityController extends  AbstractController
      *     "fr": "/confirmation_inscription"
      *      }, name="security_registration_confirmation", methods={"GET"})
      * @param Request $request
-     * @param UserRepository $userRepository
+     * @param RegistrationConfirmationHandler $confirmationHandler
      * @return Response
      */
-    public function registrationConfirmation(Request $request, UserRepository $userRepository): Response
+    public function registrationConfirmation(Request $request, RegistrationConfirmationHandler $confirmationHandler): Response
     {
-        $id = $request->get('id'); // retrieve the user id from the url
-
-        if (null === $id) {
+        if ($confirmationHandler->handle($request)) {
+            $this->addFlash('success', 'registration.confirmed');
+            return $this->redirectToRoute('security_login');
+        } else {
+            $this->addFlash('error', 'TODO email confirmation error message');
             return $this->redirectToRoute('index');
         }
-
-        $user = $userRepository->find($id);
-
-        // Ensure the user exists in persistence
-        if (null === $user) {
-            return $this->redirectToRoute('index');
-        }
-
-        die;
-        // TODO
-//        try {
-//            $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
-//        } catch (VerifyEmailExceptionInterface $e) {
-//            $this->addFlash('verify_email_error', $e->getReason());
-//
-//            return $this->redirectToRoute('security_register');
-//        }
-
-        // TODO enable user
-
-        $this->addFlash('success', 'Your e-mail address has been verified. You can now login with your pseudo and password');
-
-        return $this->redirectToRoute('security_login');
     }
 
     /**
