@@ -30,3 +30,7 @@ services:
                 login_path: security_login
                 check_path: security_login
                 enable_csrf: true
+    App\Service\User\VerifyEmailHelper:
+        bind:
+            string $signingKey: '%kernel.secret%'
+            int $lifetime: 3600

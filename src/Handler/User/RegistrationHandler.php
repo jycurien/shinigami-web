@@ -9,6 +9,8 @@ use App\Entity\User;
 use App\Factory\UserFactory;
 use App\Service\User\VerifyEmailHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 
 class RegistrationHandler
@@ -41,6 +43,7 @@ class RegistrationHandler
     /**
      * @param UserRegistrationDto $userDto
      * @return User
+     * @throws TransportExceptionInterface
      */
     public function handle(UserRegistrationDto $userDto): User
     {
@@ -49,7 +52,20 @@ class RegistrationHandler
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        // generate validation token and send email
+        $signatureComponents = $this->verifyEmailHelper->generateSignature(
+            'security_registration_confirmation',
+            $user->getId(),
+            $user->getEmail()
+        );
+
+        // TODO
+//        $email = new TemplatedEmail();
+//        $email->from('send@example.com');
+//        $email->to($user->getEmail());
+//        $email->htmlTemplate('email/registration/confirmation_email.html.twig');
+//                $email->context(['signedUrl' => $signatureComponents->getSignedUrl()]);
+
+//        $this->mailer->send($email);
         return $user;
     }
 }
