@@ -30,3 +30,5 @@ game:
 pricing:
   update:
     ok: Le tarif a bien été modifié.
+registration:
+  check_email: 'Merci pour votre inscription ! Un e-mail vous a été envoyé. Il contient un lien d''activation sur lequel il vous faudra cliquer afin d''activer votre compte.'

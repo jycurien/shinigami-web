@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends  AbstractController
 {
@@ -46,17 +47,20 @@ class SecurityController extends  AbstractController
      *      }, name="security_register", methods={"GET", "POST"})
      * @param Request $request
      * @param RegistrationHandler $registrationHandler
+     * @param TranslatorInterface $translator
      * @return Response
      * @throws TransportExceptionInterface
      */
-    public function register(Request $request, RegistrationHandler $registrationHandler): Response
+    public function register(Request $request, RegistrationHandler $registrationHandler, TranslatorInterface $translator): Response
     {
         $userDto = new UserRegistrationDto();
         $registrationForm = $this->createForm(UserRegistrationType::class, $userDto)
             ->handleRequest($request);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
-            $user = $registrationHandler->handle($userDto, $this->getParameter('from_email_address'));
+            $registrationHandler->handle($userDto, $this->getParameter('from_email_address'));
+            $this->addFlash('success', 'registration.check_email');
+            return $this->redirectToRoute('security_login');
         }
 
         return $this->render('security/register.html.twig', [

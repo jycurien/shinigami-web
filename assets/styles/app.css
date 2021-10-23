@@ -123,3 +123,13 @@ img.article-image {
 .form-row-with-error {
     height: 7rem;
 }
+
+.alert {
+    position: absolute;
+    z-index: 1;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+    transform: translateX(-50%);
+    left: 50%;
+    width: 90vw;
+    top: 5rem;
+}

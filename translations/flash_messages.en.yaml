@@ -30,3 +30,5 @@ game:
 pricing:
   update:
     ok: Pricing has been modified.
+registration:
+  check_email: Thank you for registering! An email has been sent to %email%. It contains an activation link you must click to activate your account.
