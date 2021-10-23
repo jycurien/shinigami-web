@@ -77,11 +77,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setEnabled(true);
         $admin->setImage('admin.jpg');
-
         $admin->setBirthDate(new \DateTimeImmutable('1977-07-23 07:00:00'));
-
         $admin->setPhoneNumber('0606060606');
-        $admin->setCreatedAt(new \DateTimeImmutable());
 
 //        $contract = new Contract();
 //        $contract->setStartDate(new \DateTime());

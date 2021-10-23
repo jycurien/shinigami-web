@@ -6,8 +6,3 @@
 .login .card {
     border-radius: 1rem;
 }
-
-.login .invalid-feedback {
-    display: block;
-    height: 2.5rem!important;
-}

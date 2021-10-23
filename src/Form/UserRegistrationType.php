@@ -17,13 +17,13 @@ class UserRegistrationType extends AbstractType
             ->add('username', TextType::class, [
                 'label' => 'form.username',
                 'row_attr' => [
-                    'class' => 'mb-4'
+                    'class' => 'form-row-with-error'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'form.email',
                 'row_attr' => [
-                    'class' => 'mb-4'
+                    'class' => 'form-row-with-error'
                 ]
             ])
         ;

@@ -42,10 +42,11 @@ class RegistrationHandler
 
     /**
      * @param UserRegistrationDto $userDto
+     * @param string $fromEmailAddress
      * @return User
      * @throws TransportExceptionInterface
      */
-    public function handle(UserRegistrationDto $userDto): User
+    public function handle(UserRegistrationDto $userDto, string $fromEmailAddress): User
     {
         $user = $this->userFactory->createFromRegistrationDto($userDto);
 
@@ -55,19 +56,22 @@ class RegistrationHandler
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             'security_registration_confirmation',
             $user->getId(),
-            $user->getEmail()
+            $user->getEmail(),
+            ['id' => $user->getId()]
         );
 
-        dd($signatureComponents);
+        $email = new TemplatedEmail();
+        $email->from($fromEmailAddress);
+        $email->to($user->getEmail());
+        $email->subject('Validation de votre compte Shinigami Laser'); // TODO translate
+        $email->htmlTemplate('email/registration/confirmation_email.html.twig');
+        $email->context([
+            'username' => $user->getUsername(),
+            'signedUrl' => $signatureComponents->getSignedUrl(),
+            'linkExpiresAt' => $signatureComponents->getExpiresAt()
+        ]);
 
-        // TODO
-//        $email = new TemplatedEmail();
-//        $email->from('send@example.com');
-//        $email->to($user->getEmail());
-//        $email->htmlTemplate('email/registration/confirmation_email.html.twig');
-//                $email->context(['signedUrl' => $signatureComponents->getSignedUrl()]);
-
-//        $this->mailer->send($email);
+        $this->mailer->send($email);
         return $user;
     }
 }

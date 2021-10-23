@@ -41,12 +41,11 @@ class VerifyEmailHelper
         return base64_encode(hash_hmac('sha256', $encodedData, $this->signingKey, true));
     }
 
-    public function generateSignature(string $routeName, string $userId, string $userEmail): VerifyEmailSignatureComponents
+    public function generateSignature(string $routeName, string $userId, string $userEmail, array $extraParams = []): VerifyEmailSignatureComponents
     {
         $generatedAt = time();
         $expiryTimestamp = $generatedAt + $this->lifetime;
 
-        $extraParams = [];
         $extraParams['token'] = $this->createToken($userId, $userEmail);
         $extraParams['expires'] = $expiryTimestamp;
 
@@ -54,7 +53,6 @@ class VerifyEmailHelper
 
         $signature = $this->uriSigner->sign($uri);
 
-        /** @psalm-suppress PossiblyFalseArgument */
         return new VerifyEmailSignatureComponents(\DateTimeImmutable::createFromFormat('U', (string) $expiryTimestamp), $signature, $generatedAt);
     }
 }
