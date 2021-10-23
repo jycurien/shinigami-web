@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Dto\UserRegistrationDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,6 +27,14 @@ class UserRegistrationType extends AbstractType
                 'row_attr' => [
                     'class' => 'form-row-with-error'
                 ]
+            ])
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'form.repeat_password_error',
+                'options' => ['row_attr' => ['class' => 'form-row-with-error']],
+                'required' => true,
+                'first_options'  => ['label' => 'form.password'],
+                'second_options' => ['label' => 'form.password_confirmation'],
             ])
         ;
     }

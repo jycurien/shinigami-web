@@ -5,9 +5,9 @@ namespace App\Controller;
 
 
 use App\Dto\UserRegistrationDto;
-use App\Factory\UserFactory;
 use App\Form\UserRegistrationType;
 use App\Handler\User\RegistrationHandler;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,12 +74,40 @@ class SecurityController extends  AbstractController
      *     "en": "/registration_confirmation",
      *     "fr": "/confirmation_inscription"
      *      }, name="security_registration_confirmation", methods={"GET"})
+     * @param Request $request
+     * @param UserRepository $userRepository
      * @return Response
      */
-    public function registrationConfirmation(): Response
+    public function registrationConfirmation(Request $request, UserRepository $userRepository): Response
     {
-        dd('test');
+        $id = $request->get('id'); // retrieve the user id from the url
+
+        if (null === $id) {
+            return $this->redirectToRoute('index');
+        }
+
+        $user = $userRepository->find($id);
+
+        // Ensure the user exists in persistence
+        if (null === $user) {
+            return $this->redirectToRoute('index');
+        }
+
+        die;
         // TODO
+//        try {
+//            $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
+//        } catch (VerifyEmailExceptionInterface $e) {
+//            $this->addFlash('verify_email_error', $e->getReason());
+//
+//            return $this->redirectToRoute('security_register');
+//        }
+
+        // TODO enable user
+
+        $this->addFlash('success', 'Your e-mail address has been verified. You can now login with your pseudo and password');
+
+        return $this->redirectToRoute('security_login');
     }
 
     /**

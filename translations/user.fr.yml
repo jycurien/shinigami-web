@@ -98,6 +98,7 @@ form:
     password_confirmation: 'Répéter le mot de passe'
     new_password: 'Nouveau mot de passe'
     new_password_confirmation: 'Répéter le nouveau mot de passe'
+    repeat_password_error: Les mots de passes doivent être identiques
 Year: 'Année'
 Month: 'Mois'
 Day: 'Jour'

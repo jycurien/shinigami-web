@@ -25,10 +25,21 @@ class UserRegistrationDto
      * @AppAssert\UniqueFieldConstraint(entityRepository="App\Repository\UserRepository")
      */
     public $email;
+    /**
+     * @var string|null
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 6,
+     *      max = 255
+     * )
+     * @Assert\NotCompromisedPassword()
+     */
+    public $password;
 
-    public function __construct(?string $username = null, ?string $email = null)
+    public function __construct(?string $username = null, ?string $email = null, ?string $password = null)
     {
         $this->username = $username;
         $this->email = $email;
+        $this->password = $password;
     }
 }
