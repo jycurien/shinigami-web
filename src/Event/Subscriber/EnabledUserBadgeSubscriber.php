@@ -25,10 +25,8 @@ class EnabledUserBadgeSubscriber implements EventSubscriberInterface
         $userBadger = $passport->getBadge(UserBadge::class);
         $enabledUserBadge = $passport->getBadge(EnabledUserBadge::class);
 
-        // Ici on a les instances donc on va checker
         /** @var EnabledUserBadge $enabledUserBadge */
         $enabledUserBadge->check($userBadger->getUser());
-
     }
 
     public static function getSubscribedEvents()

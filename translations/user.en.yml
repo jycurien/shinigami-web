@@ -69,8 +69,9 @@ resetting:
 
         If you don't get an email check your spam folder or try again.
     request:
-        username: 'Pseudo or email address'
+        email: 'Email address'
         submit: 'Reset password'
+        error: Invalid email address
     reset:
         submit: 'Change password'
     flash:

@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Dto\UserRegistrationDto;
 use App\Form\UserRegistrationType;
+use App\Handler\User\ForgotPasswordHandler;
 use App\Handler\User\RegistrationConfirmationHandler;
 use App\Handler\User\RegistrationHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -87,6 +88,30 @@ class SecurityController extends  AbstractController
             $this->addFlash('error', 'TODO email confirmation error message');
             return $this->redirectToRoute('index');
         }
+    }
+
+    /**
+     * @Route({
+     *     "en": "/forgot_password",
+     *     "fr": "/mot_de_passe_oublie"
+     *      }, name="security_forgot_password", methods={"GET", "POST"})
+     * @param Request $request
+     * @param ForgotPasswordHandler $forgotPasswordHandler
+     * @return Response
+     */
+    public function forgotPassword(Request $request, ForgotPasswordHandler $forgotPasswordHandler): Response
+    {
+        $error = false;
+//        $lastEmail = $request->hasSession() ? $request->getSession()->get('forgot_password_email', '') : '';
+        $lastEmail = '';
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $error = !$forgotPasswordHandler->handle($request);
+        }
+
+        return $this->render('security/forgot_password.html.twig', [
+            'last_email' => $lastEmail,
+            'error' => $error
+        ]);
     }
 
     /**

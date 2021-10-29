@@ -67,8 +67,9 @@ resetting:
         Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.
 
     request:
-        username: 'Pseudo ou adresse e-mail'
+        email: 'Adresse e-mail'
         submit: 'Réinitialiser le mot de passe'
+        error: Adresse e-mail non valide
     reset:
         submit: 'Modifier le mot de passe'
     flash:
@@ -94,9 +95,9 @@ form:
     email: 'Adresse e-mail'
     current_password: 'Mot de passe actuel'
     password: 'Mot de passe'
-    password_confirmation: 'Répéter le mot de passe'
+    password_confirmation: 'Confirmez le mot de passe'
     new_password: 'Nouveau mot de passe'
-    new_password_confirmation: 'Répéter le nouveau mot de passe'
+    new_password_confirmation: 'Confirmez le nouveau mot de passe'
     repeat_password_error: Les mots de passes doivent être identiques
 Year: 'Année'
 Month: 'Mois'

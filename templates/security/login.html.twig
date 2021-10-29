@@ -16,17 +16,17 @@
 
             <form action="{{ path('security_login') }}" method="post" class="mb-5">
                 <div class="mb-5">
-                    <label class="form-label" for="typeEmailX">{{ 'security.login.username' | trans }}</label>
+                    <label class="form-label" for="username">{{ 'security.login.username' | trans }}</label>
                     <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control {% if error %}is-invalid{% endif %}" />
                 </div>
 
                 <div class="form-row-with-error">
-                    <label class="form-label" for="typePasswordX">{{ 'security.login.password' | trans }}</label>
+                    <label class="form-label" for="password">{{ 'security.login.password' | trans }}</label>
                     <input type="password" id="password" name="_password" class="form-control {% if error %}is-invalid{% endif %}" />
                     <p class="invalid-feedback">{% if error %}{{ error.messageKey|trans(error.messageData, 'security') }}{% endif %}</p>
                 </div>
 
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">{{ 'security.login.forgot_password?' | trans }}</a></p>
+                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="{{ path('security_forgot_password') }}">{{ 'security.login.forgot_password?' | trans }}</a></p>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
