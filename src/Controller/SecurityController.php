@@ -102,11 +102,10 @@ class SecurityController extends  AbstractController
     public function forgotPassword(Request $request, ForgotPasswordHandler $forgotPasswordHandler): Response
     {
         $error = false;
-//        $lastEmail = $request->hasSession() ? $request->getSession()->get('forgot_password_email', '') : '';
-        $lastEmail = '';
         if ($request->isMethod(Request::METHOD_POST)) {
             $error = !$forgotPasswordHandler->handle($request);
         }
+        $lastEmail = $request->attributes->get('forgot_password_email', '');
 
         return $this->render('security/forgot_password.html.twig', [
             'last_email' => $lastEmail,

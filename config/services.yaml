@@ -35,3 +35,7 @@ services:
         bind:
             string $signingKey: '%kernel.secret%'
             int $lifetime: 3600
+    App\Service\User\ResetPasswordHelper:
+        bind:
+            string $signingKey: '%kernel.secret%'
+            int $lifetime: 3600

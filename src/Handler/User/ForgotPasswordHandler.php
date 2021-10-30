@@ -38,8 +38,8 @@ class ForgotPasswordHandler
 
         $user = $this->userRepository->findOneBy(['email' => $email]);
         if (null === $user || !$user->isEnabled()) {
-//            $request->getSession()->set('forgot_password_email', $email);
-//            return false;
+            $request->attributes->set('forgot_password_email', $email);
+            return false;
         }
 
         dd($user);
