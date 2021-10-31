@@ -42,4 +42,15 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository
     {
         return $this->findOneBy(['selector' => $selector]);
     }
+
+    public function removeResetPasswordRequest(User $user): void
+    {
+        $this->createQueryBuilder('t')
+            ->delete()
+            ->where('t.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute()
+        ;
+    }
 }

@@ -29,6 +29,14 @@ class ResetPasswordToken
     }
 
     /**
+     * @return \DateTimeInterface
+     */
+    public function getExpiresAt(): \DateTimeInterface
+    {
+        return $this->expiresAt;
+    }
+
+    /**
      * Returns the full token the user should use.
      *
      * Internally, this consists of two parts - the selector and

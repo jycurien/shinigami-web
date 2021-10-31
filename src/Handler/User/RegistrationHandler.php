@@ -63,7 +63,7 @@ class RegistrationHandler
         $email = new TemplatedEmail();
         $email->from($fromEmailAddress);
         $email->to($user->getEmail());
-        $email->subject('Validation de votre compte Shinigami Laser'); // TODO translate
+        $email->subject('Shinigami Laser - Validation de votre compte'); // TODO translate
         $email->htmlTemplate('email/registration/confirmation_email.html.twig');
         $email->context([
             'username' => $user->getUsername(),

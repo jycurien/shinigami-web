@@ -63,6 +63,8 @@ class ResetPasswordHelper
             return null;
         }
 
+        $this->repository->removeResetPasswordRequest($user);
+
         $expiresAt = new \DateTimeImmutable(sprintf('+%d seconds', $this->lifetime));
 
         $generatedAt = ($expiresAt->getTimestamp() - $this->lifetime);
@@ -143,13 +145,13 @@ class ResetPasswordHelper
         return base64_encode(hash_hmac('sha256', $data, $this->signingKey, true));
     }
 
-    private function getAvailableAt(object $user): ?\DateTimeInterface
+    private function getAvailableAt(User $user): ?\DateTimeInterface
     {
         /** @var \DateTime|\DateTimeImmutable|null $lastRequestDate */
         $lastRequestDate = $this->repository->getMostRecentNonExpiredRequestDate($user);
 
         if (null !== $lastRequestDate) {
-            (clone $lastRequestDate)->add(new \DateInterval("PT{$this->requestThrottleTime}S"));
+            return (clone $lastRequestDate)->add(new \DateInterval("PT{$this->requestThrottleTime}S"));
         }
 
         return new \DateTime('now');

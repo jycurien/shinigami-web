@@ -71,7 +71,7 @@ resetting:
     request:
         email: 'Email address'
         submit: 'Reset password'
-        error: Invalid email address
+        error: Invalid email address or you have already request a rest link less than one minute ago
     reset:
         submit: 'Change password'
     flash:

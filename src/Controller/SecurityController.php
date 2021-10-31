@@ -103,7 +103,11 @@ class SecurityController extends  AbstractController
     {
         $error = false;
         if ($request->isMethod(Request::METHOD_POST)) {
-            $error = !$forgotPasswordHandler->handle($request);
+            $error = !$forgotPasswordHandler->handle($request, $this->getParameter('from_email_address'));
+            if (!$error) {
+                $this->addFlash('success', 'resetting.check_email');
+                return $this->redirectToRoute('security_login');
+            }
         }
         $lastEmail = $request->attributes->get('forgot_password_email', '');
 
@@ -111,6 +115,20 @@ class SecurityController extends  AbstractController
             'last_email' => $lastEmail,
             'error' => $error
         ]);
+    }
+
+    /**
+     * @Route({
+     *     "en": "/reset_password",
+     *     "fr": "/reinitialisation_mot_de_passe"
+     *      }, name="security_reset_password", methods={"GET", "POST"})
+     * @param Request $request
+     * @param ForgotPasswordHandler $forgotPasswordHandler
+     * @return Response
+     */
+    public function resetPassword(Request $request, ForgotPasswordHandler $forgotPasswordHandler): Response
+    {
+        dd($request);
     }
 
     /**
