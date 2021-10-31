@@ -29,9 +29,9 @@
                 </ul>
                 <ul class="navbar-nav">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link {% if active == 'profile' %} active {% endif %}" href="{{ path('fos_user_profile_show') }}">{{ 'my_account' | trans }}</a>#}
-{#                    </li>#}
+                    <li class="nav-item">
+                        <a class="nav-link {% if active == 'profile' %} active {% endif %}" href="{{ path('user_profile_show') }}">{{ 'my_account' | trans }}</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('security_logout') }}">{{ 'logout' | trans }}</a>
                     </li>

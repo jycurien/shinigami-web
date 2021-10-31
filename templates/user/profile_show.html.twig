@@ -1,0 +1,87 @@
+{% extends "layout.html.twig" %}
+
+{% trans_default_domain 'user' %}
+
+{% set active = 'profile' %}
+
+{% block page_title %}
+    {{ 'Mon Compte' | title }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="my-account">
+
+        <div class="container mt-5 mb-5">
+            <h1>{{'Mon compte' | title}}</h1>
+            <hr class="featurette-divider">
+            <div class="row infos featurette">
+                <div class="picture col-md-6 col-sm-4">
+                    {% if user.image %}
+                        <img src="{{ asset('picture/users/' ~ user.image) }}" alt="Image de Profil">
+                    {% else %}
+                        <img src="{{ asset('picture/user.jpg') }}" alt="Image de Profil">
+                    {% endif %}
+                </div>
+                <div class="datas col-md-6 col-sm-8">
+                    <h2 class="featurette-heading">{{ user.username }}
+                        {% if user.firstName  %}
+                            <span class="lead">({{ user.firstName ~ ' ' ~ user.lastName }})</span>
+                        {% endif %}
+                    </h2>
+                    <p>{{ 'profile.show.email'|trans }} : {{ user.email }}</p>
+
+                    {% if user.phoneNumber %}
+                        <p>Téléphone : {{ user.phoneNumber }}</p>
+                    {% endif %}
+
+                    {% if user.birthDate %}
+                        <p>Date de naissance : {{ user.birthDate|date("d-m-Y") }}</p>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="mt-3 mb-3 d-flex justify-content-center">
+                <a href="{{ path('user_profile_edit') }}" class="btn btn-info mx-2">Modifer mes informations</a>
+                <a href="{{ path('user_change_password') }}" class="btn btn-warning mx-2">Modifer mon mot de passe</a>
+            </div>
+        </div>
+
+{#        {{ render(controller('App\\Controller\\UserController::userPlayStats', {'user': user})) }}#}
+
+{#        <div class="container">#}
+
+{#            {{ render(controller('App\\Controller\\UserController::userOffers', {'user': user})) }}#}
+
+{#            <div class="fidelity-card">#}
+{#                <h2 class="featurette-heading">Vos Cartes de Fidélités</h2>#}
+
+{#                <a href="{{ path('card_activate_card') }}" class="btn btn-warning ml-2 btn-activate-card">Activer ma carte</a>#}
+
+{#                {% if user.cardNumbers %}#}
+{#                    {{ render(controller('App\\Controller\\UserController::userCards', {'user': user})) }}#}
+{#                {% else %}#}
+{#                    <p>Vous n'avez ajouté aucune carte de fidélité à votre profil.</p>#}
+{#                {% endif %}#}
+
+{#            </div>#}
+
+{#            <hr class="featurette-divider">#}
+
+{#            <div class="games">#}
+{#                <h2 class="featurette-heading">Dernières Parties Jouées</h2>#}
+
+{#                {% if not user.userPlayGames is empty %}#}
+{#                    {{ render(controller('App\\Controller\\UserController::userLatestGames', {'user': user})) }}#}
+{#                {% else %}#}
+{#                    <p>Vous n'avez pas encore de parties à afficher. Venez vite nous rendre visite ;)</p>#}
+{#                {% endif %}#}
+
+{#            </div>#}
+
+{#            <hr class="featurette-divider">#}
+{#        </div>#}
+
+    </div>
+
+{% endblock %}

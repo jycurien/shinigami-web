@@ -17,6 +17,9 @@ class UserChangePasswordType extends AbstractType
             $builder
                 ->add('oldPassword', PasswordType::class, [
                     'label' => 'form.current_password',
+                    'row_attr' => [
+                        'class' => 'form-row-with-error'
+                    ]
                 ])
             ;
         }
@@ -42,7 +45,7 @@ class UserChangePasswordType extends AbstractType
             'attr' => [
                 'novalidate' => 'novalidate'
             ],
-            'translation_domain' => 'user',
+            'translation_domain' => 'user'
         ]);
         $resolver->setAllowedTypes('require_old_password', 'bool');
     }

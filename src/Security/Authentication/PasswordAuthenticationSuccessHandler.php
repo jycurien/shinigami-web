@@ -28,6 +28,6 @@ class PasswordAuthenticationSuccessHandler implements AuthenticationSuccessHandl
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
     {
-        return new RedirectResponse($this->urlGenerator->generate('index'));
+        return new RedirectResponse($this->urlGenerator->generate('user_profile_show'));
     }
 }

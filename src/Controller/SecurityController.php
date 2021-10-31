@@ -157,6 +157,7 @@ class SecurityController extends  AbstractController
 
         return $this->render('security/change_password.html.twig', [
             'change_password_form' => $resetPasswordForm->createView(),
+            'active' => 'login',
             'error'             => null,
         ]);
     }

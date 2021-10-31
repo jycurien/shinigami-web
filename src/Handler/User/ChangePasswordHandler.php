@@ -6,11 +6,10 @@ namespace App\Handler\User;
 
 use App\Dto\UserChangePasswordDto;
 use App\Entity\User;
-use App\Repository\ResetPasswordRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class ResetPasswordHandler
+class ChangePasswordHandler
 {
     /**
      * @var EntityManagerInterface
@@ -20,22 +19,17 @@ class ResetPasswordHandler
      * @var UserPasswordHasherInterface
      */
     private $passwordHasher;
-    /**
-     * @var ResetPasswordRequestRepository
-     */
-    private $resetPasswordRequestRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, ResetPasswordRequestRepository $resetPasswordRequestRepository)
+
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
     {
         $this->entityManager = $entityManager;
         $this->passwordHasher = $passwordHasher;
-        $this->resetPasswordRequestRepository = $resetPasswordRequestRepository;
     }
 
     public function handle(UserChangePasswordDto $changePasswordDto, User $user): void
     {
         $user->setPassword($this->passwordHasher->hashPassword($user, $changePasswordDto->newPassword));
-        $this->resetPasswordRequestRepository->removeResetPasswordRequest($user);
         $this->entityManager->flush();
     }
 }

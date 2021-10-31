@@ -1,0 +1,43 @@
+{% extends "layout.html.twig" %}
+
+{% trans_default_domain 'user' %}
+
+{% set active = 'profile' %}
+
+{% block page_title %}
+    {{ 'Mon Compte' | title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 mb-5">
+        <h1>{{'Modifier mes informations' | title}}</h1>
+        <hr class="featurette-divider">
+        <div class="row mt-5">
+            <div class="col-12">
+{#                {{ form_start(form, { 'action': path('user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}#}
+{#                <div class="row">#}
+{#                    <div class="col-md-6">#}
+{#                        {{ form_row(form.username) }}#}
+{#                        {{ form_row(form.firstName) }}#}
+{#                        {{ form_row(form.lastName) }}#}
+{#                        {{ form_row(form.email) }}#}
+{#                        {{ form_row(form.phoneNumber) }}#}
+{#                        {{ form_row(form.birthDate) }}#}
+{#                    </div>#}
+{#                    <div class="col-md-6">#}
+{#                        {{ form_row(form.imageTmp) }}#}
+{#                        <fieldset class="fieldset">#}
+{#                            <legend>{{ 'address' | trans({}, 'form') }}</legend>#}
+{#                            {{ form_rest(form) }}#}
+{#                        </fieldset>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="d-flex justify-content-center">#}
+{#                    <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="btn btn-info" />#}
+{#                </div>#}
+{#                {{ form_end(form) }}#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
