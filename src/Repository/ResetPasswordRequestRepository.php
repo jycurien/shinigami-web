@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ResetPasswordRequest;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,26 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository
         parent::__construct($registry, ResetPasswordRequest::class);
     }
 
-    // /**
-    //  * @return ResetPasswordRequest[] Returns an array of ResetPasswordRequest objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getMostRecentNonExpiredRequestDate(User $user): ?\DateTimeInterface
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+        $resetPasswordRequest = $this->createQueryBuilder('r')
+            ->where('r.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('r.requestedAt', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
+            ->getOneorNullResult()
         ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?ResetPasswordRequest
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (null !== $resetPasswordRequest && !$resetPasswordRequest->isExpired()) {
+            return $resetPasswordRequest->getRequestedAt();
+        }
+
+        return null;
     }
-    */
+
+    public function findResetPasswordRequest(string $selector): ?ResetPasswordRequest
+    {
+        return $this->findOneBy(['selector' => $selector]);
+    }
 }

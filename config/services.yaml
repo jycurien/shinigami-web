@@ -39,3 +39,4 @@ services:
         bind:
             string $signingKey: '%kernel.secret%'
             int $lifetime: 3600
+            int $requestThrottleTime: 60

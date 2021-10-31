@@ -20,7 +20,7 @@ class ResetPasswordRequest
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $publicToken;
+    private $selector;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -42,19 +42,36 @@ class ResetPasswordRequest
      */
     private $user;
 
+    /**
+     * ResetPasswordRequest constructor.
+     * @param $selector
+     * @param $hashedToken
+     * @param $expiresAt
+     * @param $user
+     * @throws \Exception
+     */
+    public function __construct($selector, $hashedToken, $expiresAt, $user)
+    {
+        $this->selector = $selector;
+        $this->hashedToken = $hashedToken;
+        $this->requestedAt = new \DateTimeImmutable();
+        $this->expiresAt = $expiresAt;
+        $this->user = $user;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPublicToken(): ?string
+    public function getSelector(): ?string
     {
-        return $this->publicToken;
+        return $this->selector;
     }
 
-    public function setPublicToken(string $publicToken): self
+    public function setSelector(string $selector): self
     {
-        $this->publicToken = $publicToken;
+        $this->selector = $selector;
 
         return $this;
     }
@@ -105,5 +122,10 @@ class ResetPasswordRequest
         $this->user = $user;
 
         return $this;
+    }
+
+    public function isExpired(): bool
+    {
+        return $this->expiresAt->getTimestamp() <= time();
     }
 }
