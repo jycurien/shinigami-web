@@ -13,6 +13,7 @@ group:
 security:
     login:
         username: Pseudo
+        email: Email Address
         password: Password
         remember_me: 'Remember me'
         submit: 'Login'

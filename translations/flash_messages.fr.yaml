@@ -37,3 +37,4 @@ resetting:
   check_email: |
     Un e-mail vous a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.
     Si vous ne recevez pas d'email, vérifiez votre dossier spam ou essayez à nouveau.
+  success: 'Le mot de passe a été réinitialisé avec succès.'

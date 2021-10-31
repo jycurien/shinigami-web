@@ -4,16 +4,22 @@
 namespace App\Controller;
 
 
+use App\Dto\UserChangePasswordDto;
 use App\Dto\UserRegistrationDto;
+use App\Form\UserChangePasswordType;
 use App\Form\UserRegistrationType;
 use App\Handler\User\ForgotPasswordHandler;
 use App\Handler\User\RegistrationConfirmationHandler;
 use App\Handler\User\RegistrationHandler;
+use App\Handler\User\ResetPasswordHandler;
+use App\Service\User\ResetPasswordHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -123,12 +129,36 @@ class SecurityController extends  AbstractController
      *     "fr": "/reinitialisation_mot_de_passe"
      *      }, name="security_reset_password", methods={"GET", "POST"})
      * @param Request $request
-     * @param ForgotPasswordHandler $forgotPasswordHandler
+     * @param ResetPasswordHelper $resetPasswordHelper
+     * @param ResetPasswordHandler $resetPasswordHandler
      * @return Response
      */
-    public function resetPassword(Request $request, ForgotPasswordHandler $forgotPasswordHandler): Response
+    public function resetPassword(Request $request, ResetPasswordHelper $resetPasswordHelper, ResetPasswordHandler $resetPasswordHandler): Response
     {
-        dd($request);
+       $token = $request->query->get('token');
+        if (null === $token) {
+            throw new AccessDeniedException('Invalid request parameters');
+        }
+        $user = $resetPasswordHelper->validateTokenAndFetchUser($token);
+        if (null === $user) {
+            throw new AccessDeniedException('Invalid request parameters');
+        }
+        $userChangePasswordDto = new UserChangePasswordDto();
+        $resetPasswordForm = $this->createForm(UserChangePasswordType::class, $userChangePasswordDto, [
+            'require_old_password' => false
+        ])
+            ->handleRequest($request);
+
+        if ($resetPasswordForm->isSubmitted() && $resetPasswordForm->isValid()) {
+            $resetPasswordHandler->handle($userChangePasswordDto, $user);
+            $this->addFlash('success', 'resetting.success');
+            return $this->redirectToRoute('security_login');
+        }
+
+        return $this->render('security/change_password.html.twig', [
+            'change_password_form' => $resetPasswordForm->createView(),
+            'error'             => null,
+        ]);
     }
 
     /**

@@ -47,7 +47,7 @@ class PasswordAuthenticator extends AbstractLoginFormAuthenticator
         $this->userProvider = $userProvider;
         $this->successHandler = $successHandler;
         $this->options = array_merge([
-            'username_parameter' => '_username',
+            'username_parameter' => '_email',
             'password_parameter' => '_password',
             'enable_csrf' => false,
             'csrf_parameter' => '_csrf_token',
@@ -86,7 +86,6 @@ class PasswordAuthenticator extends AbstractLoginFormAuthenticator
                 new EnabledUserBadge()
             ]
         );
-
         if ($this->options['enable_csrf']) {
             $passport->addBadge(new CsrfTokenBadge($this->options['csrf_token_id'], $credentials['csrf_token']));
         }

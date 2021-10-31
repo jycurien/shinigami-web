@@ -16,8 +16,8 @@
 
             <form action="{{ path('security_login') }}" method="post" class="mb-5">
                 <div class="mb-5">
-                    <label class="form-label" for="username">{{ 'security.login.username' | trans }}</label>
-                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control {% if error %}is-invalid{% endif %}" />
+                    <label class="form-label" for="email">{{ 'security.login.email' | trans }}</label>
+                    <input type="text" id="email" name="_email" value="{{ last_username }}" class="form-control {% if error %}is-invalid{% endif %}" />
                 </div>
 
                 <div class="form-row-with-error">

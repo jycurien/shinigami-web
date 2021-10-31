@@ -7,7 +7,6 @@ namespace App\Handler\User;
 use App\Repository\UserRepository;
 use App\Service\User\VerifyEmailHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class RegistrationConfirmationHandler
