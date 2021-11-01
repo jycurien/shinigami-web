@@ -42,11 +42,7 @@ class UserEditDto
      * Must be a square
      * @Assert\Image(
      *     minWidth = 225,
-     *     maxWidth = 500,
      *     minHeight = 225,
-     *     maxHeight = 500,
-     *     allowLandscape = false,
-     *     allowPortrait = false
      * )
      */
     public $image;

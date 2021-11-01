@@ -55,7 +55,7 @@ class UserController extends AbstractController
             ->handleRequest($request);
 
         if ($userEditForm->isSubmitted() && $userEditForm->isValid()) {
-            $editHandler->handle($userEditDto, $this->getUser());
+            $editHandler->handle($userEditDto, $this->getUser(), $this->getParameter('images_users'));
             $this->addFlash('success', 'profile.updated');
             return $this->redirectToRoute('user_profile_show');
         }

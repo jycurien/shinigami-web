@@ -6,6 +6,8 @@
 parameters:
     locale: fr
     from_email_address: contact@shinigami.com
+    images_directory: '%kernel.project_dir%/public/picture'
+    images_users: '%images_directory%/users/'
 
 services:
     # default configuration for services in *this* file
