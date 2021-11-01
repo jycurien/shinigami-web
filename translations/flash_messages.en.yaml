@@ -40,3 +40,5 @@ resetting:
   success: 'The password has been reset successfully.'
 change_password:
   success: The password has been changed successfully.
+profile:
+  updated: Profile updated successfully.

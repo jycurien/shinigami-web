@@ -70,8 +70,8 @@ class SecurityController extends  AbstractController
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render('security/register.html.twig', [
-            'registration_form' => $registrationForm->createView(),
+        return $this->renderForm('security/register.html.twig', [
+            'registration_form' => $registrationForm,
             'error'             => null,
         ]);
     }
@@ -155,8 +155,8 @@ class SecurityController extends  AbstractController
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render('security/change_password.html.twig', [
-            'change_password_form' => $resetPasswordForm->createView(),
+        return $this->renderForm('security/change_password.html.twig', [
+            'change_password_form' => $resetPasswordForm,
             'active' => 'login',
             'error'             => null,
         ]);

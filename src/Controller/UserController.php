@@ -5,8 +5,11 @@ namespace App\Controller;
 
 
 use App\Dto\UserChangePasswordDto;
+use App\Dto\UserEditDto;
 use App\Form\UserChangePasswordType;
+use App\Form\UserEditType;
 use App\Handler\User\ChangePasswordHandler;
+use App\Handler\User\ProfileEditHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,12 +44,25 @@ class UserController extends AbstractController
      *     name="user_profile_edit",
      *     methods={"GET", "POST"})
      * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @param ProfileEditHandler $editHandler
      * @return Response
      */
-    public function profileEdit(): Response
+    public function profileEdit(Request $request, ProfileEditHandler $editHandler): Response
     {
-        return $this->render('user/profile_edit.html.twig', [
-            'user' => $this->getUser()
+        $userEditDto = new UserEditDto($this->getUser());
+        $userEditForm = $this->createForm(UserEditType::class, $userEditDto)
+            ->handleRequest($request);
+
+        if ($userEditForm->isSubmitted() && $userEditForm->isValid()) {
+            $editHandler->handle($userEditDto, $this->getUser());
+            $this->addFlash('success', 'profile.updated');
+            return $this->redirectToRoute('user_profile_show');
+        }
+
+        return $this->renderForm('user/profile_edit.html.twig', [
+            'user' => $this->getUser(),
+            'userEditForm' => $userEditForm
         ]);
     }
 
@@ -77,8 +93,8 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_profile_show');
         }
 
-        return $this->render('user/change_password.html.twig', [
-            'change_password_form' => $resetPasswordForm->createView(),
+        return $this->renderForm('user/change_password.html.twig', [
+            'change_password_form' => $resetPasswordForm,
             'active' => 'profile'
         ]);
     }

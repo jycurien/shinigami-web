@@ -40,3 +40,5 @@ resetting:
   success: 'Le mot de passe a été réinitialisé avec succès.'
 change_password:
   success: Le mot de passe a été modifié avec succès.
+profile:
+  updated: 'Le profil a été mis à jour.'
