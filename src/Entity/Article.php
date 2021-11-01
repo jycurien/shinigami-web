@@ -2,17 +2,15 @@
 
 namespace App\Entity;
 
-use App\Controller\SluggableTrait;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
 {
-    use SluggableTrait;
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -49,10 +47,15 @@ class Article
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+    /**
+     * @var SluggerInterface
+     */
+    private $slugger;
 
-    public function __construct()
+    public function __construct(SluggerInterface $slugger)
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->slugger = $slugger;
     }
 
     public function getId(): ?int
@@ -91,7 +94,7 @@ class Article
 
     public function setSlug(string $slug): self
     {
-        $this->slug = $this->slugify($slug);
+        $this->slug = $this->slugger->slug($slug);
 
         return $this;
     }

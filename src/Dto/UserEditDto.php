@@ -37,7 +37,23 @@ class UserEditDto
      * @Assert\Type(type="\Datetime")
      */
     public $birthDate;
+
+    /**
+     * Must be a square
+     * @Assert\Image(
+     *     minWidth = 225,
+     *     maxWidth = 500,
+     *     minHeight = 225,
+     *     maxHeight = 500,
+     *     allowLandscape = false,
+     *     allowPortrait = false
+     * )
+     */
     public $image;
+    /**
+     * @var null|AddressDto
+     * @Assert\Valid() // USE THIS TO VALIDATE EMBEDDED FORM
+     */
     public $address;
 
     public function __construct(User $user)

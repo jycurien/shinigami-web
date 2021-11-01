@@ -13,17 +13,28 @@ use App\Entity\Article;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 //use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class ArticleFixtures extends Fixture /* implements DependentFixtureInterface */
 {
+    /**
+     * @var SluggerInterface
+     */
+    private $slugger;
+
+    public function __construct(SluggerInterface $slugger)
+    {
+        $this->slugger = $slugger;
+    }
+
     public function load(ObjectManager $manager)
     {
         // Get input data for articles from yaml file
         $data = Yaml::parseFile(__DIR__.'/articlesData.yaml');
 
         foreach ($data as $key => $articleData) {
-            $article = new Article();
+            $article = new Article($this->slugger);
             $article->setTitle($articleData['title']);
             $article->setSlug($articleData['title']);
             $article->setContent($articleData['content']);

@@ -36,6 +36,10 @@
                         <p>Date de naissance : {{ user.birthDate|date("d-m-Y") }}</p>
                     {% endif %}
 
+                    {% if user.address %}
+                        <p>Adresse :<br>{{ user.address.address }}<br>{{ user.address.zipCode ~ ' ' ~ user.address.city}}</p>
+                    {% endif %}
+
                 </div>
             </div>
             <div class="mt-3 mb-3 d-flex justify-content-center">
