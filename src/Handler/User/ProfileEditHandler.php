@@ -65,14 +65,14 @@ class ProfileEditHandler
                     $userImageDir,
                     $fileName
                 );
-                if (null !== $user->getImage()) {
-                    $this->filesystem->remove($userImageDir.'/'.$user->getImage());
-                }
-                $user->setImage($fileName);
             } catch (FileException $e) {
                 $error = $e->getMessage();
                 $this->flashBag->add('error', $error);
             }
+            if (null !== $user->getImage()) {
+                $this->filesystem->remove($userImageDir.'/'.$user->getImage());
+            }
+            $user->setImage($fileName);
         }
 
         $this->entityManager->flush();

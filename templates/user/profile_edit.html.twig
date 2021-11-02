@@ -40,4 +40,8 @@
         </div>
     </div>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('drag_and_drop_img') }}
+{% endblock %}
 

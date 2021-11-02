@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Dto\AddressDto;
 use App\Dto\UserEditDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
@@ -45,11 +46,12 @@ class UserEditType extends AbstractType
                 'label' => 'profile.edit.image',
                 'data_class' => null,
                 'row_attr' => [
-                    'class' => 'form-row-with-error'
+                    'class' => 'form-row-with-error js-draggable-image'
                 ]
             ])
             ->add('address', AddressType::class, [
                 'label' => false,
+                'data_class' => AddressDto::class,
             ])
         ;
     }

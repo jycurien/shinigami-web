@@ -21,14 +21,4 @@ trait ImageTrait
     {
         $this->image = $image;
     }
-
-    public function getImageTmp()
-    {
-        return $this->imageTmp;
-    }
-
-    public function setImageTmp($imageTmp): void
-    {
-        $this->imageTmp = $imageTmp;
-    }
 }
