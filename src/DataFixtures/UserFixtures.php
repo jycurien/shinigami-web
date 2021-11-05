@@ -3,12 +3,14 @@
 namespace App\DataFixtures;
 
 //use App\Entity\Contract;
+use App\Entity\Address;
 use App\Entity\Contract;
 use App\Entity\User;
 use App\Service\CheckSumCalculator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
@@ -16,6 +18,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
     private $calculator;
     private $passwordHasher;
+    private $faker;
 
     /**
      * UserFixtures constructor.
@@ -26,30 +29,33 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         $this->calculator = $calculator;
         $this->passwordHasher = $passwordHasher;
+        $this->faker = Factory::create('fr_FR');
     }
 
 
     public function load(ObjectManager $manager)
     {
-        // TODO use a faker
         // create 14 users! Bam!
         for($i = 0; $i < 14; $i++ ){
             $user = new User();
-            $user->setFirstName('Firstname'.$i);
-            $user->setLastName('Lastname'.$i);
+            $user->setFirstName($this->faker->firstName);
+            $user->setLastName($this->faker->lastName);
             $user->setUsername('user_'.$i);
             $user->setEnabled(1);
             $user->setPassword(password_hash('user', PASSWORD_BCRYPT));
             $user->setEmail('user'.$i.'@shinigami.com');
             $user->setImage($i.'.jpg');
-
             // BirthDate
-            $user->setBirthDate(new \DateTimeImmutable());
-
-            $user->setPhoneNumber('0606060606');
-
+            $user->setBirthDate($this->faker->dateTimeBetween('-65 years', '-15 years'));
+            $user->setPhoneNumber($this->faker->phoneNumber);
             // Role
             $user->setRoles(['ROLE_USER']);
+            // Address
+            $address = new Address();
+            $address->setAddress($this->faker->address);
+            $address->setZipCode((int) $this->faker->postcode);
+            $address->setCity($this->faker->city);
+            $user->setAddress($address);
 
             // Number card
             for ($j = 0; $j < 3; $j++) {
@@ -72,20 +78,27 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin = new User();
 
         $admin->setFirstName('Géraldine');
-        $admin->setLastName('Leclerc');
+        $admin->setLastName($this->faker->lastName);
         $admin->setUsername('admin');
         $admin->setPassword($this->passwordHasher->hashPassword($admin,'password'));
         $admin->setEmail('admin@shinigami.com');
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setEnabled(true);
         $admin->setImage('admin.jpg');
-        $admin->setBirthDate(new \DateTimeImmutable('1977-07-23 07:00:00'));
-        $admin->setPhoneNumber('0606060606');
+        $admin->setBirthDate($this->faker->dateTimeBetween('-30 years', '-20 years'));
+        $admin->setPhoneNumber($this->faker->phoneNumber);
 
         $contract = new Contract();
         $contract->setStartDate(new \DateTime());
         $contract->setCenter($this->getReference('center0'));
         $admin->setContract($contract);
+
+        // Address
+        $address = new Address();
+        $address->setAddress($this->faker->address);
+        $address->setZipCode((int) $this->faker->postcode);
+        $address->setCity($this->faker->city);
+        $admin->setAddress($address);
 
         $this->addReference('admin', $admin);
 
