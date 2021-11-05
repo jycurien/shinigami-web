@@ -75,15 +75,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $image;
 
-    public function __construct()
-    {
-        $this->createdAt = new \DateTimeImmutable();
-    }
-
     /**
      * @ORM\Column(type="boolean")
      */
     private $enabled = false;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Contract::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $contract;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -263,5 +268,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImage($image)
     {
         $this->image = $image;
+    }
+
+    public function getContract(): ?Contract
+    {
+        return $this->contract;
+    }
+
+    public function setContract(Contract $contract): self
+    {
+        // set the owning side of the relation if necessary
+        if ($contract->getUser() !== $this) {
+            $contract->setUser($this);
+        }
+
+        $this->contract = $contract;
+
+        return $this;
     }
 }
