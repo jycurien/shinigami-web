@@ -24,6 +24,7 @@ Encore
     .addEntry('sidebar', './assets/sidebar.js')
     .addEntry('concept', './assets/concept.js')
     .addEntry('drag_and_drop_img', './assets/drag_and_drop_img.js')
+    .addEntry('counter', './assets/counter.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

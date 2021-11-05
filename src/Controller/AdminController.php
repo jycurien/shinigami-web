@@ -4,8 +4,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\GameRepository;
+use App\Repository\RoomRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -16,19 +21,23 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin_index", methods={"GET"})
      * @Security("user.isValidateContract() and is_granted('ROLE_STAFF')")
+     * @param GameRepository $gameRepository
+     * @param RoomRepository $roomRepository
+     * @return Response
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
-    public function index()
+    public function index(GameRepository $gameRepository, RoomRepository $roomRepository): Response
     {
         /** @var User $user */
         $user = $this->getUser();
         $center = $user->getContract()->getCenter();
-//        $gamesFinished = $this->getDoctrine()->getRepository(Game::class)->findGamesByCenterAndStatus($center, 'finished');
-//        $gamesCreated = $this->getDoctrine()->getRepository(Game::class)->findGamesByCenterAndStatus($center, 'created');
 
         return $this->render("admin/index.html.twig", [
             'user' => $user,
-//            'gamesFinished' => $gamesFinished,
-//            'gamesCreated' => $gamesCreated,
+            'nbRooms' => $roomRepository->countRoomsByCenter($center),
+            'nbGamesFinished' => $gameRepository->countGamesByCenterAndStatus($center, 'finished'),
+            'nbGamesCreated' => $gameRepository->countGamesByCenterAndStatus($center, 'created')
         ]);
     }
 

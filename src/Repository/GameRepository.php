@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Center;
 use App\Entity\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +22,41 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    // /**
-    //  * @return Game[] Returns an array of Game objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findLatestGamesWithCenter()
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('g.date', 'DESC')
+            ->setMaxResults(250)
+            ->join('g.room', 'r')
+            ->addSelect('r')
+            ->leftJoin('g.userPlayGames', 'upg')
+            ->addSelect('upg')
+            ->addOrderBy('upg.score', 'DESC')
+            ->join('upg.user', 'u')
+            ->addSelect('u')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Game
+    /**
+     * @param Center $center
+     * @param string $status
+     * @return mixed
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countGamesByCenterAndStatus(Center $center, string $status)
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('count(g.id)')
+            ->join('g.room', 'r')
+            ->andWhere('r.center = :center')
+            ->setParameter('center', $center)
+            ->andWhere('g.status = :status')
+            ->setParameter('status', $status)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getSingleScalarResult()
+            ;
     }
-    */
 }

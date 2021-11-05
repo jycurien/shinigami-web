@@ -26,17 +26,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4 col-xs-12">
-{#                    <p class="counter-count">{{ user.contract.center.rooms | length }}</p>#}
+                    <p class="counter-count" data-count="{{ nbRooms }}">0</p>
                     <p class="customer-p">Rooms</p>
                 </div>
 
                 <div class="col-sm-4 col-xs-12">
-{#                    <p class="counter-count">{{ gamesFinished | length }}</p>#}
+                    <p class="counter-count" data-count="{{ nbGamesFinished }}">0</p>
                     <p class="employee-p">Parties jouées</p>
                 </div>
 
                 <div class="col-sm-4 col-xs-12">
-{#                    <p class="counter-count">{{ gamesCreated | length }}</p>#}
+                    <p class="counter-count" data-count="{{ nbGamesCreated }}">0</p>
                     <p class="design-p">Parties en cours</p>
                 </div>
             </div>
@@ -44,3 +44,10 @@
     </div>
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('counter') }}
+{% endblock %}
+
+

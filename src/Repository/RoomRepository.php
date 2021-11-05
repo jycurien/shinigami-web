@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Center;
 use App\Entity\Room;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +20,16 @@ class RoomRepository extends ServiceEntityRepository
         parent::__construct($registry, Room::class);
     }
 
-    // /**
-    //  * @return Room[] Returns an array of Room objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function countRoomsByCenter(Center $center)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('room')
+            ->select('count(room.id)')
+//            ->join('room.center', 'center')
+//            ->join('center.contracts', 'contracts')
+            ->andWhere('room.center = :center')
+            ->setParameter('center', $center)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getSingleScalarResult()
+            ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Room
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
