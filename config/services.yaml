@@ -6,8 +6,16 @@
 parameters:
     locale: fr
     from_email_address: contact@shinigami.com
+    api_url: 'http://127.0.0.1:2222'
+    api_token_url: '%api_url%/tokens'
+    api_user: '%env(resolve:API_USER)%'
+    api_password: '%env(resolve:API_PASSWORD)%'
+    web_url: 'http://127.0.0.1:8000'
     images_directory: '%kernel.project_dir%/public/picture'
     images_users: '%images_directory%/users/'
+    images_qrcodes: '%images_directory%/qrcodes/'
+    articles_dir: 'picture/articles/'
+    articles_assets_dir: '%kernel.project_dir%/public/%articles_dir%'
 
 services:
     # default configuration for services in *this* file
