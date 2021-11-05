@@ -42,6 +42,8 @@ class Game
 
     public function __construct()
     {
+        $this->date = new \DateTimeImmutable();
+        $this->status = 'created';
         $this->userPlayGames = new ArrayCollection();
     }
 

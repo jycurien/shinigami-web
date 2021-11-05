@@ -47,6 +47,7 @@ class Article
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
     /**
      * @var SluggerInterface
      */

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 
+use App\Dto\ArticleDto;
 use App\Entity\Article;
 //use App\Form\ArticleType;
 //use App\Handler\ArticleRequestHandler;
@@ -71,55 +72,52 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route({
+     *     "en": "/admin/create-article",
+     *     "fr": "/admin/creer-un-article"
+     *      },
+     *     name="create_article_admin",
+     *     methods={"GET", "POST"})
+     * @Security("user.isValidateContract() and has_role('ROLE_ADMIN')")
+     * @param Request $request
+     * @param ArticleHandler $articleHandler
+     * @return Response
+     * @throws \Exception
+     */
+    public function createArticle(Request $request, ArticleHandler $articleHandler)
+    {
+        $article = new ArticleDto();
+
+        # Créer un Formulaire permettant l'ajout d'un Article
+        $form = $this->createForm(ArticleType::class, $article)
+            ->handleRequest($request);
+
+        # Vérification des données du Formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Traitement de l'article.
+            $article = $articleHandler->handle($article);
+
+            # On s'assure que l'article n'est pas null
+            if (null !== $article) {
+                # Flash Messages
+                $this->addFlash('notice', 'article.add.ok');
+                # Redirection vers l'article
+                return $this->redirectToRoute('articles_admin');
+            } else {
+                # Flash Messages
+                $this->addFlash('error', 'article.add.error');
+            }
+        }
+
+        # Affichage du Formulaire dans la Vue
+        return $this->render('admin/article/update_article.html.twig', [
+            'form' => $form->createView(),
+            'pageTitle' => 'admin.article.add'
+        ]);
+    }
+
     // TODO
-//    /**
-//     * @Route({
-//     *     "en": "/admin/create-article",
-//     *     "fr": "/admin/creer-un-article"
-//     *      },
-//     *     name="create_article_admin",
-//     *     methods={"GET", "POST"})
-//     * @Security("user.isValidateContract() and has_role('ROLE_ADMIN')")
-//     * @param Request $request
-//     * @param ArticleRequestHandler $articleRequestHandler
-//     * @return Response
-//     * @throws \Exception
-//     */
-//    public function createArticle(Request $request,
-//                               ArticleRequestHandler $articleRequestHandler)
-//    {
-//        $article = new ArticleRequest($this->getUser());
-//
-//        # Créer un Formulaire permettant l'ajout d'un Article
-//        $form = $this->createForm(ArticleType::class, $article)
-//            ->handleRequest($request);
-//
-//        # Vérification des données du Formulaire
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            // Traitement de l'article.
-//            $article = $articleRequestHandler->handle($article);
-//
-//            # On s'assure que l'article n'est pas null
-//            if (null !== $article) {
-//                # Flash Messages
-//                $this->addFlash('notice', 'article.add.ok');
-//
-//                # Redirection vers l'article
-//                return $this->redirectToRoute('articles_admin');
-//            } else {
-//
-//                # Flash Messages
-//                $this->addFlash('error', 'article.add.error');
-//            }
-//        }
-//
-//        # Affichage du Formulaire dans la Vue
-//        return $this->render('admin/article/update_article.html.twig', [
-//            'form' => $form->createView(),
-//            'pageTitle' => 'admin.article.add'
-//        ]);
-//    }
-//
 //    /**
 //     * @Route({
 //     *     "en": "/admin/remove-article/{id<\d+>}",

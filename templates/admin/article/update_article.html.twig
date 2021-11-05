@@ -1,0 +1,20 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'admin.article.add' | trans | title }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ pageTitle | trans | title }}</h2>
+    {{ form(form, {attr: {novalidate: 'novalidate'}}) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{#    {{ encore_entry_script_tags('ckeditor') }}#}
+    {{ encore_entry_script_tags('drag_and_drop_img') }}
+{% endblock %}
