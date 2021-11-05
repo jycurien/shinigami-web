@@ -102,6 +102,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $cardNumbers = [];
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $lastLoggedAt;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -398,6 +403,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function addCardNumber($cardNumber): self
     {
         $this->cardNumbers[] = (string) $cardNumber;
+
+        return $this;
+    }
+
+    public function getLastLoggedAt(): ?\DateTimeImmutable
+    {
+        return $this->lastLoggedAt;
+    }
+
+    public function setLastLoggedAt(?\DateTimeImmutable $lastLoggedAt): self
+    {
+        $this->lastLoggedAt = $lastLoggedAt;
 
         return $this;
     }

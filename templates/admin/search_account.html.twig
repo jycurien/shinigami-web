@@ -76,7 +76,7 @@
                             {% endif %}
                         </h2>
                         <p><span class="title">Email:</span> {{ user.email }}</p>
-{#     TODO                   <p><span class="title">Date de dernière visite :</span> {{ user.lastLogin|date("d-m-Y")  }}</p>#}
+                        <p><span class="title">Date de dernière visite :</span> {{ user.lastLoggedAt ? user.lastLoggedAt|date("d-m-Y") : 'Ne s\'est pas encore connecté'  }}</p>
                         <p><span class="title">Téléphone :</span> {{ user.phoneNumber }}</p>
                         <p><span class="title">Date de naissance :</span> {{ user.birthDate|date("d-m-Y")  }}</p>
                         <p><span class="title">Adresse :</span> {{ user.address.address ~" "~ user.address.zipCode ~" "~ user.address.city }}</p>
