@@ -1,0 +1,90 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'admin.search_account' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.search_account' | trans | title }}</h2>
+
+    {% if errorMessage is not empty and 'Failed to connect' in errorMessage %}
+        <div class="alert alert-danger" role="alert">
+            <p>{{ 'admin.search_account.impossible' | trans }}</p>
+            <p><small>{{ errorMessage }}</small></p>
+        </div>
+    {% endif %}
+
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.cardNumber) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.username) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col-12">
+            <button class="btn btn-warning" type="submit">{{ 'search' | trans }}</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+
+    {% if user is not empty %}
+
+        <div class="searched-card">
+            <div class="container">
+
+                {% if card is not null %}
+                    <div class="row">
+                        <div class="card-shinigami">
+                            <div class="qrcode">
+                                <img src="{{ asset('picture/qrcodes/'~number~'.png') }}" alt="">
+                            </div>
+                            <div class="datas">
+                                <img src="{{ asset('picture/logo.png') }}" alt="Shinigami">
+                                <p><span class="title">{{ card.type == "material" ? "Physique" : "Numérique" }}</span></p>
+                                <p><span class="title">Activation</span><br>{{ card.activationDate|date("m/d/Y")  }}</p>
+                                <p><span class="title">N°:</span> {{ number }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="featurette-divider">
+                {% endif %}
+
+                <div class="row user featurette">
+                    <div class="picture col-sm-4">
+                        {% if user.image %}
+                            <img src="{{ asset('picture/users/' ~ user.image) }}" alt="Image de Profil">
+                        {% else %}
+                            <img src="{{ asset('picture/user.jpg') }}" alt="Image de Profil">
+                        {% endif %}
+                    </div>
+                    <div class="datas col-sm-8">
+                        <h2 class="featurette-heading">{{ user.username }}
+                            {% if user.lastName or user.firstName %}
+                                <span class="lead">({{ user.lastName|title }} {{ user.firstName|title }})</span>
+                            {% endif %}
+                        </h2>
+                        <p><span class="title">Email:</span> {{ user.email }}</p>
+{#     TODO                   <p><span class="title">Date de dernière visite :</span> {{ user.lastLogin|date("d-m-Y")  }}</p>#}
+                        <p><span class="title">Téléphone :</span> {{ user.phoneNumber }}</p>
+                        <p><span class="title">Date de naissance :</span> {{ user.birthDate|date("d-m-Y")  }}</p>
+                        <p><span class="title">Adresse :</span> {{ user.address.address ~" "~ user.address.zipCode ~" "~ user.address.city }}</p>
+                        <p><span class="title">Date d'inscription :</span> {{ user.createdAt|date("d-m-Y")  }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
