@@ -1,0 +1,46 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'admin.home' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'administration' | trans }}</h2>
+
+    <div class="container info-admin">
+        <div class="row">
+            <p>{{ user.username }} {% if user.firstName  %}({{ user.firstName ~ ' ' ~ user.lastName }}){% endif %} ({{ user.email }})</p>
+        </div>
+
+        <div class="row">
+            <p>{{ user.contract.center.name ~ ' (' ~ user.contract.center.address.city ~ ')'}}</p>
+        </div>
+    </div>
+
+    <div class="counter-admin">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-xs-12">
+{#                    <p class="counter-count">{{ user.contract.center.rooms | length }}</p>#}
+                    <p class="customer-p">Rooms</p>
+                </div>
+
+                <div class="col-sm-4 col-xs-12">
+{#                    <p class="counter-count">{{ gamesFinished | length }}</p>#}
+                    <p class="employee-p">Parties jouées</p>
+                </div>
+
+                <div class="col-sm-4 col-xs-12">
+{#                    <p class="counter-count">{{ gamesCreated | length }}</p>#}
+                    <p class="design-p">Parties en cours</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

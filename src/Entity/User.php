@@ -286,4 +286,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function isValidateContract(): bool
+    {
+        $today = new \DateTime();
+
+        return null !== $this->getContract() && $today >= $this->getContract()->getStartDate() && (
+            null === $this->getContract()->getEndDate() || $today <= $this->getContract()->getEndDate()
+        );
+    }
 }

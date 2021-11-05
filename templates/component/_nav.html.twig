@@ -21,11 +21,11 @@
                     <li class="nav-item">
                         <a class="nav-link  {% if active == 'news' %} active {% endif %}" href="{{ path('article_articles') }}">{{ 'news' | trans }}</a>
                     </li>
-{#                    <li class="nav-item">#}
-{#                        {% if is_granted('ROLE_STAFF') %}#}
-{#                            <a class="nav-link  {% if active == 'admin' %} active {% endif %}" href="{{ path('admin_index') }}">{{ 'administration' | trans }}</a>#}
-{#                        {% endif %}#}
-{#                    </li>#}
+                    <li class="nav-item">
+                        {% if is_granted('ROLE_STAFF') %}
+                            <a class="nav-link  {% if active == 'admin' %} active {% endif %}" href="{{ path('admin_index') }}">{{ 'administration' | trans }}</a>
+                        {% endif %}
+                    </li>
                 </ul>
                 <ul class="navbar-nav">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}

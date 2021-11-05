@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 //use App\Entity\Contract;
+use App\Entity\Contract;
 use App\Entity\User;
 use App\Service\CheckSumCalculator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -80,10 +81,10 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setBirthDate(new \DateTimeImmutable('1977-07-23 07:00:00'));
         $admin->setPhoneNumber('0606060606');
 
-//        $contract = new Contract();
-//        $contract->setStartDate(new \DateTime());
-//        $contract->setCenter($this->getReference('center0'));
-//        $admin->setContract($contract);
+        $contract = new Contract();
+        $contract->setStartDate(new \DateTime());
+        $contract->setCenter($this->getReference('center0'));
+        $admin->setContract($contract);
 
         $this->addReference('admin', $admin);
 

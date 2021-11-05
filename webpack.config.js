@@ -21,6 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('sidebar', './assets/sidebar.js')
     .addEntry('concept', './assets/concept.js')
     .addEntry('drag_and_drop_img', './assets/drag_and_drop_img.js')
 
