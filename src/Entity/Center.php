@@ -50,9 +50,15 @@ class Center
      */
     private $contracts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Room::class, mappedBy="center", orphanRemoval=true)
+     */
+    private $rooms;
+
     public function __construct()
     {
         $this->contracts = new ArrayCollection();
+        $this->rooms = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +150,36 @@ class Center
             // set the owning side to null (unless already changed)
             if ($contract->getCenter() === $this) {
                 $contract->setCenter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Room[]
+     */
+    public function getRooms(): Collection
+    {
+        return $this->rooms;
+    }
+
+    public function addRoom(Room $room): self
+    {
+        if (!$this->rooms->contains($room)) {
+            $this->rooms[] = $room;
+            $room->setCenter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoom(Room $room): self
+    {
+        if ($this->rooms->removeElement($room)) {
+            // set the owning side to null (unless already changed)
+            if ($room->getCenter() === $this) {
+                $room->setCenter(null);
             }
         }
 

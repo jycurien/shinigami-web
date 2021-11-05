@@ -11,12 +11,12 @@ namespace App\DataFixtures;
 
 use App\Entity\Article;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-//use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class ArticleFixtures extends Fixture /* implements DependentFixtureInterface */
+class ArticleFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @var SluggerInterface
@@ -42,8 +42,7 @@ class ArticleFixtures extends Fixture /* implements DependentFixtureInterface */
             $article->setCreatedAt($createdAt);
             $article->setPicture($key.'.jpg');
             $article->setSlider($key != 1 );
-            // TODO
-//            $article->setAuthor($this->getReference('admin'));
+            $article->setAuthor($this->getReference('admin'));
 
             $manager->persist($article);
         }
@@ -51,14 +50,14 @@ class ArticleFixtures extends Fixture /* implements DependentFixtureInterface */
         $manager->flush();
     }
 
-//    /**
-//     * @return array
-//     */
-//    public function getDependencies()
-//    {
-//        return [
-//            UserFixtures::class,
-//        ];
-//    }
+    /**
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
 }
 

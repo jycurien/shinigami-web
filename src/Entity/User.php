@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -85,9 +87,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $contract;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserPlayGame::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $userPlayGames;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $articles;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $cardNumbers = [];
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->userPlayGames = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -298,5 +317,88 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return null !== $this->getContract() && $today >= $this->getContract()->getStartDate() && (
             null === $this->getContract()->getEndDate() || $today <= $this->getContract()->getEndDate()
         );
+    }
+
+    /**
+     * @return Collection|UserPlayGame[]
+     */
+    public function getUserPlayGames(): Collection
+    {
+        return $this->userPlayGames;
+    }
+
+    public function addUserPlayGame(UserPlayGame $userPlayGame): self
+    {
+        if (!$this->userPlayGames->contains($userPlayGame)) {
+            $this->userPlayGames[] = $userPlayGame;
+            $userPlayGame->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserPlayGame(UserPlayGame $userPlayGame): self
+    {
+        if ($this->userPlayGames->removeElement($userPlayGame)) {
+            // set the owning side to null (unless already changed)
+            if ($userPlayGame->getUser() === $this) {
+                $userPlayGame->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getAuthor() === $this) {
+                $article->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCardNumbers(): ?array
+    {
+        return $this->cardNumbers;
+    }
+
+    public function setCardNumbers(?array $cardNumbers): self
+    {
+        $this->cardNumbers = $cardNumbers;
+
+        return $this;
+    }
+
+    /**
+     * @param $cardNumber
+     * @return User
+     */
+    public function addCardNumber($cardNumber): self
+    {
+        $this->cardNumbers[] = (string) $cardNumber;
+
+        return $this;
     }
 }
