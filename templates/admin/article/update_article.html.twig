@@ -5,7 +5,7 @@
 {% set active = 'admin' %}
 
 {% block page_title %}
-    {{ 'admin.article.add' | trans | title }}
+    {{ pageTitle | trans | title }}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
             {{ form_row(form.picture) }}
             {{ form_row(form.slider) }}
             <div class="d-flex justify-content-center mt-4">
-                <input type="submit" value="{{ 'admin.article.add'|trans }}" class="btn btn-lg btn-primary" />
+                <input type="submit" value="{{ pageTitle |trans }}" class="btn btn-lg btn-primary" />
             </div>
         {{ form_end(form) }}
     </div>

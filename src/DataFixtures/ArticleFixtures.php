@@ -34,9 +34,9 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
         $data = Yaml::parseFile(__DIR__.'/articlesData.yaml');
 
         foreach ($data as $key => $articleData) {
-            $article = new Article($this->slugger);
+            $article = new Article();
             $article->setTitle($articleData['title']);
-            $article->setSlug($articleData['title']);
+            $article->setSlug($this->slugger->slug($articleData['title']));
             $article->setContent($articleData['content']);
             $createdAt = (new \DateTimeImmutable())->setTimestamp(rand(time() - (60 * 24 * 3600), time()));
             $article->setCreatedAt($createdAt);

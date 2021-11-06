@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -49,20 +48,14 @@ class Article
     private $createdAt;
 
     /**
-     * @var SluggerInterface
-     */
-    private $slugger;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
-    public function __construct(SluggerInterface $slugger)
+    public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->slugger = $slugger;
     }
 
     public function getId(): ?int
@@ -101,7 +94,7 @@ class Article
 
     public function setSlug(string $slug): self
     {
-        $this->slug = $this->slugger->slug($slug);
+        $this->slug = $slug;
 
         return $this;
     }

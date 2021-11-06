@@ -54,7 +54,7 @@ class ArticleHandler
     public function handle(ArticleDto $articleDto, ?Article $article = null): Article
     {
         if (null === $article) {
-            $article = new Article($this->slugger);
+            $article = new Article();
         }
 
         // Traitement de l'upload de l'image
@@ -75,12 +75,10 @@ class ArticleHandler
             }
 
             $article->setPicture($fileName);
-        } else {
-            return null;
         }
 
         $article->setTitle($articleDto->title)
-                ->setSlug($articleDto->title)
+                ->setSlug($this->slugger->slug($articleDto->title))
                 ->setContent($articleDto->content)
                 ->setSlider($articleDto->slider)
                 ->setAuthor($this->token->getUser());

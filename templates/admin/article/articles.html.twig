@@ -34,12 +34,12 @@
                 <td>{{ article.title | title }}</td>
                 <td>{{ article.createdAt | date('d-m-Y') }}</td>
                 <td>{{ article.content | summary }}</td>
-{#                <td>#}
-{#                    <a href="{{ path('update_article_admin', {'id': article.id }) }}" class="btn btn-warning">#}
-{#                        <i class="fa fa-pencil" aria-hidden="true"></i>#}
-{#                        {{ 'admin.article.edit' | trans }}#}
-{#                    </a>#}
-{#                </td>#}
+                <td>
+                    <a href="{{ path('update_article_admin', {'id': article.id }) }}" class="btn btn-warning">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        {{ 'admin.article.edit' | trans }}
+                    </a>
+                </td>
                 <td>
                     <a href="{{ path('remove_article_admin', {'id': article.id }) }}" class="btn btn-danger"
                        onclick="return confirm({{ 'admin.article.confirm_delete' | trans }});" >

@@ -130,54 +130,42 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute('articles_admin');
     }
 
+    /**
+     * @Route({
+     *     "en": "/admin/update-article/{id<\d+>}",
+     *     "fr": "/admin/modifier-un-article/{id<\d+>}"
+     *      },
+     *     name="update_article_admin",
+     *     methods={"GET", "POST"})
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
+     * @param Article $article
+     * @param Request $request
+     * @param ArticleHandler $updateHandler
+     * @return Response
+     */
+    public function updateArticle(Article $article, Request $request, ArticleHandler $updateHandler)
+    {
+        $articleDto = new ArticleDto($article->getTitle(), $article->getContent(), $article->getPicture(), $article->isSlider());
 
-    // TODO
-//    /**
-//     * @Route({
-//     *     "en": "/admin/update-article/{id<\d+>}",
-//     *     "fr": "/admin/modifier-un-article/{id<\d+>}"
-//     *      },
-//     *     name="update_article_admin",
-//     *     methods={"GET", "POST"})
-//     * @Security("user.isValidateContract() and has_role('ROLE_ADMIN')")
-//     * @param Article $article
-//     * @param Request $request
-//     * @param Packages $packages
-//     * @param ArticleRequestUpdateHandler $updateHandler
-//     * @return Response
-//     * @throws \Exception
-//     */
-//    public function updateArticle(Article $article, Request $request, Packages $packages, ArticleRequestUpdateHandler $updateHandler)
-//    {
-//        # Récupération de ArticleRequest depuis Article
-//        $ar = ArticleRequest::createFromArticle(
-//            $article,
-//            $this->getParameter('articles_dir'),
-//            $this->getParameter('articles_assets_dir'),
-//            $packages
-//        );
-//
-//        # Création du Formulaire
-//        $options = [
-//            'picture_url' => $ar->getPictureUrl()
-//        ];
-//        $form = $this->createForm(ArticleType::class, $ar, $options)->handleRequest($request);
-//
-//        # Vérification des données du Formulaire
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            # Traitement et Sauvegarde des données
-//            $article = $updateHandler->handle($ar, $article);
-//
-//            # Flash Message
-//            $this->addFlash('success', 'article.update.ok');
-//
-//            return $this->redirectToRoute('articles_admin');
-//        }
-//
-//        return $this->render('admin/article/update_article.html.twig', [
-//            'form' => $form->createView(),
-//            'pageTitle' => 'admin.article.update'
-//        ]);
-//    }
+        $options = [
+            'picture_url' => $article->getPicture()
+        ];
+        $form = $this->createForm(ArticleType::class, $articleDto, $options)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article = $updateHandler->handle($articleDto, $article);
+
+            if (null !== $article) {
+                $this->addFlash('notice', 'article.update.ok');
+                return $this->redirectToRoute('articles_admin');
+            } else {
+                $this->addFlash('error', 'article.add.error');
+            }
+        }
+
+        return $this->render('admin/article/update_article.html.twig', [
+            'form' => $form->createView(),
+            'pageTitle' => 'admin.article.update'
+        ]);
+    }
 }

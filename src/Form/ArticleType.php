@@ -21,7 +21,6 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $pictureOptions = [
-            'required' => true,
             'label' => 'article.picture',
             'data_class' => null,
             'row_attr' => [
