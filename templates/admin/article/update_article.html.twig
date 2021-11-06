@@ -10,7 +10,9 @@
 
 {% block content %}
     <h2>{{ pageTitle | trans | title }}</h2>
-    {{ form(form, {attr: {novalidate: 'novalidate'}}) }}
+    <div id="edit-article">
+        {{ form(form, {attr: {novalidate: 'novalidate'}}) }}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

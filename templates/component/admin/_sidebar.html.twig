@@ -26,10 +26,9 @@
 {#        <li class="mb-4"><a class="btn btn-block btn-info ripple" href="{{ path('game_games_admin') }}">{{ 'games' | trans }}</a></li>#}
         {# admin #}
         {% if is_granted('ROLE_ADMIN') %}
-            TODO routes uniquement admin
 {#            <li class="mb-4"><a class="btn btn-block btn-info ripple" href="{{ path('card_order_orders_admin') }}">{{ 'card_orders' | trans }}</a></li>#}
 {#            <li class="mb-4"><a class="btn btn-block btn-info ripple" href="{{ path('user_employees_admin') }}">{{ 'employees' | trans }}</a></li>#}
-{#            <li class="mb-4"><a class="btn btn-block btn-info ripple" href="{{ path('articles_admin') }}">{{ 'news' | trans }}</a></li>#}
+            <li class="mb-4"><a class="btn btn-block btn-info ripple" href="{{ path('articles_admin') }}">{{ 'news' | trans }}</a></li>
 {#            <li class="mb-4"><a class="btn btn-block btn-info ripple" href="{{ path('pricing_pricings_admin') }}">{{ 'pricings' | trans }}</a></li>#}
         {% endif %}
     </ul>

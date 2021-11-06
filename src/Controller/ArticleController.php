@@ -4,14 +4,11 @@ namespace App\Controller;
 
 use App\Dto\ArticleDto;
 use App\Entity\Article;
-//use App\Form\ArticleType;
-//use App\Handler\ArticleRequestHandler;
-//use App\Handler\ArticleRequestUpdateHandler;
-//use App\Request\ArticleRequest;
+use App\Form\ArticleType;
+use App\Handler\Article\ArticleHandler;
 use App\Repository\ArticleRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,7 +56,7 @@ class ArticleController extends AbstractController
      * @Route("/admin/articles",
      *     name="articles_admin",
      *     methods={"GET"})
-     * @Security("user.isValidateContract() and has_role('ROLE_ADMIN')")
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
      * @param ArticleRepository $articleRepository
      * @return Response
      */
@@ -79,7 +76,7 @@ class ArticleController extends AbstractController
      *      },
      *     name="create_article_admin",
      *     methods={"GET", "POST"})
-     * @Security("user.isValidateContract() and has_role('ROLE_ADMIN')")
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
      * @param Request $request
      * @param ArticleHandler $articleHandler
      * @return Response
@@ -87,16 +84,16 @@ class ArticleController extends AbstractController
      */
     public function createArticle(Request $request, ArticleHandler $articleHandler)
     {
-        $article = new ArticleDto();
+        $articleDto = new ArticleDto();
 
         # Créer un Formulaire permettant l'ajout d'un Article
-        $form = $this->createForm(ArticleType::class, $article)
+        $form = $this->createForm(ArticleType::class, $articleDto)
             ->handleRequest($request);
 
         # Vérification des données du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             // Traitement de l'article.
-            $article = $articleHandler->handle($article);
+            $article = $articleHandler->handle($articleDto);
 
             # On s'assure que l'article n'est pas null
             if (null !== $article) {

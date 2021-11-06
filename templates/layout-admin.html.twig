@@ -11,9 +11,11 @@
                     {% include "component/admin/_sidebar.html.twig" %}
                 </div>
                 <div class="col-lg-8 col-xl-9">
-                    <div class="col-12">
-                        {% include 'component/flashBags/_all_messages.html.twig' %}
-                        {% block content '' %}
+                    <div class="row">
+                        <div class="col-12">
+                            {% include 'component/flashBags/_all_messages.html.twig' %}
+                            {% block content '' %}
+                        </div>
                     </div>
                 </div>
             </div>

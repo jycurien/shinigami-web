@@ -1,0 +1,56 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'admin.news' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.articles.manage' | trans | title }}</h2>
+    <p class="text-right">
+        <a href="{{ path('create_article_admin') }}" class="btn btn-info">
+            <i class="fa fa-plus"></i>
+            {{ 'admin.article.add' | trans }}
+        </a>
+    </p>
+    <table class="table table-striped mt-5">
+        <thead>
+            <tr>
+                <th>{{ 'admin.article.image' | trans }}</th>
+                <th>{{ 'admin.article.title' | trans }}</th>
+                <th>{{ 'admin.article.date' | trans }}</th>
+                <th>{{ 'admin.article.excerpt' | trans }}</th>
+                <th colspan="2">{{ 'admin.article.actions' | trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td><img src="{{ asset('picture/articles/' ~ article.picture) }}" alt="{{ article.title | title }}" class="article-image"></td>
+                <td>{{ article.title | title }}</td>
+                <td>{{ article.createdAt | date('d-m-Y') }}</td>
+                <td>{{ article.content | summary }}</td>
+{#                <td>#}
+{#                    <a href="{{ path('update_article_admin', {'id': article.id }) }}" class="btn btn-warning">#}
+{#                        <i class="fa fa-pencil" aria-hidden="true"></i>#}
+{#                        {{ 'admin.article.edit' | trans }}#}
+{#                    </a>#}
+{#                </td>#}
+{#                <td>#}
+{#                    <a href="{{ path('remove_article_admin', {'id': article.id }) }}" class="btn btn-danger"#}
+{#                       onclick="return confirm({{ 'admin.article.confirm_delete' | trans }});" >#}
+{#                        <i class="fa fa-trash" aria-hidden="true"></i>#}
+{#                        {{ 'admin.article.delete' | trans }}#}
+{#                    </a>#}
+{#                </td>#}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

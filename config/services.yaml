@@ -50,3 +50,7 @@ services:
             string $signingKey: '%kernel.secret%'
             int $lifetime: 3600
             int $requestThrottleTime: 60
+
+    App\Handler\Article\ArticleHandler:
+        arguments:
+            $articleAssetsDir: '%articles_assets_dir%'
