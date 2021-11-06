@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('sidebar', './assets/sidebar.js')
     .addEntry('concept', './assets/concept.js')
+    .addEntry('ckeditor_init', './assets/ckeditor_init.js')
     .addEntry('drag_and_drop_img', './assets/drag_and_drop_img.js')
     .addEntry('counter', './assets/counter.js')
 

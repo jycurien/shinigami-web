@@ -8,7 +8,6 @@ use App\Dto\ArticleDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +22,7 @@ class ArticleType extends AbstractType
     {
         $pictureOptions = [
             'required' => true,
-            'label' => false,
+            'label' => 'article.picture',
             'data_class' => null,
             'row_attr' => [
                 'class' => 'js-draggable-image'
@@ -40,16 +39,14 @@ class ArticleType extends AbstractType
 
         $builder
             ->add('title', TextType::class, [
-                'required' => true,
-                'label' => "article.title",
+                'label' => 'article.title',
                 'attr' => [
-                    'placeholder' => "article.title"
+                    'placeholder' => 'article.title'
                 ]
             ])
             ->add('content', TextareaType::class, [
-                'attr' => ['class' => 'ckeditor'],
-                'required' => true,
-                'label' => false,
+                'attr' => ['class' => 'ck-article-content'],
+                'label' => 'article.content',
                 'constraints' => [
                     new Callback([
                         'callback' => [$this, 'isNotEmpty'],
@@ -58,7 +55,6 @@ class ArticleType extends AbstractType
             ])
             ->add('picture', FileType::class, $pictureOptions)
             ->add('slider', CheckboxType::class, [
-                'required' => false,
                 'row_attr' => [
                     'class' => 'form-switch'
                 ],
@@ -78,6 +74,10 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ArticleDto::class,
+            'required' => false,
+            'attr' => [
+                'novalidate' => 'novalidate'
+            ],
             'picture_url' => null,
             'translation_domain' => 'form'
         ]);

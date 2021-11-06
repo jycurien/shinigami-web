@@ -27,6 +27,8 @@ email: Email
 search: Chercher
 article:
   title: Titre de l'article
+  content: Contenu de l'article
+  picture: Image de l'article
   validate: Valider
 yes: Oui
 no: Non
