@@ -1,7 +1,7 @@
 .sidebar {
     color: #fafafa;
     transition: all 0.3s;
-    max-height: 80px;
+    max-height: 110px;
     overflow-y: hidden;
     padding-right: 0;
 }
@@ -13,6 +13,7 @@
 .toggle-sidebar {
     transform: rotate(0deg);
     transition: all 0.3s;
+    align-self: flex-start;
 }
 
 .open .toggle-sidebar {

@@ -59,14 +59,14 @@ class ArticleType extends AbstractType
             ->add('picture', FileType::class, $pictureOptions)
             ->add('slider', CheckboxType::class, [
                 'required' => false,
+                'row_attr' => [
+                    'class' => 'form-switch'
+                ],
                 'attr' => [
                     'data-toggle' => 'toggle',
                     'data-on' => 'Oui',
                     'data-off' => 'Non'
                 ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'article.validate'
             ])
         ;
     }

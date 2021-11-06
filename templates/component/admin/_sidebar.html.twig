@@ -1,22 +1,24 @@
 {% trans_default_domain 'sidebar' %}
 
 <div class="bg-dark p-3 h-100">
-    <p class="h4 mt-3 font-weight-normal">
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {{ 'hello' | trans }}
-            {% if app.user.firstname %}
-                <br>{{ app.user.firstname ~ ' ' ~ app.user.lastname }}
-            {% endif %}
+    <p class="h4 mt-3 font-weight-normal d-flex justify-content-between">
+        <span>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {{ 'hello' | trans }}
+                {% if app.user.firstname %}
+                    <br>{{ app.user.firstname ~ ' ' ~ app.user.lastname }}
+                {% endif %}
             <br>
-            <small>
+                <small>
                 {% if is_granted('ROLE_ADMIN') %}
                     {{ 'administrator' | trans }}
                 {% elseif is_granted('ROLE_STAFF') %}
                     {{ 'staff_member' | trans }}
                 {% endif %}
             </small>
-        {% endif %}
-        <span class="float-right toggle-sidebar">
+            {% endif %}
+        </span>
+        <span class="me-3 toggle-sidebar">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 485 485" width="40" height="40"><style>.a{fill:#FFF;}</style><path d="M414 71C368.2 25.2 307.3 0 242.5 0S116.8 25.2 71 71C25.2 116.8 0 177.7 0 242.5s25.2 125.7 71 171.5C116.8 459.8 177.7 485 242.5 485s125.7-25.2 171.5-71C459.8 368.2 485 307.3 485 242.5S459.8 116.8 414 71zM242.5 455C125.3 455 30 359.7 30 242.5S125.3 30 242.5 30 455 125.3 455 242.5 359.7 455 242.5 455z" class="a"/><polygon points="242.5 299.8 135.6 193.2 114.4 214.5 242.5 342.1 370.6 214.5 349.4 193.2 " class="a"/></svg>
         </span>
     </p>

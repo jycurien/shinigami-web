@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const input = r.querySelector('input');
             input.style.display = 'none';
             const dropZone = document.createElement('div');
-            dropZone.classList.add('js-drop-zone', 'drop-zone', 'mb-5');
-            dropZone.textContent = 'Déposez votre fichier ici';
+            dropZone.classList.add('js-drop-zone', 'drop-zone', 'mb-3');
+            dropZone.textContent = 'Cliquez ou déposez votre fichier ici';
             r.appendChild(dropZone);
             input.addEventListener('change', e => {
                 e.preventDefault();

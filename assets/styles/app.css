@@ -148,17 +148,18 @@ img.article-image {
 
 .drop-zone {
     width: 100%;
-    height: 10vw;
+    height: 15vw;
     background-color: #ddd;
     border-radius: 0.25rem;
     text-align: center;
-    line-height: 10vw;
+    line-height: 15vw;
     border: 2px solid #ccc;
     position: relative;
 }
 
 #edit-article .drop-zone {
     height: 25vw;
+    line-height: 25vw;
 }
 
 .drop-zone img {
@@ -170,5 +171,22 @@ img.article-image {
     object-fit: cover;
     border-radius: 0.25rem;
     transform: translateX(-50%);
+}
+
+.form-switch {
+    height: 2rem;
+    line-height: 2rem;
+}
+
+.form-check {
+    padding-left: 0;
+}
+
+.form-switch .form-check-input {
+    width: 4rem;
+    height: 2rem;
+    margin-right: 0.75rem;
+    margin-top: 0;
+    cursor: pointer;
 }
 
