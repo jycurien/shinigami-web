@@ -7,18 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
 
-        <img class="img-fluid mx-auto" src="{{ asset('picture/articles/' ~ article.picture) }}" alt="{{ article.title }}">
-        
-        <h1 class="mt-5">{{ article.title }}</h1>
-
-        <p class="text-muted font-italic">{{ article.createdAt | date('d-m-Y') }}</p>
-
-        <div>
-            {{ article.content | raw }}
+    <img class="img-large" src="{{ asset('picture/articles/' ~ article.picture) }}" alt="{{ article.title }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-10 col-xl-8 mx-auto">
+                <h1 class="mt-5">{{ article.title }}</h1>
+                <p class="text-muted font-italic">{{ article.createdAt | date('d-m-Y') }}</p>
+                <div>{{ article.content | raw }}</div>
+            </div>
         </div>
-        
-
     </div>
+
 {% endblock %}

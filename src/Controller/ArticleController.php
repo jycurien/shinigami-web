@@ -7,6 +7,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Handler\Article\ArticleHandler;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,55 +87,51 @@ class ArticleController extends AbstractController
     {
         $articleDto = new ArticleDto();
 
-        # Créer un Formulaire permettant l'ajout d'un Article
         $form = $this->createForm(ArticleType::class, $articleDto)
             ->handleRequest($request);
 
-        # Vérification des données du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             // Traitement de l'article.
             $article = $articleHandler->handle($articleDto);
 
-            # On s'assure que l'article n'est pas null
             if (null !== $article) {
-                # Flash Messages
                 $this->addFlash('notice', 'article.add.ok');
-                # Redirection vers l'article
                 return $this->redirectToRoute('articles_admin');
             } else {
-                # Flash Messages
                 $this->addFlash('error', 'article.add.error');
             }
         }
 
-        # Affichage du Formulaire dans la Vue
-        return $this->render('admin/article/update_article.html.twig', [
-            'form' => $form->createView(),
+        return $this->renderForm('admin/article/update_article.html.twig', [
+            'form' => $form,
             'pageTitle' => 'admin.article.add'
         ]);
     }
 
+
+    /**
+     * @Route({
+     *     "en": "/admin/remove-article/{id<\d+>}",
+     *     "fr": "/admin/supprimer-un-article/{id<\d+>}"
+     *      },
+     *     name="remove_article_admin",
+     *     methods={"GET"})
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
+     * @param Article $article
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function removeArticle(Article $article, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        $this->addFlash('success', "article.delete.ok");
+        return $this->redirectToRoute('articles_admin');
+    }
+
+
     // TODO
-//    /**
-//     * @Route({
-//     *     "en": "/admin/remove-article/{id<\d+>}",
-//     *     "fr": "/admin/supprimer-un-article/{id<\d+>}"
-//     *      },
-//     *     name="remove_article_admin",
-//     *     methods={"GET"})
-//     * @Security("user.isValidateContract() and has_role('ROLE_ADMIN')")
-//     * @param Article $article
-//     * @return Response
-//     */
-//    public function removeArticle(Article $article)
-//    {
-//        $this->getDoctrine()->getManager()->remove($article);
-//        $this->getDoctrine()->getManager()->flush();
-//
-//        $this->addFlash('success', "article.delete.ok");
-//        return $this->redirectToRoute('articles_admin');
-//    }
-//
 //    /**
 //     * @Route({
 //     *     "en": "/admin/update-article/{id<\d+>}",

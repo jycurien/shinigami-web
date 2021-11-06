@@ -9,7 +9,9 @@
 }
 
 .my-account .infos img{
-    width: 280px;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
 }
 
 .my-account .infos .datas {

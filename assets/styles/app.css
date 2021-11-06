@@ -88,12 +88,17 @@ h4 {
     width: initial;
 }
 img.featurette-image {
-    min-width: 100%;
-    max-width: 100%;
-    width: 445px;
-    height: 445px;
     object-fit: cover;
     object-position: 20% 50%;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+img.img-large {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 2;
+    max-height: 50vh;
 }
 
 .bg-dark {
@@ -148,11 +153,10 @@ img.article-image {
 
 .drop-zone {
     width: 100%;
-    height: 15vw;
+    aspect-ratio: 1;
     background-color: #ddd;
     border-radius: 0.25rem;
     text-align: center;
-    line-height: 15vw;
     border: 2px solid #ccc;
     position: relative;
 }
@@ -163,14 +167,10 @@ img.article-image {
 }
 
 .drop-zone img {
-    position: absolute;
-    left: 50%;
-    top: 0;
     height: 100%;
-    max-width: 100%;
+    width: 100%;
     object-fit: cover;
     border-radius: 0.25rem;
-    transform: translateX(-50%);
 }
 
 .form-switch {

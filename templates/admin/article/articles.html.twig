@@ -40,13 +40,13 @@
 {#                        {{ 'admin.article.edit' | trans }}#}
 {#                    </a>#}
 {#                </td>#}
-{#                <td>#}
-{#                    <a href="{{ path('remove_article_admin', {'id': article.id }) }}" class="btn btn-danger"#}
-{#                       onclick="return confirm({{ 'admin.article.confirm_delete' | trans }});" >#}
-{#                        <i class="fa fa-trash" aria-hidden="true"></i>#}
-{#                        {{ 'admin.article.delete' | trans }}#}
-{#                    </a>#}
-{#                </td>#}
+                <td>
+                    <a href="{{ path('remove_article_admin', {'id': article.id }) }}" class="btn btn-danger"
+                       onclick="return confirm({{ 'admin.article.confirm_delete' | trans }});" >
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        {{ 'admin.article.delete' | trans }}
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

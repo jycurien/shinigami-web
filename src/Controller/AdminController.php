@@ -60,11 +60,9 @@ class AdminController extends AbstractController
     {
         $result = null;
 
-        # Création du Formulaire de recherche
         $form = $this->createForm(SearchUserType::class)
             ->handleRequest($request);
 
-        # Vérification des données du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
 
             $data = $form->getData();
