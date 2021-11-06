@@ -46,7 +46,8 @@ class UserEditType extends AbstractType
                 'label' => 'profile.edit.image',
                 'data_class' => null,
                 'row_attr' => [
-                    'class' => 'form-row-with-error js-draggable-image'
+                    'class' => 'js-draggable-image',
+                    'data-initial-image' => $options['picture_url']
                 ]
             ])
             ->add('address', AddressType::class, [
@@ -64,6 +65,7 @@ class UserEditType extends AbstractType
             'attr' => [
                 'novalidate' => 'novalidate'
             ],
+            'picture_url' => null,
             'translation_domain' => 'user',
         ]);
     }

@@ -16,14 +16,13 @@
                 {{ form_start(userEditForm, { 'attr': { 'class': 'fos_user_profile_edit' } }) }}
                 <div class="row">
                     <div class="col-md-6">
+                        {{ form_row(userEditForm.image) }}
+                    </div>
+                    <div class="col-md-6">
                         {{ form_row(userEditForm.firstName) }}
                         {{ form_row(userEditForm.lastName) }}
                         {{ form_row(userEditForm.phoneNumber) }}
                         {{ form_row(userEditForm.birthDate) }}
-                    </div>
-                    <div class="col-md-6">
-{#                        TODO DRAG AND DROP#}
-                        {{ form_row(userEditForm.image) }}
                         <fieldset class="fieldset">
                             <legend>{{ 'address' | trans({}, 'form') }}</legend>
                             {{ form_row(userEditForm.address.address) }}

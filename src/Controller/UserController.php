@@ -51,7 +51,10 @@ class UserController extends AbstractController
     public function profileEdit(Request $request, ProfileEditHandler $editHandler): Response
     {
         $userEditDto = new UserEditDto($this->getUser());
-        $userEditForm = $this->createForm(UserEditType::class, $userEditDto)
+        $options = [
+            'picture_url' => $this->getParameter('web_url') . '/picture/users/' . $this->getUser()->getImage()
+        ];
+        $userEditForm = $this->createForm(UserEditType::class, $userEditDto, $options)
             ->handleRequest($request);
 
         if ($userEditForm->isSubmitted() && $userEditForm->isValid()) {

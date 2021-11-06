@@ -13,8 +13,6 @@
 @import "search-card.css";
 @import "create-game.css";
 @import "concept.css";
-/*@import "~dropify/dist/css/dropify.min.css";*/
-/*@import "~bootstrap-toggle/css/bootstrap-toggle.min.css";*/
 @import "games.css";
 
 html {
@@ -154,16 +152,27 @@ img.article-image {
 .drop-zone {
     width: 100%;
     aspect-ratio: 1;
-    background-color: #ddd;
     border-radius: 0.25rem;
     text-align: center;
     border: 2px solid #ccc;
     position: relative;
 }
 
+.drop-zone div {
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
 #edit-article .drop-zone {
     height: 25vw;
-    line-height: 25vw;
 }
 
 .drop-zone img {

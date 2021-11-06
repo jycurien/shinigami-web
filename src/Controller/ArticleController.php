@@ -148,7 +148,7 @@ class ArticleController extends AbstractController
         $articleDto = new ArticleDto($article->getTitle(), $article->getContent(), $article->getPicture(), $article->isSlider());
 
         $options = [
-            'picture_url' => $article->getPicture()
+            'picture_url' => $this->getParameter('web_url') . '/' . $this->getParameter('articles_dir') . $article->getPicture()
         ];
         $form = $this->createForm(ArticleType::class, $articleDto, $options)->handleRequest($request);
 

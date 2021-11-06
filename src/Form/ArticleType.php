@@ -24,7 +24,8 @@ class ArticleType extends AbstractType
             'label' => 'article.picture',
             'data_class' => null,
             'row_attr' => [
-                'class' => 'js-draggable-image'
+                'class' => 'js-draggable-image',
+                'data-initial-image' => $options['picture_url']
             ]
         ];
 
