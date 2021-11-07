@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Service\Api\ApiClient;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,17 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CardController extends AbstractController
 {
-//    private $apiRequest;
-//
-//    /**
-//     * CardController constructor.
-//     * @param ApiRequest $apiRequest
-//     */
-//    public function __construct(ApiRequest $apiRequest)
-//    {
-//        $this->apiRequest = $apiRequest;
-//    }
 
+    /**
+     * @var ApiClient
+     */
+    private $apiClient;
+
+    public function __construct(ApiClient $apiClient)
+    {
+
+        $this->apiClient = $apiClient;
+    }
 
     /**
      * Display most recent fidelity cards
@@ -36,13 +37,11 @@ class CardController extends AbstractController
      */
     public function cards(): Response
     {
-//        $response = $this->apiRequest->request('GET','/cards');
-//        $cards = $response["res"];
-//        $errorMessage = $response["errorMessage"];
+        $response = $this->apiClient->request('GET','/cards');
 
         return $this->render('admin/card/cards.html.twig', [
-//            'cards' => $cards,
-//            'errorMessage' => $errorMessage
+            'cards' => $response["res"],
+            'errorMessage' => $response["errorMessage"]
         ]);
     }
 

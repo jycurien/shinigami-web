@@ -12,7 +12,7 @@
 
     <h2>{{ 'admin.cards.manage' | trans | title }}</h2>
 
-{#    {% if cards is not empty %}#}
+    {% if cards is not empty %}
 
 {#        <p class="text-right">#}
 {#            <a href="{{ path('card_create_admin') }}" class="btn btn-info">#}
@@ -21,16 +21,16 @@
 {#            </a>#}
 {#        </p>#}
 
-{#        <!-- Modal -->#}
-{#        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-{#            <div class="modal-dialog" role="document">#}
-{#                <div class="modal-content">#}
-{#                    <div class="modal-header">#}
-{#                        <h4 class="modal-title" id="exampleModalLabel">{{ 'admin.cards.email_modal_title' | trans}}</h4>#}
-{#                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-{#                            <span aria-hidden="true">&times;</span>#}
-{#                        </button>#}
-{#                    </div>#}
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">{{ 'admin.cards.email_modal_title' | trans}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
 {#                    <form action="{{ path('card_send_numeric_card_by_email_admin') }}" method="post">#}
 {#                        <div class="modal-body">#}
@@ -46,61 +46,61 @@
 {#                            <input type="submit" id="send-email" class="btn btn-info" value="{{ 'admin.cards.send' | trans}}">#}
 {#                        </div>#}
 {#                    </form>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
+                </div>
+            </div>
+        </div>
 
-{#        <table class="table table-striped mt-5">#}
-{#            <thead>#}
-{#            <tr>#}
-{#                <th>Id</th>#}
-{#                <th>{{ 'admin.cards.number' | trans}}</th>#}
-{#                <th>{{ 'admin.cards.type' | trans}}</th>#}
-{#                <th>{{ 'admin.cards.activation' | trans}}</th>#}
-{#            </tr>#}
-{#            </thead>#}
-{#            <tbody>#}
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>{{ 'admin.cards.number' | trans}}</th>
+                    <th>{{ 'admin.cards.type' | trans}}</th>
+                    <th>{{ 'admin.cards.activation' | trans}}</th>
+                </tr>
+            </thead>
+            <tbody>
 
-{#            {% for card in cards %}#}
-{#                <tr>#}
-{#                    <td>{{ card.id }}</td>#}
-{#                    <td>{{ cardNumber(card.codeCenter, card.codeCard) }}</td>#}
-{#                    <td>{{ card.type | trans }}</td>#}
-{#                    #}{# TODO: Placer des boutons pour activation ET envoie d'email #}
-{#                    <td>#}
-{#                        {% if card.activationDate %}#}
-{#                            {{ card.activationDate | date('d-m-Y') }}#}
-{#                        {% elseif "numeric" == card.type %}#}
-{#                            <a href="#"#}
-{#                               class="btn btn-info btn-send-mail-to-activate"#}
-{#                               data-card-number="{{ cardNumber(card.codeCenter, card.codeCard) }}"#}
-{#                               data-toggle="modal"#}
-{#                               data-target="#exampleModal"#}
-{#                            >#}
-{#                                <i class="fa fa-share-square"></i>#}
-{#                                {{ 'admin.cards.send_email' | trans}}#}
-{#                            </a>#}
-{#                        {% endif %}#}
-{#                    </td>#}
-{#                </tr>#}
-{#            {% endfor %}#}
+            {% for card in cards %}
+                <tr>
+                    <td>{{ card.id }}</td>
+                    <td>{{ cardNumber(card.centerCode, card.cardCode) }}</td>
+                    <td>{{ card.type | trans }}</td>
+{#                     TODO: Placer des boutons pour activation ET envoie d'email#}
+                    <td>
+                        {% if card.activatedAt %}
+                            {{ card.activatedAt | date('d-m-Y') }}
+                        {% elseif "numeric" == card.type %}
+                            <a href="#"
+                               class="btn btn-info btn-send-mail-to-activate"
+                               data-card-number="{{ cardNumber(card.centerCode, card.cardCode) }}"
+                               data-toggle="modal"
+                               data-target="#exampleModal"
+                            >
+                                <i class="fa fa-share-square"></i>
+                                {{ 'admin.cards.send_email' | trans}}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
 
-{#            </tbody>#}
-{#        </table>#}
+            </tbody>
+        </table>
 
-{#    {% else %}#}
-{#        {% if errorMessage is null %}#}
-{#            <div class="alert alert-info" role="alert">#}
-{#                <p>{{ 'admin.cards.no_cards' | trans}}</p>#}
-{#            </div>#}
-{#        {% else %}#}
-{#            <div class="alert alert-danger" role="alert">#}
-{#                <p>{{ 'admin.cards.api_error' | trans}}</p>#}
-{#                <p><small>{{ errorMessage }}</small></p>#}
-{#            </div>#}
-{#        {% endif %}#}
+    {% else %}
+        {% if errorMessage is null %}
+            <div class="alert alert-info" role="alert">
+                <p>{{ 'admin.cards.no_cards' | trans}}</p>
+            </div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                <p>{{ 'admin.cards.api_error' | trans}}</p>
+                <p><small>{{ errorMessage }}</small></p>
+            </div>
+        {% endif %}
 
-{#    {% endif %}#}
+    {% endif %}
 
 {% endblock %}
 

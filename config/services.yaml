@@ -54,3 +54,7 @@ services:
     App\Handler\Article\ArticleHandler:
         arguments:
             $articleAssetsDir: '%articles_assets_dir%'
+
+    App\Service\Api\ApiClient:
+        arguments:
+            $apiUrl: '%api_url%'
