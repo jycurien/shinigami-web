@@ -1,5 +1,5 @@
 @import '~bootstrap';
-/*@import "~font-awesome/css/font-awesome.min.css";*/
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import "variables.css";
 @import "login.css";
