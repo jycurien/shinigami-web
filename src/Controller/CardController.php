@@ -4,9 +4,13 @@
 namespace App\Controller;
 
 
+use App\Form\CreateNumericCardType;
+use App\Handler\Card\CardHandler;
 use App\Service\Api\ApiClient;
+use App\Service\QrCodeGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,43 +49,42 @@ class CardController extends AbstractController
         ]);
     }
 
-//    /**
-//     * Create a new numeric fidelity card
-//     * @Route({
-//     *     "en": "/admin/create-fidelity-card",
-//     *     "fr": "/admin/creer-une-carte-de-fidelite"
-//     *      },
-//     *     name="card_create_admin",
-//     *     methods={"GET", "POST"})
-//     * @Security("user.isValidateContract() and has_role('ROLE_STAFF')")
-//     * @param null|Request $request
-//     * @param CardHandler $cardHandler
-//     * @param QrCodeGenerator $qrCodeGenerator
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function create(Request $request, CardHandler $cardHandler, QrCodeGenerator $qrCodeGenerator)
-//    {
-//        $form = $this->createForm(CreateNumericCardType::class)->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid())
-//        {
-//            $codeCenter = $form->getData()['center']->getCode();
-//            $response = $this->apiRequest->request('GET','/create-numeric-card/'.$codeCenter);
-//            $card = $response["res"];
-//
-//            if(null != $card) {
-//                // Generate the QR code
-//                $qrCodeGenerator->generate($cardHandler->formatCardNumber($card));
-//
-//                $this->addFlash('success', 'card.created.ok' );
-//                return $this->redirectToRoute("cards_admin");
-//            }
-//        }
-//
-//        return $this->render('admin/card/create.html.twig', [
-//            'form' => $form->createView()
-//        ]);
-//    }
+    /**
+     * Create a new numeric fidelity card
+     * @Route({
+     *     "en": "/admin/create-fidelity-card",
+     *     "fr": "/admin/creer-une-carte-de-fidelite"
+     *      },
+     *     name="card_create_admin",
+     *     methods={"GET", "POST"})
+     * @Security("user.isValidateContract() and is_granted('ROLE_STAFF')")
+     * @param null|Request $request
+     * @param CardHandler $cardHandler
+     * @param QrCodeGenerator $qrCodeGenerator
+     * @return Response
+     */
+    public function create(Request $request, CardHandler $cardHandler, QrCodeGenerator $qrCodeGenerator): Response
+    {
+        $form = $this->createForm(CreateNumericCardType::class)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $centerCode = $form->getData()['center']->getCode();
+            $response = $this->apiClient->request('GET','/create-numeric-card/'.$centerCode);
+            $card = $response["res"];
+            if(null != $card) {
+                // Generate the QR code
+                $qrCodeGenerator->generate($cardHandler->formatCardNumber($card));
+
+                $this->addFlash('success', 'card.created.ok' );
+                return $this->redirectToRoute("cards_admin");
+            }
+        }
+
+        return $this->render('admin/card/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 //
 //    /**
 //     * Send email with numeric card

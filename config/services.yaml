@@ -58,3 +58,7 @@ services:
     App\Service\Api\ApiClient:
         arguments:
             $apiUrl: '%api_url%'
+
+    App\Service\QrCodeGenerator:
+        arguments:
+            $qrCodesImageDirectory : '%images_qrcodes%'

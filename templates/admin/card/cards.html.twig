@@ -14,12 +14,12 @@
 
     {% if cards is not empty %}
 
-{#        <p class="text-right">#}
-{#            <a href="{{ path('card_create_admin') }}" class="btn btn-info">#}
-{#                <i class="fa fa-plus"></i>#}
-{#                {{ 'admin.cards.create_numeric' | trans}}#}
-{#            </a>#}
-{#        </p>#}
+        <p class="text-right">
+            <a href="{{ path('card_create_admin') }}" class="btn btn-info">
+                <i class="fa fa-plus"></i>
+                {{ 'admin.cards.create_numeric' | trans}}
+            </a>
+        </p>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

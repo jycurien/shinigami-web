@@ -59,11 +59,11 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
             // Number card
             for ($j = 0; $j < 3; $j++) {
-                $codeCenter = 124+$j;
-                $CodeCard = 100010+($i+$j);
-                $checkSum = $this->calculator->calculate($codeCenter, $CodeCard);
+                $centerCode = 124+$j;
+                $cardCode = 100010+($i+$j);
+                $checkSum = $this->calculator->calculate($centerCode, $cardCode);
 
-                $user->addCardNumber($codeCenter . $CodeCard . $checkSum);
+                $user->addCardNumber($centerCode . $cardCode . $checkSum);
             }
 
             // addReference garde en référence notre $user sous un certain nom

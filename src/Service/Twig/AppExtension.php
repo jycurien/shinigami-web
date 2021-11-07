@@ -39,24 +39,24 @@ class AppExtension extends AbstractExtension
     }
 
     /**
-     * @param int $codeCenter
-     * @param int $codeCard
+     * @param int $centerCode
+     * @param int $cardCode
      * @return int
      */
-    public function calculateCheck(int $codeCenter, int $codeCard): int
+    public function calculateCheck(int $centerCode, int $cardCode): int
     {
-        return $this->checkSumCalculator->calculate($codeCenter, $codeCard);
+        return $this->checkSumCalculator->calculate($centerCode, $cardCode);
     }
 
     /**
-     * @param int $codeCenter
-     * @param int $codeCard
+     * @param int $centerCode
+     * @param int $cardCode
      * @return string
      */
-    public function formatCardNumber(int $codeCenter, int $codeCard): string
+    public function formatCardNumber(int $centerCode, int $cardCode): string
     {
-        return str_pad($codeCenter, 3, "0", STR_PAD_LEFT).' '
-            .str_pad($codeCard, 6, "0", STR_PAD_LEFT).' '.$this->checkSumCalculator->calculate($codeCenter, $codeCard);
+        return str_pad($centerCode, 3, "0", STR_PAD_LEFT).' '
+            .str_pad($cardCode, 6, "0", STR_PAD_LEFT).' '.$this->checkSumCalculator->calculate($centerCode, $cardCode);
     }
 
     public function getFilters()

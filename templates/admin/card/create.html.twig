@@ -1,0 +1,18 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'create-fidelity-card' %}
+
+{% block page_title %}
+    {{ 'admin.cards.create' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.cards.create' | trans | title }}</h2>
+
+    {{ form(form)}}
+
+{% endblock %}
+
