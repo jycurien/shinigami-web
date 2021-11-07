@@ -25,6 +25,7 @@ Encore
     .addEntry('concept', './assets/concept.js')
     .addEntry('ckeditor_init', './assets/ckeditor_init.js')
     .addEntry('delete_article_modal', './assets/delete_article_modal.js')
+    .addEntry('form_send_numeric_card', './assets/form_send_numeric_card.js')
     .addEntry('drag_and_drop_img', './assets/drag_and_drop_img.js')
     .addEntry('counter', './assets/counter.js')
 

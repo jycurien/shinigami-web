@@ -1,0 +1,19 @@
+<div class="modal fade" id="{{modal_id}}" tabindex="-1" aria-labelledby="{{modal_id}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{modal_title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ modal_form_action }}" method="post">
+                <div class="modal-body">
+                    {% block modal_form_inputs %}{% endblock %}
+                </div>
+                <div class="modal-footer">
+                    <input type="reset" class="btn btn-secondary" data-bs-dismiss="modal" value="{{modal_close_label}}">
+                    <button type="submit" class="btn btn-primary">{{modal_valid_label}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

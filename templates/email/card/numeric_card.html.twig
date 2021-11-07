@@ -1,0 +1,75 @@
+<html>
+<head>
+    <style>
+        .card-shinigami {
+            display: flex;
+            width: 330px;
+            border: 1px solid orange;
+            padding: 20px;
+            border-radius: 10px;
+            margin-left: 20px;
+            font-size: 13px;
+            box-shadow: 5px 5px 20px grey;
+        }
+
+        .card-shinigami p {
+            margin-bottom: 5px;
+        }
+
+        .card-shinigami .title {
+            font-weight: 500;
+        }
+
+        .card-shinigami .qrcode {
+            vertical-align: top;
+        }
+
+        .card-shinigami .datas {
+            padding-top: 4px;
+            padding-left: 10px;
+        }
+
+        .card-shinigami .qrcode img {
+            width: 100%;
+        }
+
+        .card-shinigami .qrcode,
+        .card-shinigami .datas {
+            width: 48%;
+            display: inline-block;
+        }
+
+        .card-shinigami .datas img{
+            width: 115px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div>
+    <a class="navbar-brand" href="{{ url('index') }}">
+        <img class="logo" src="{{ web_url~asset('picture/logo.png') }}" alt="Shinigami Laser Logo">
+    </a>
+</div>
+
+<h1>Activez votre carte de fidélité numérique N°{{ cardNumber }}</h1>
+<p>si vous avez un compte se rendre <a href="{{ url('security_login') }}">ici</a></p>
+<p>si vous n'avez pas de compte se rendre <a href="{{ url('security_register') }}">ici</a></p>
+<br/>
+<br/>
+<div class="card-shinigami">
+    <div class="qrcode">
+        <img src="{{ web_url~asset('picture/qrcodes/'~cardNumber~'.png') }}" alt="qrcode">
+    </div>
+    <div class="datas">
+        <img class="logo" src="{{ web_url~asset('picture/logo.png') }}" alt="Shinigami Laser Logo">
+        <p><span class="title">Numérique</span></p>
+        <p><span class="title">Carte à activer</span></p>
+        <p><span class="title">N°:</span> {{ cardNumber }}</p>
+    </div>
+</div>
+
+</body>
+</html>

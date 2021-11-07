@@ -9,10 +9,15 @@ use App\Handler\Card\CardHandler;
 use App\Service\Api\ApiClient;
 use App\Service\QrCodeGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CardController extends AbstractController
 {
@@ -85,38 +90,37 @@ class CardController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-//
-//    /**
-//     * Send email with numeric card
-//     * @Route("/admin/send-numeric-card-by-email", name="card_send_numeric_card_by_email_admin")
-//     * @Security("user.isValidateContract() and has_role('ROLE_STAFF')")
-//     * @param Request $request
-//     * @param \Swift_Mailer $mailer
-//     * @param TranslatorInterface $translator
-//     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-//     */
-//    public function sendNumericCardByEmail(Request $request, \Swift_Mailer $mailer, TranslatorInterface $translator)
-//    {
-//        $cardNumber = str_replace(' ', '', $request->request->get('cardNumber'));
-//
-//        $message = (new \Swift_Message($translator->trans('card_activation_email_title', [], 'app')))
-//            ->setFrom($this->getParameter('from_email_address'))
-//            ->setTo($request->request->get('email'))
-//            ->setBody(
-//                $this->render(
-//                    'email/numeric_card.html.twig', [
-//                        'cardNumber' => $cardNumber
-//                    ]
-//                ),
-//                'text/html'
-//            )
-//        ;
-//
-//        $mailer->send($message);
-//        $this->addFlash('success', 'l\'email a été envoyé' );
-//
-//        return $this->redirectToRoute("cards_admin");
-//    }
+
+    /**
+     * Send email with numeric card
+     * @Route("/admin/send-numeric-card-by-email", name="card_send_numeric_card_by_email_admin")
+     * @Security("user.isValidateContract() and is_granted('ROLE_STAFF')")
+     * @param Request $request
+     * @param MailerInterface $mailer
+     * @param TranslatorInterface $translator
+     * @return RedirectResponse
+     * @throws TransportExceptionInterface
+     */
+    public function sendNumericCardByEmail(Request $request, MailerInterface $mailer, TranslatorInterface $translator): RedirectResponse
+    {
+        $cardNumber = str_replace(' ', '', $request->request->get('cardNumber'));
+
+        $email = new TemplatedEmail();
+        $email->from($this->getParameter('from_email_address'));
+        $email->to($request->request->get('email'));
+        $email->subject($translator->trans('card_activation_email_title', [], 'app'));
+        $email->htmlTemplate('email/card/numeric_card.html.twig');
+        $email->context([
+            'cardNumber' => $cardNumber,
+            'web_url' => $this->getParameter('web_url')
+        ]);
+
+        $mailer->send($email);
+
+        $this->addFlash('success', 'l\'email a été envoyé' );
+
+        return $this->redirectToRoute("cards_admin");
+    }
 //
 //    /**
 //     * Activate a fidelity card

@@ -21,34 +21,22 @@
             </a>
         </p>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="exampleModalLabel">{{ 'admin.cards.email_modal_title' | trans}}</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+        {% embed "component/_form_modal.html.twig" with {
+            modal_id: 'send_numeric_card_modal',
+            modal_title: 'admin.cards.email_modal_title' | trans,
+            modal_form_action: path('card_send_numeric_card_by_email_admin'),
+            modal_close_label: 'Annuler',
+            modal_valid_label: 'admin.cards.send' | trans
+        } %}
+            {% trans_default_domain 'app' %}
+            {% block modal_form_inputs %}
+                <input name="cardNumber" id="js-card-number" type="hidden">
 
-{#                    <form action="{{ path('card_send_numeric_card_by_email_admin') }}" method="post">#}
-{#                        <div class="modal-body">#}
-
-{#                            <input name="cardNumber" id="card-number" type="hidden">#}
-
-{#                            <div class="form-group">#}
-{#                                <input class="form-control" name="email" id="mail" placeholder="mail@gmail.com" type="email">#}
-{#                            </div>#}
-
-{#                        </div>#}
-{#                        <div class="modal-footer">#}
-{#                            <input type="submit" id="send-email" class="btn btn-info" value="{{ 'admin.cards.send' | trans}}">#}
-{#                        </div>#}
-{#                    </form>#}
+                <div class="form-group">
+                    <input class="form-control" name="email" id="mail" placeholder="mail@gmail.com" type="email">
                 </div>
-            </div>
-        </div>
+            {% endblock %}
+        {% endembed %}
 
         <table class="table table-striped mt-5">
             <thead>
@@ -73,11 +61,11 @@
                         {% elseif "numeric" == card.type %}
                             <a href="#"
                                class="btn btn-info btn-send-mail-to-activate"
-                               data-card-number="{{ cardNumber(card.centerCode, card.cardCode) }}"
-                               data-toggle="modal"
-                               data-target="#exampleModal"
+                               data-bs-card-number="{{ cardNumber(card.centerCode, card.cardCode) }}"
+                               data-bs-toggle="modal"
+                               data-bs-target="#send_numeric_card_modal"
                             >
-                                <i class="fa fa-share-square"></i>
+                                <i class="fas fa-share-square"></i>
                                 {{ 'admin.cards.send_email' | trans}}
                             </a>
                         {% endif %}
@@ -104,7 +92,7 @@
 
 {% endblock %}
 
-{#{% block javascripts %}#}
-{#    {{ parent() }}#}
-{#    {{ encore_entry_script_tags('form_for_numeric_card') }}#}
-{#{% endblock %}#}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('form_send_numeric_card') }}
+{% endblock %}
