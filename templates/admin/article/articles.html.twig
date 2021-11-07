@@ -40,15 +40,27 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{{ path('remove_article_admin', {'id': article.id }) }}" class="btn btn-danger"
-                       onclick="return confirm({{ 'admin.article.confirm_delete' | trans }});" title="{{ 'admin.article.delete' | trans }}">
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_article_modal"
+                            data-bs-modal_valid_href="{{ path('remove_article_admin', {'id': article.id }) }}" title="{{ 'admin.article.delete' | trans }}">
                         <i class="fas fa-trash" aria-hidden="true"></i>
-                    </a>
+                    </button>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    {{ include('component/_modal.html.twig', {
+        modal_id: 'delete_article_modal',
+        modal_title: 'admin.article.delete' | trans,
+        modal_body: 'admin.article.confirm_delete' | trans,
+        modal_valid_href: '',
+        modal_close_label: 'Non',
+        modal_valid_label: 'Oui'
+    }) }}
+{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('delete_article_modal') }}
 {% endblock %}
 
