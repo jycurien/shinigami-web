@@ -1,0 +1,23 @@
+{% trans_default_domain 'app' %}
+{% if errorMessage %}
+    <p>Information non disponible actuellement. Veuillez réessayer ultérieurement.</p>
+{% else %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Numéro de carte</th>
+            <th scope="col">Type</th>
+            <th scope="col">Date d'activation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for card in cards %}
+            <tr>
+                <th scope="row">{{ cardNumber(card.centerCode, card.cardCode) }}</th>
+                <td>{{ card.type | trans}}</td>
+                <td>{{ card.activatedAt | date('d-m-Y') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

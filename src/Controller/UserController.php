@@ -6,10 +6,12 @@ namespace App\Controller;
 
 use App\Dto\UserChangePasswordDto;
 use App\Dto\UserEditDto;
+use App\Entity\User;
 use App\Form\UserChangePasswordType;
 use App\Form\UserEditType;
 use App\Handler\User\ChangePasswordHandler;
 use App\Handler\User\ProfileEditHandler;
+use App\Service\Api\ApiClient;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,6 +101,37 @@ class UserController extends AbstractController
         return $this->renderForm('user/change_password.html.twig', [
             'change_password_form' => $resetPasswordForm,
             'active' => 'profile'
+        ]);
+    }
+
+    /**
+     * Display fidelity cards in Users profile
+     * @param User $user
+     * @return Response
+     */
+    public function userCards(User $user, ApiClient $apiClient): Response
+    {
+        if (empty($user->getCardNumbers())) {
+            return null;
+        }
+
+        $cards = [];
+        $errorMessage = null;
+
+        foreach ($user->getCardNumbers() as $cardNumber) {
+            $response = $apiClient->request('GET', '/cards/code-'.$cardNumber);
+            $errorMessage = $response["errorMessage"];
+            if ($response["errorMessage"]) {
+                break;
+            }
+
+            $cards[] = $response["res"];
+
+        }
+
+        return $this->render('component/_user_cards.html.twig', [
+            'cards' => $cards,
+            'errorMessage' => $errorMessage
         ]);
     }
 }
