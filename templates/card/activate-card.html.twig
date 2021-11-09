@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'card_activation' %}
+
+{% block page_title %}
+    {{ 'activate_card' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="activate-card">
+
+        <div class="container  mt-5">
+
+            <h2>{{ 'activate_card' | trans | title }}</h2>
+
+            <hr class="featurette-divider">
+
+            {{ form_start(form) }}
+
+            <div class="row">
+
+                <div class="col-12 text-center">
+                    {{ form_label(form.number) }}
+                </div>
+
+                <div class="col-12 card-number">
+                    {{ form_widget(form.number) }}
+                </div>
+
+                <div class="text-center col-12 mt-3">
+                    {{ form_widget(form.submit) }}
+                </div>
+
+            </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

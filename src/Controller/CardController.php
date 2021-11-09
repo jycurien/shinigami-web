@@ -4,8 +4,10 @@
 namespace App\Controller;
 
 
+use App\Form\CardNumberType;
 use App\Form\CreateNumericCardType;
 use App\Handler\Card\CardHandler;
+use App\Handler\User\UserHandler;
 use App\Service\Api\ApiClient;
 use App\Service\QrCodeGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -129,46 +131,43 @@ class CardController extends AbstractController
 
         return $this->redirectToRoute("cards_admin");
     }
-//
-//    /**
-//     * Activate a fidelity card
-//     * @Route({
-//     *     "en": "/activate-card",
-//     *     "fr": "/activer-une-carte-de-fidelite"
-//     *      },
-//     *     name="card_activate_card",
-//     *     methods={"GET", "POST"})
-//     * @Security("has_role('ROLE_USER')")
-//     * @param Request $request
-//     * @param UserHandler $userHandler
-//     * @param CardHandler $cardHandler
-//     * @return Response
-//     */
-//    public function activateCard(Request $request, UserHandler $userHandler, CardHandler $cardHandler)
-//    {
-//        $options = [
-//            'label' => 'input_card_number',
-//            'labelSubmit' => 'activate'
-//        ];
-//
-//        $form = $this->createForm(NumberCardType::class, $options)->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            // On récupère le numéro de la carte
-//            $number = $form->getData()['number'];
-//
-//            // We handle the update of the card activation date
-//            $card = $cardHandler->updateActivationDateCard($number);
-//
-//            // We update the user CardNumbers Field
-//            if(null != $card) {
-//                $userHandler->updateCardNumbersUser($number);
-//            }
-//        }
-//
-//        return $this->render("card/activate-card.html.twig",[
-//            'form' =>$form->createView(),
-//        ]);
-//    }
+
+    /**
+     * Activate a fidelity card
+     * @Route({
+     *     "en": "/activate-card",
+     *     "fr": "/activer-une-carte-de-fidelite"
+     *      },
+     *     name="card_activate_card",
+     *     methods={"GET", "POST"})
+     * @Security("is_granted('ROLE_USER')")
+     * @param Request $request
+     * @param UserHandler $userHandler
+     * @param CardHandler $cardHandler
+     * @return Response
+     */
+    public function activateCard(Request $request, UserHandler $userHandler, CardHandler $cardHandler)
+    {
+        $options = [
+            'label' => 'input_card_number',
+            'labelSubmit' => 'activate'
+        ];
+
+        $form = $this->createForm(CardNumberType::class, $options)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $number = $form->getData()['number'];
+
+            $card = $cardHandler->updateActivationDateCard($number);
+
+            if(null != $card) {
+                $userHandler->updateCardNumbersUser($this->getUser(), $number);
+            }
+        }
+
+        return $this->render("card/activate-card.html.twig",[
+            'form' =>$form->createView(),
+        ]);
+    }
 }

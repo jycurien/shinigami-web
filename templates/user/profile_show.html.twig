@@ -50,14 +50,14 @@
 
 {#        {{ render(controller('App\\Controller\\UserController::userPlayStats', {'user': user})) }}#}
 
-{#        <div class="container">#}
+        <div class="container">
 
 {#            {{ render(controller('App\\Controller\\UserController::userOffers', {'user': user})) }}#}
 
-{#            <div class="fidelity-card">#}
-{#                <h2 class="featurette-heading">Vos Cartes de Fidélités</h2>#}
+            <div class="fidelity-card">
+                <h2 class="featurette-heading">Vos Cartes de Fidélités</h2>
 
-{#                <a href="{{ path('card_activate_card') }}" class="btn btn-warning ml-2 btn-activate-card">Activer ma carte</a>#}
+                <a href="{{ path('card_activate_card') }}" class="btn btn-warning ml-2 btn-activate-card">Activer ma carte</a>
 
 {#                {% if user.cardNumbers %}#}
 {#                    {{ render(controller('App\\Controller\\UserController::userCards', {'user': user})) }}#}
@@ -65,12 +65,12 @@
 {#                    <p>Vous n'avez ajouté aucune carte de fidélité à votre profil.</p>#}
 {#                {% endif %}#}
 
-{#            </div>#}
+            </div>
 
-{#            <hr class="featurette-divider">#}
+            <hr class="featurette-divider">
 
-{#            <div class="games">#}
-{#                <h2 class="featurette-heading">Dernières Parties Jouées</h2>#}
+            <div class="games">
+                <h2 class="featurette-heading">Dernières Parties Jouées</h2>
 
 {#                {% if not user.userPlayGames is empty %}#}
 {#                    {{ render(controller('App\\Controller\\UserController::userLatestGames', {'user': user})) }}#}
@@ -78,10 +78,10 @@
 {#                    <p>Vous n'avez pas encore de parties à afficher. Venez vite nous rendre visite ;)</p>#}
 {#                {% endif %}#}
 
-{#            </div>#}
+            </div>
 
-{#            <hr class="featurette-divider">#}
-{#        </div>#}
+            <hr class="featurette-divider">
+        </div>
 
     </div>
 
