@@ -5,6 +5,7 @@ namespace App\Handler\Admin;
 
 
 use App\Repository\UserRepository;
+use App\Service\User\CardSearcher;
 
 class AdminHandler
 {
@@ -14,10 +15,10 @@ class AdminHandler
      * AdminHandler constructor.
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository /* , CardSearcher $cardSearcher */)
+    public function __construct(UserRepository $userRepository, CardSearcher $cardSearcher)
     {
         $this->userRepository = $userRepository;
-//        $this->cardSearcher = $cardSearcher;
+        $this->cardSearcher = $cardSearcher;
     }
 
     /**
@@ -32,15 +33,14 @@ class AdminHandler
         $user = null;
         $number = null;
 
-        // TODO Search by card number
-//        if (null !== $data['cardNumber']) {
-//            $number = $data['cardNumber'];
-//            $infos = $this->cardSearcher->searchAccountCard($number);
-//
-//            $card = $infos['card'];
-//            $errorMessage = $infos['errorMessage'];
-//            $user = $infos['user'];
-//        }
+        if (null !== $data['cardNumber']) {
+            $number = $data['cardNumber'];
+            $infos = $this->cardSearcher->searchAccountCard($number);
+
+            $card = $infos['card'];
+            $errorMessage = $infos['errorMessage'];
+            $user = $infos['user'];
+        }
 
         if ( null === $user && null !== $data['username'] ) {
             // Search by username

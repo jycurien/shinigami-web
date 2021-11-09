@@ -52,7 +52,7 @@
                             <div class="datas">
                                 <img src="{{ asset('picture/logo.png') }}" alt="Shinigami">
                                 <p><span class="title">{{ card.type == "material" ? "Physique" : "Numérique" }}</span></p>
-                                <p><span class="title">Activation</span><br>{{ card.activationDate|date("m/d/Y")  }}</p>
+                                <p><span class="title">Activation</span><br>{{ card.activatedAt|date("d/m/Y")  }}</p>
                                 <p><span class="title">N°:</span> {{ number }}</p>
                             </div>
                         </div>
