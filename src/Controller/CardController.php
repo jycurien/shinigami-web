@@ -75,8 +75,16 @@ class CardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $centerCode = $form->getData()['center']->getCode();
-            $response = $this->apiClient->request('GET','/create-numeric-card/'.$centerCode);
-            $card = $response["res"];
+            $body = json_encode(["center" => $centerCode]);
+            $card = null;
+            try {
+                $response = $this->apiClient->request('POST','/cards', $body);
+                $card = $response["res"];
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage() );
+                return $this->redirectToRoute("card_create_admin");
+            }
+
             if(null != $card) {
                 // Generate the QR code
                 $qrCodeGenerator->generate($cardHandler->formatCardNumber($card));
