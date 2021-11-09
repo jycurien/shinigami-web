@@ -11,8 +11,10 @@ use App\Form\UserChangePasswordType;
 use App\Form\UserEditType;
 use App\Handler\User\ChangePasswordHandler;
 use App\Handler\User\ProfileEditHandler;
+use App\Repository\ContractRepository;
 use App\Service\Api\ApiClient;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -132,6 +134,22 @@ class UserController extends AbstractController
         return $this->render('component/_user_cards.html.twig', [
             'cards' => $cards,
             'errorMessage' => $errorMessage
+        ]);
+    }
+
+    /**
+     * Display all employees
+     * @Route("/admin/employes", name="user_employees_admin")
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
+     * @param ContractRepository $contractRepository
+     * @return Response
+     */
+    public function employeesAdmin(ContractRepository $contractRepository): Response
+    {
+        $contracts = $contractRepository->findContractsWithUserAndCenter();
+
+        return $this->render('admin/employee/employees.html.twig', [
+            'contracts' => $contracts
         ]);
     }
 }

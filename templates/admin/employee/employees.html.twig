@@ -1,0 +1,76 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'admin.employees' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.employees.manage' | trans | title }}</h2>
+
+    <p class="text-right">
+{#        TODO#}
+{#        <a href="{{ path('contract_new_employee_admin') }}" class="btn btn-info">#}
+{#            <i class="fa fa-plus"></i>#}
+{#            {{ 'admin.employee.add' | trans }}#}
+{#        </a>#}
+    </p>
+    <table class="table table-striped mt-5">
+        <thead>
+        <tr>
+            <th>{{ 'admin.employee.picture' | trans }}</th>
+            <th>{{ 'admin.employee.name' | trans }}</th>
+            <th>{{ 'admin.employee.role' | trans }}</th>
+            <th>{{ 'admin.employee.center' | trans }}</th>
+            <th>{{ 'admin.employee.contract.start' | trans }}</th>
+            <th>{{ 'admin.employee.contract.end' | trans }}</th>
+            <th>{{ 'admin.employee.update.btn' | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contract in contracts  %}
+            <tr>
+                <td>
+                    {% if contract.user.image %}
+                        <img src="{{ asset('picture/users/' ~ contract.user.image) }}" alt="Image de Profil" width="50" class="article-image">
+                    {% else %}
+                        <img src="{{ asset('picture/user.jpg') }}" alt="Image de Profil" width="50" class="article-image">
+                    {% endif %}
+                </td>
+                <td>{{ contract.user.firstName ~ ' ' ~  contract.user.lastName }}</td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {{ 'administrator' | trans({}, 'sidebar') }}
+                    {% elseif is_granted('ROLE_STAFF') %}
+                        {{ 'staff_member' | trans({}, 'sidebar') }}
+                    {% endif %}
+                </td>
+                <td>{{ contract.center.name }}</td>
+                <td>{{ contract.startDate | date('d-m-Y') }}</td>
+                <td>
+                    {% if contract.endDate %}
+                        {{ contract.endDate | date('d-m-Y') }}
+                    {% endif %}
+
+                </td>
+                <td>
+{#                    TODO#}
+{#                    <a href="{{ path('contract_update_employee_admin', {'id': contract.user.id }) }}" class="btn btn-warning">#}
+{#                        <i class="fa fa-pencil" aria-hidden="true"></i>#}
+{#                        {{ 'admin.employee.update.btn' | trans }}#}
+{#                    </a>#}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+

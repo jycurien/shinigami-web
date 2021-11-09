@@ -19,32 +19,16 @@ class ContractRepository extends ServiceEntityRepository
         parent::__construct($registry, Contract::class);
     }
 
-    // /**
-    //  * @return Contract[] Returns an array of Contract objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findContractsWithUserAndCenter()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->join('c.center', 'ce')
+            ->addSelect('ce')
+            ->join('c.user', 'u')
+            ->addSelect('u')
+            ->orderBy('c.startDate', 'DESC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Contract
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
