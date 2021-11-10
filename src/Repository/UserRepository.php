@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -49,5 +50,37 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setParameter('number', "%:\"$cardNumber\"%")
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param string $username
+     * @return bool
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function isUsernameUnique(string $username):bool
+    {
+        return (0 === $this->createQueryBuilder('u')
+                ->select('COUNT(u.id)')
+                ->where('u.username = :username')
+                ->setParameter('username', $username)
+                ->getQuery()
+                ->getSingleScalarResult());
+    }
+
+    /**
+     * @param string $email
+     * @return bool
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function isEmailUnique(string $email):bool
+    {
+        return (0 === $this->createQueryBuilder('u')
+                ->select('COUNT(u.id)')
+                ->where('u.email = :email')
+                ->setParameter('email', $email)
+                ->getQuery()
+                ->getSingleScalarResult());
     }
 }

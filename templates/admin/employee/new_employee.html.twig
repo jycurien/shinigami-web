@@ -1,0 +1,43 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'admin.employee.add' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.employee.add' | trans | title }}</h2>
+
+    {{ form_start(form) }}
+    {{ form_row(form.contract) }}
+    {{ form_row(form.roles) }}
+    {{ form_row(form.email) }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.firstName) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.lastName) }}
+        </div>
+    </div>
+    {{ form_row(form.username) }}
+    <div class="form-group mb-5">
+        <input type="submit" class="btn btn-lg btn-primary">
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{#    {{ encore_entry_script_tags('input_pseudo') }}#}
+{% endblock %}
+
+
+
+
+

@@ -4,11 +4,14 @@
 namespace App\Controller;
 
 
+use App\Dto\EmployeeDto;
 use App\Entity\User;
+use App\Form\NewEmployeeType;
 use App\Handler\User\EmployeeHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ContractController extends AbstractController
@@ -49,35 +52,35 @@ class ContractController extends AbstractController
 //        ]);
 //    }
 
-//    /**
-//     * @Route({
-//     *     "en": "/new-employee",
-//     *     "fr": "/ajouter-un-employe"
-//     *      },
-//     *     name="contract_new_employee_admin",
-//     *     methods={"GET", "POST"})
-//     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
-//     * @param Request $request
-//     * @param EmployeeHandler $employeeHandler
-//     * @return Response
-//     */
-//    public function newEmployee(Request $request, EmployeeHandler $employeeHandler)
-//    {
-//        $user = new User();
-//
-//        $form = $this->createForm(NewEmployeeType::class, $user)->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            $user = $employeeHandler->handle($user, true);
-//
-//            if(null !== $user) {
-//                return $this->redirectToRoute('user_employees_admin');
-//            }
-//        }
-//
-//        return $this->render('admin/employee/new_employee.html.twig', [
-//            'form' => $form->createView()
-//        ]);
-//    }
+    /**
+     * @Route({
+     *     "en": "/new-employee",
+     *     "fr": "/ajouter-un-employe"
+     *      },
+     *     name="contract_new_employee_admin",
+     *     methods={"GET", "POST"})
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
+     * @param Request $request
+     * @param EmployeeHandler $employeeHandler
+     * @return Response
+     */
+    public function newEmployee(Request $request, EmployeeHandler $employeeHandler): Response
+    {
+        $employee = new EmployeeDto();
+
+        $form = $this->createForm(NewEmployeeType::class, $employee)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $employeeHandler->handle($employee, true);
+
+            if(null !== $user) {
+                return $this->redirectToRoute('user_employees_admin');
+            }
+        }
+
+        return $this->renderForm('admin/employee/new_employee.html.twig', [
+            'form' => $form
+        ]);
+    }
 }
