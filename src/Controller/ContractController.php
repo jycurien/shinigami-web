@@ -5,7 +5,6 @@ namespace App\Controller;
 
 
 use App\Dto\EmployeeDto;
-use App\Entity\User;
 use App\Form\NewEmployeeType;
 use App\Handler\User\EmployeeHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -71,12 +70,8 @@ class ContractController extends AbstractController
         $form = $this->createForm(NewEmployeeType::class, $employee)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $user = $employeeHandler->handle($employee, true);
-
-            if(null !== $user) {
-                return $this->redirectToRoute('user_employees_admin');
-            }
+            $user = $employeeHandler->handle($employee);
+            return $this->redirectToRoute('user_employees_admin');
         }
 
         return $this->renderForm('admin/employee/new_employee.html.twig', [

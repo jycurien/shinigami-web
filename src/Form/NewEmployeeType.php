@@ -37,9 +37,11 @@ class NewEmployeeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // constraints already handled by dto, left in comment for example
+
         $builder
             ->add('roles', ChoiceType::class, [
-                'constraints' => new Assert\NotBlank(),
+//                'constraints' => new Assert\NotBlank(),
                 'choices'  => [
                     'employee' => 'ROLE_STAFF',
                     'administrator' => 'ROLE_ADMIN'
@@ -48,32 +50,32 @@ class NewEmployeeType extends AbstractType
                 'label' => 'role'
             ])
             ->add('username', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Callback([
-                        'callback' => [$this, 'isUsernameUnique'],
-                    ])
-                ],
+//                'constraints' => [
+//                    new Assert\NotBlank(),
+//                    new Callback([
+//                        'callback' => [$this, 'isUsernameUnique'],
+//                    ])
+//                ],
                 'label' => 'profile.show.username'
             ])
             ->add('email', EmailType::class, [
-                'constraints' => [
-                    new Assert\Email(),
-                    new Callback([
-                        'callback' => [$this, 'isEmailUnique'],
-                    ])
-                ],
+//                'constraints' => [
+//                    new Assert\Email(),
+//                    new Callback([
+//                        'callback' => [$this, 'isEmailUnique'],
+//                    ])
+//                ],
                 'label' => 'profile.show.email'
             ])
             ->add('contract', ContractType::class, [
                 'label' => 'contract.contract'
             ])
             ->add('firstName', TextType::class, [
-                'constraints' => new Assert\NotBlank(),
+//                'constraints' => new Assert\NotBlank(),
                 'label' => 'profile.edit.firstname'
             ])
             ->add('lastName', TextType::class, [
-                'constraints' => new Assert\NotBlank(),
+//                'constraints' => new Assert\NotBlank(),
                 'label' => 'profile.edit.lastname'
             ])
         ;
@@ -90,29 +92,29 @@ class NewEmployeeType extends AbstractType
         ]);
     }
 
-    /**
-     * @param $data
-     * @param ExecutionContextInterface $context
-     * @throws NoResultException
-     * @throws NonUniqueResultException
-     */
-    public function isUsernameNotUnique($data, ExecutionContextInterface $context)
-    {
-        if (!$this->userRepository->isUsernameUnique($data)) {
-            $context->addViolation('user.username.already_used');
-        }
-    }
-
-    /**
-     * @param $data
-     * @param ExecutionContextInterface $context
-     * @throws NoResultException
-     * @throws NonUniqueResultException
-     */
-    public function isEmailNotUnique($data, ExecutionContextInterface $context)
-    {
-        if (!$this->userRepository->isEmailUnique($data)) {
-            $context->addViolation('user.email.already_used');
-        }
-    }
+//    /**
+//     * @param $data
+//     * @param ExecutionContextInterface $context
+//     * @throws NoResultException
+//     * @throws NonUniqueResultException
+//     */
+//    public function isUsernameUnique($data, ExecutionContextInterface $context)
+//    {
+//        if (!$this->userRepository->isUsernameUnique($data)) {
+//            $context->addViolation('username.already_used');
+//        }
+//    }
+//
+//    /**
+//     * @param $data
+//     * @param ExecutionContextInterface $context
+//     * @throws NoResultException
+//     * @throws NonUniqueResultException
+//     */
+//    public function isEmailUnique($data, ExecutionContextInterface $context)
+//    {
+//        if (!$this->userRepository->isEmailUnique($data)) {
+//            $context->addViolation('email.already_used');
+//        }
+//    }
 }

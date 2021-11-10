@@ -107,3 +107,7 @@ select_center: 'Veuillez sélectionner un centre'
 role: 'Rôle'
 employee: 'Employé'
 administrator: 'Administrateur'
+username:
+    already_used: Un compte existe déjà avec ce pseudo
+email:
+    already_used: Un compte existe déjà avec cet email

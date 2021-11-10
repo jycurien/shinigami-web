@@ -111,3 +111,7 @@ select_center: 'Please Select a Center'
 role: Role
 employee: Employee
 administrator: Administrator
+username:
+    already_used: Username already taken
+email:
+    already_used: Email already taken
