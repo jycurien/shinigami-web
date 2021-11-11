@@ -22,6 +22,7 @@ card:
 contract:
   date_error: Wrong contract dates.
   employee_added: New employee added.
+  employee_updated: Employee updated.
 game:
   create:
     error:
