@@ -1,0 +1,77 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'handle-game' %}
+
+{% block page_title %}
+    {{ 'admin.games' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.games.manage' | trans | title }}</h2>
+
+    <p class="text-right">
+{#        <a href="{{ path('game_create_admin') }}" class="btn btn-info">#}
+{#            <i class="fa fa-plus"></i>#}
+{#            {{ 'admin.game.create' | trans }}#}
+{#        </a>#}
+    </p>
+
+    <table class="table table-striped mt-5">
+        <thead>
+        <tr>
+            <th>{{ 'admin.game.date' | trans }}</th>
+            <th>{{ 'admin.game.details' | trans }}</th>
+            <th class="w-50">{{ 'admin.game.players' | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+            <tr>
+                <td>{{ game.date | date('d-m-Y - H') }}h
+                    <div>
+                        {% if game.status == "created" %}
+{#                            <a href="{{ path('game_edit_admin', { 'id': game.id }) }}" class="btn btn-warning">#}
+{#                                <i class="fa fa-edit"></i>{{ 'admin.game.update' | trans }}#}
+{#                            </a>#}
+{#                            <a href="{{ path('game_play_admin', { 'id': game.id }) }}" class="btn btn-info play-game">#}
+{#                                <i class="fa fa-play"></i>{{ 'admin.game.play' | trans }}#}
+{#                            </a>#}
+                        {% else %}
+                            {{ 'admin.game.ended' | trans }}
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3">{{ game.room.center.name }} - {{ game.room.name }}</div>
+                    <div class="mb-3"><img src="{{ asset('picture/centers/rooms/'~game.room.picture) }}" alt="{{ game.room.name }}" width="200"></div>
+                    <div class="mb-3">{{ 'admin.game.total_players' | trans }} {{ game.userPlayGames | length }}</div>
+                    <div>{{ 'admin.game.total_price' | trans }} {{ game.totalPrice }} €</div>
+                </td>
+                <td>
+                    <table class="w-100">
+                        <thead>
+                        <tr><th>{{ 'admin.game.player' | trans }}</th><th>{{ 'admin.game.team' | trans }}</th><th>{{ 'admin.game.score' | trans }}</th><th>{{ 'admin.game.price' | trans }}</th></tr>
+                        </thead>
+                        <tbody>
+                        {% for play in game.userPlayGames %}
+                            <tr><td>{{ play.user.username }}</td><td>{{ play.team }}</td><td>{{ play.score }}</td><td>{{ play.price }}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{#    {{ encore_entry_script_tags('games') }}#}
+{% endblock %}
+
+

@@ -117,4 +117,35 @@ class Game
 
         return $this;
     }
+
+    /**
+     * @return User
+     */
+    public function getWinner(): User
+    {
+        // Initialise variable to store winning upg with value of the first upg
+        $winnerPlayGame = $this->userPlayGames[0];
+
+        // Loop on all upg and compare if their score is > than the one stored in $winnerPlayGame
+        foreach ($this->userPlayGames as $userPlayGame) {
+            // if score of new upg is > than the one stored in $winnerPlayGame, replace $winnerPlayGame
+            $winnerPlayGame = ($userPlayGame->getScore() > $winnerPlayGame->getScore()) ? $userPlayGame : $winnerPlayGame;
+        }
+
+        return $winnerPlayGame->getUser();
+    }
+
+    /**
+     * Calculate and return the total price for the Game
+     */
+    public function getTotalPrice(): float
+    {
+        $totalPrice = 0;
+
+        foreach ($this->userPlayGames as $upg) {
+            $totalPrice += $upg->getPrice();
+        }
+
+        return $totalPrice;
+    }
 }
