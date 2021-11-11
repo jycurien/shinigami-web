@@ -52,6 +52,7 @@ class EmployeeHandler
             $this->entityManager->persist($user);
             $this->eventDispatcher->dispatch(new NewEmployeeEvent($user), NewEmployeeEvent::NAME);
         }
+
         $this->entityManager->flush();
         return $user;
     }

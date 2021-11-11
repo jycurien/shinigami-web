@@ -35,11 +35,13 @@ class ContractController extends AbstractController
         $employeeDto = new EmployeeDto($user);
         $userPic = null !== $user->getImage() ? '/picture/users/' . $this->getUser()->getImage() : '/picture/user.jpg';
         $options = [
-            'picture_url' => $this->getParameter('web_url') . $userPic
+            'picture_url' => $this->getParameter('web_url') . $userPic,
+            'validation_groups' => ['Default']
         ];
         $form = $this->createForm(UpdateEmployeeType::class, $employeeDto, $options)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($employeeDto);
             $employeeHandler->handle($employeeDto, $user);
             return $this->redirectToRoute('user_employees_admin');
         }
@@ -66,7 +68,7 @@ class ContractController extends AbstractController
     {
         $employeeDto = new EmployeeDto();
 
-        $form = $this->createForm(NewEmployeeType::class, $employeeDto)->handleRequest($request);
+        $form = $this->createForm(NewEmployeeType::class, $employeeDto, ['validation_groups' => ['Default', 'create']])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $employeeHandler->handle($employeeDto);

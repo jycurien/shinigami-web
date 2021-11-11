@@ -24,14 +24,14 @@ class EmployeeDto
      *      min = 3,
      *      max = 255
      * )
-     * @AppAssert\UniqueFieldConstraint(entityRepository="App\Repository\UserRepository")
+     * @AppAssert\UniqueFieldConstraint(entityRepository="App\Repository\UserRepository", groups={"create"})
      */
     public $username;
     /**
      * @var null|string
      * @Assert\NotBlank()
      * @Assert\Email()
-     * @AppAssert\UniqueFieldConstraint(entityRepository="App\Repository\UserRepository")
+     * @AppAssert\UniqueFieldConstraint(entityRepository="App\Repository\UserRepository", groups={"create"})
      */
     public $email;
     /**

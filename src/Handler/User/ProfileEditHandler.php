@@ -8,6 +8,7 @@ use App\Dto\UserEditDto;
 use App\Entity\Address;
 use App\Entity\User;
 use App\Repository\AddressRepository;
+use App\Service\User\UserImageUploadHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -22,27 +23,17 @@ class ProfileEditHandler
      */
     private $entityManager;
     /**
-     * @var SluggerInterface
+     * @var UserImageUploadHelper
      */
-    private $slugger;
-    /**
-     * @var Filesystem
-     */
-    private $filesystem;
-    /**
-     * @var FlashBagInterface
-     */
-    private $flashBag;
+    private $imageUploadHelper;
 
-    public function __construct(EntityManagerInterface $entityManager, SluggerInterface $slugger, Filesystem $filesystem, FlashBagInterface $flashBag)
+    public function __construct(EntityManagerInterface $entityManager, UserImageUploadHelper $imageUploadHelper)
     {
         $this->entityManager = $entityManager;
-        $this->slugger = $slugger;
-        $this->filesystem = $filesystem;
-        $this->flashBag = $flashBag;
+        $this->imageUploadHelper = $imageUploadHelper;
     }
 
-    public function handle(UserEditDto $userEditDto, User $user, string $userImageDir)
+    public function handle(UserEditDto $userEditDto, User $user)
     {
         $user->setFirstName($userEditDto->firstName);
         $user->setLastName($userEditDto->lastName);
@@ -55,23 +46,8 @@ class ProfileEditHandler
         $user->setAddress($userAddress);
 
         // IMAGE UPLOAD
-        /** @var UploadedFile $image */
-        $image = $userEditDto->image;
-        if (null !== $image) {
-            $fileName = $this->slugger->slug($user->getUsername())
-                . '_'.uniqid().'.' . $image->guessExtension();
-            try {
-                $image->move(
-                    $userImageDir,
-                    $fileName
-                );
-            } catch (FileException $e) {
-                $error = $e->getMessage();
-                $this->flashBag->add('error', $error);
-            }
-            if (null !== $user->getImage()) {
-                $this->filesystem->remove($userImageDir.'/'.$user->getImage());
-            }
+        if (null !== $userEditDto->image) {
+            $fileName = $this->imageUploadHelper->uploadImage($userEditDto->image, $user);
             $user->setImage($fileName);
         }
 

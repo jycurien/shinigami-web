@@ -22,7 +22,7 @@ class UpdateEmployeeType extends  AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('phoneNumber', TextType::class, [
-                'label' => 'profile.edit.phone_number'
+                'label' => 'profile.edit.phone_number',
             ])
             ->add('birthDate', BirthdayType::class, [
                 'widget' => 'single_text',
@@ -52,6 +52,7 @@ class UpdateEmployeeType extends  AbstractType
             'data_class' => EmployeeDto::class,
             'translation_domain' => 'user',
             'picture_url' => null,
+            'required' => false
         ]);
     }
 
