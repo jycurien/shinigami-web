@@ -1,10 +1,49 @@
 {% extends 'layout-admin.html.twig' %}
 
-{% block content %}
+{% trans_default_domain 'app' %}
 
-{% endblock %}
+{% set active = 'admin' %}
 
 {% block page_title %}
+    {{ 'admin.employee.update' | trans | title }}
+{% endblock %}
 
+{% block content %}
+    <h2>{{ 'admin.employee.update_infos' | trans }} {{ user.firstName ~ ' ' ~ user.lastName }}</h2>
+    {{ form_start(form) }}
+    {{ form_row(form.contract) }}
+    {{ form_row(form.roles) }}
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_row(form.image) }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form_row(form.email) }}
+            {{ form_row(form.username) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.phoneNumber) }}
+            {{ form_row(form.birthDate) }}
+
+        </div>
+        <div class="col-12 mb-3">
+            <fieldset class="fieldset">
+                <legend>{{ 'address' | trans({}, 'form') }}</legend>
+                {{ form_row(form.address.address) }}
+                {{ form_row(form.address.zipCode) }}
+                {{ form_row(form.address.city) }}
+            </fieldset>
+        </div>
+        <div class="form-group col-12 mb-5">
+            <input type="submit" class="btn btn-lg btn-primary">
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('drag_and_drop_img') }}
 {% endblock %}
 

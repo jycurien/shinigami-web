@@ -16,21 +16,12 @@ class AddressType extends AbstractType
         $builder
             ->add('address', TextType::class, [
                 'label' => 'profile.edit.address',
-                'row_attr' => [
-                    'class' => 'form-row-with-error'
-                ]
             ])
             ->add('zipCode', IntegerType::class, [
                 'label' => 'profile.edit.zip_code',
-                'row_attr' => [
-                    'class' => 'form-row-with-error'
-                ]
             ])
             ->add('city', TextType::class, [
                 'label' => 'profile.edit.city',
-                'row_attr' => [
-                    'class' => 'form-row-with-error'
-                ]
             ])
         ;
     }

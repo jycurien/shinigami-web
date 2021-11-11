@@ -5,6 +5,7 @@ namespace App\Dto;
 
 
 use App\Entity\Contract;
+use App\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator as AppAssert;
 
@@ -48,19 +49,50 @@ class EmployeeDto
      * @Assert\NotBlank()
      */
     public $lastName;
+    /**
+     * @var null|string
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255
+     * )
+     */
+    public $phoneNumber;
+    /**
+     * @var \DateTimeInterface|null
+     * @Assert\Type(type="\Datetime")
+     */
+    public $birthDate;
 
-    public function __construct(?array $roles = [],
-                                ?string $username = null,
-                                ?string $email = null,
-                                ?Contract $contract = null,
-                                ?string $firstName = null,
-                                ?string $lastName = null)
+    /**
+     * Must be a square
+     * @Assert\Image(
+     *     minWidth = 225,
+     *     minHeight = 225,
+     * )
+     */
+    public $image;
+    /**
+     * @var null|AddressDto
+     * @Assert\Valid() // USE THIS TO VALIDATE EMBEDDED FORM
+     */
+    public $address;
+
+    public function __construct(?User $user = null)
     {
-        $this->roles = $roles;
-        $this->username = $username;
-        $this->email = $email;
-        $this->contract = new ContractDto($contract?->getStartDate(), $contract?->getEndDate(), $contract?->getCenter());
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
+        if (null !== $user) {
+            $this->roles = $user->getRoles();
+            $this->username = $user->getUsername();
+            $this->email = $user->getEmail();
+            $this->contract = new ContractDto($user->getContract());
+            $this->firstName = $user->getFirstName();
+            $this->lastName = $user->getLastName();
+            $this->phoneNumber = $user->getPhoneNumber();
+            $this->birthDate = $user->getBirthDate();
+            $this->image = $user->getImage();
+            $this->address = new AddressDto($user->getAddress());
+        } else {
+            $this->contract = new ContractDto();
+            $this->address = new AddressDto();
+        }
     }
 }

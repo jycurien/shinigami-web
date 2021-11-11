@@ -15,7 +15,7 @@ class CenterType extends AbstractType
     /**
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'constraints' => new Assert\NotBlank(['message' => 'center.select']),
@@ -31,7 +31,7 @@ class CenterType extends AbstractType
     /**
      * @return null|string
      */
-    public function getParent()
+    public function getParent(): ?string
     {
         return EntityType::class;
     }

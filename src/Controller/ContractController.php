@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Dto\EmployeeDto;
 use App\Entity\User;
 use App\Form\NewEmployeeType;
+use App\Form\UpdateEmployeeType;
 use App\Handler\User\EmployeeHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,18 +32,22 @@ class ContractController extends AbstractController
      */
     public function updateEmployee(User $user, Request $request, EmployeeHandler $employeeHandler): Response
     {
-//        $employeeDto = new EmployeeDto();
-//        $form = $this->createForm(UpdateEmployeeType::class, $employeeDto)->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $employeeHandler->handle($employeeDto, $user);
-//            return $this->redirectToRoute('user_employees_admin');
-//        }
-//
-//        return $this->renderForm('admin/employee/update_employee.html.twig', [
-//            'user' => $user,
-//            'form' => $form
-//        ]);
+        $employeeDto = new EmployeeDto($user);
+        $userPic = null !== $user->getImage() ? '/picture/users/' . $this->getUser()->getImage() : '/picture/user.jpg';
+        $options = [
+            'picture_url' => $this->getParameter('web_url') . $userPic
+        ];
+        $form = $this->createForm(UpdateEmployeeType::class, $employeeDto, $options)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $employeeHandler->handle($employeeDto, $user);
+            return $this->redirectToRoute('user_employees_admin');
+        }
+
+        return $this->renderForm('admin/employee/update_employee.html.twig', [
+            'user' => $user,
+            'form' => $form
+        ]);
     }
 
     /**

@@ -3,6 +3,7 @@
 
 namespace App\Dto;
 
+use App\Entity\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class AddressDto
@@ -32,14 +33,14 @@ class AddressDto
 
     /**
      * AddressDto constructor.
-     * @param $address
-     * @param $zipCode
-     * @param $city
+     * @param Address|null $address
      */
-    public function __construct(?string $address = null, ?int $zipCode = null, ?string $city = null)
+    public function __construct(?Address $address = null)
     {
-        $this->address = $address;
-        $this->zipCode = $zipCode;
-        $this->city = $city;
+        if (null !== $address) {
+            $this->address = $address->getAddress();
+            $this->zipCode = $address->getZipCode();
+            $this->city = $address->getCity();
+        }
     }
 }

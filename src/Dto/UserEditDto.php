@@ -59,14 +59,6 @@ class UserEditDto
         $this->phoneNumber = $user->getPhoneNumber();
         $this->birthDate = $user->getBirthDate();
         $this->image = $user->getImage();
-        if (null !== $user->getAddress()) {
-            $this->address = new AddressDto(
-                $user->getAddress()->getAddress(),
-                $user->getAddress()->getZipCode(),
-                $user->getAddress()->getCity()
-            );
-        } else {
-            $this->address = new AddressDto();
-        }
+        $this->address = new AddressDto($user->getAddress());
     }
 }

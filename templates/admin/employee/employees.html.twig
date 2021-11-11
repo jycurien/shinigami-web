@@ -57,11 +57,10 @@
 
                 </td>
                 <td>
-{#                    TODO#}
-{#                    <a href="{{ path('contract_update_employee_admin', {'id': contract.user.id }) }}" class="btn btn-warning">#}
-{#                        <i class="fa fa-pencil" aria-hidden="true"></i>#}
-{#                        {{ 'admin.employee.update.btn' | trans }}#}
-{#                    </a>#}
+                    <a href="{{ path('contract_update_employee_admin', {'id': contract.user.id }) }}" class="btn btn-warning">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        {{ 'admin.employee.update.btn' | trans }}
+                    </a>
                 </td>
             </tr>
         {% endfor %}

@@ -16,7 +16,7 @@ class CardNumberType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $label = isset($options["data"]["label"]) ? $options["data"]["label"] : 'card_number';
         $labelSubmit = isset($options["data"]["labelSubmit"]) ? $options["data"]["labelSubmit"] : 'search';
@@ -37,7 +37,7 @@ class CardNumberType extends AbstractType
     /**
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

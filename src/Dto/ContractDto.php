@@ -5,6 +5,7 @@ namespace App\Dto;
 
 
 use App\Entity\Center;
+use App\Entity\Contract;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -28,10 +29,16 @@ class ContractDto
      */
     public $center;
 
-    public function __construct(?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, ?Center $center = null)
+    /**
+     * ContractDto constructor.
+     * @param Contract|null $contract
+     */
+    public function __construct(?Contract $contract = null)
     {
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
-        $this->center = $center;
+        if (null !== $contract) {
+            $this->startDate = $contract->getStartDate();
+            $this->endDate = $contract->getEndDate();
+            $this->center = $contract->getCenter();
+        }
     }
 }
