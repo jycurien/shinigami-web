@@ -29,6 +29,7 @@ Encore
     .addEntry('drag_and_drop_img', './assets/drag_and_drop_img.js')
     .addEntry('counter', './assets/counter.js')
     .addEntry('input_pseudo', './assets/input_pseudo.js')
+    .addEntry('create_game', './assets/create_game.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

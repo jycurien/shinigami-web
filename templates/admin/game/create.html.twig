@@ -1,0 +1,71 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% set active = 'create-game' %}
+
+{% trans_default_domain 'app' %}
+
+{% block page_title %}
+    {{ 'admin.game.create' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.game.create' | trans | title }}</h2>
+
+    {{ form_start(form) }}
+
+    <div class="row">
+
+        <div class="col-12 col-md-6 center">
+            {{ form_label(form.center) }}
+            {{ form_widget(form.center) }}
+        </div>
+
+        <div class="col-12 col-md-6 room">
+            {{ form_label(form.room) }}
+            {{ form_widget(form.room) }}
+        </div>
+
+        <div class="col-12 date">
+            {{ form_label(form.date) }}
+            {{ form_widget(form.date) }}
+        </div>
+
+        <div class="col-12 col-md-6 player">
+            {{ form_label(form.player) }}
+            {{ form_widget(form.player) }}
+            <div id="user-suggestions"></div>
+        </div>
+
+        <div class="col-12 col-md-6 team">
+            {{ form_label(form.team) }}
+            {{ form_widget(form.team.hidden) }}
+            <div class="input-group">
+                {{ form_widget(form.team.text) }}
+                <button id="game_team_btn" class="btn btn-outline-secondary" type="button" id="button-addon2">Ajouter</button>
+            </div>
+
+        </div>
+
+        <div class="text-center col-12 mt-3">
+            {{ form_widget(form.submit) }}
+        </div>
+
+    </div>
+
+    {{ form_end(form) }}
+
+    <div class="capacity-reached alert alert-danger" role="alert">
+        {{ 'capacity.full'|trans }}
+    </div>
+
+    {# This is where the players will be displayed #}
+    <div id="display-players" class="row"></div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('create_game') }}
+{% endblock %}

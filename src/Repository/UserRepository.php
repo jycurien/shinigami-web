@@ -58,7 +58,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
-    public function isUsernameUnique(string $username):bool
+    public function isUsernameUnique(string $username): bool
     {
         return (0 === $this->createQueryBuilder('u')
                 ->select('COUNT(u.id)')
@@ -74,7 +74,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
-    public function isEmailUnique(string $email):bool
+    public function isEmailUnique(string $email): bool
     {
         return (0 === $this->createQueryBuilder('u')
                 ->select('COUNT(u.id)')
@@ -82,5 +82,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->setParameter('email', $email)
                 ->getQuery()
                 ->getSingleScalarResult());
+    }
+
+    /**
+     * @param string $value
+     * @return mixed
+     */
+    public function findUserSuggestions(string $value)
+    {
+        return $this->createQueryBuilder('u')
+            ->select("u.username, u.id")
+            ->where("u.username like :value")
+            ->orWhere("u.cardNumbers like :value")
+            ->setParameter("value", '%' . $value . '%')
+            ->setMaxResults(25)
+            ->getQuery()
+            ->getResult();
     }
 }

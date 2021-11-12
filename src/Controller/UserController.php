@@ -12,10 +12,12 @@ use App\Form\UserEditType;
 use App\Handler\User\ChangePasswordHandler;
 use App\Handler\User\ProfileEditHandler;
 use App\Repository\ContractRepository;
+use App\Repository\UserRepository;
 use App\Service\Api\ApiClient;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -110,6 +112,7 @@ class UserController extends AbstractController
     /**
      * Display fidelity cards in Users profile
      * @param User $user
+     * @param ApiClient $apiClient
      * @return Response
      */
     public function userCards(User $user, ApiClient $apiClient): Response
@@ -151,6 +154,34 @@ class UserController extends AbstractController
 
         return $this->render('admin/employee/employees.html.twig', [
             'contracts' => $contracts
+        ]);
+    }
+
+    /**
+     * Return suggestions for Users in json format
+     * @Route("/admin/ajax/user-suggestion/{value}", name="user_ajax_user_suggestion_admin", methods={"GET"})
+     * @Security("user.isValidateContract() and is_granted('ROLE_STAFF')")
+     * @param string $value
+     * @param UserRepository $userRepository
+     * @return JsonResponse
+     */
+    public function ajaxGetUserSuggestions(string $value, UserRepository $userRepository): JsonResponse
+    {
+        return  $this->json(['users' => $userRepository->findUserSuggestions($value)]);
+    }
+
+    /**
+     * Return User's username and picure url in json format
+     * @Route("/admin/ajax/find-user/{id<\d+>}", name="user_ajax_find_user_admin", methods={"GET"})
+     * @Security("user.isValidateContract() and is_granted('ROLE_STAFF')")
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function ajaxGetUser(User $user): JsonResponse
+    {
+        return $this->json([
+            'username' => $user->getUsername(),
+            'picture' => (null != $user->getImage())? '/picture/users/'.$user->getImage() : '/picture/user.jpg' ,
         ]);
     }
 }

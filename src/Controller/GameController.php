@@ -4,9 +4,12 @@
 namespace App\Controller;
 
 
+use App\Form\GameType;
+use App\Handler\Game\GameHandler;
 use App\Repository\GameRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -30,34 +33,33 @@ class GameController extends  AbstractController
         ]);
     }
 
-//    /**
-//     * @Route({
-//     *     "en": "/create-game",
-//     *     "fr": "/creer-une-partie"
-//     *      },
-//     *     name="game_create_admin",
-//     *     methods={"GET", "POST"})
-//     * @Security("user.isValidateContract() and has_role('ROLE_STAFF')")
-//     * @param Request $request
-//     * @param GameHandler $gameHandler
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function create(Request $request, GameHandler $gameHandler)
-//    {
-//        $form = $this->createForm(GameType::class)->handleRequest($request);
-//
-//        if($form->isSubmitted() && $form->isValid()) {
-//            $data = $form->getData();
-//
-//            if($gameHandler->handle($data, "create")) {
-//                return $this->redirectToRoute("game_games_admin");
-//            }
-//        }
-//
-//        return $this->render("admin/game/create.html.twig", [
-//            'form' => $form->createView()
-//        ]);
-//    }
+    /**
+     * @Route({
+     *     "en": "/create-game",
+     *     "fr": "/creer-une-partie"
+     *      },
+     *     name="game_create_admin",
+     *     methods={"GET", "POST"})
+     * @Security("user.isValidateContract() and is_granted('ROLE_STAFF')")
+     * @param Request $request
+     * @param GameHandler $gameHandler
+     * @return Response
+     */
+    public function create(Request $request, GameHandler $gameHandler): Response
+    {
+        $form = $this->createForm(GameType::class)->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if($gameHandler->handle($data, "create")) {
+                return $this->redirectToRoute("game_games_admin");
+            }
+        }
+
+        return $this->render("admin/game/create.html.twig", [
+            'form' => $form->createView()
+        ]);
+    }
 
 //    /**
 //     * @Route({

@@ -35,15 +35,26 @@
 form[name=game] .center,
 form[name=game] .room,
 form[name=game] .date,
-form[name=game] .player {
-        margin-top: 20px;
-}
-
-form[name=game] .room {
-    display: none;
+form[name=game] .player,
+form[name=game] .team {
+    margin-top: 20px;
 }
 
 .capacity-reached {
     display: none;
+    opacity: 0;
+    transition: opacity 0.5s;
     margin-top: 50px;
 }
+
+.capacity-reached.show {
+    display: block;
+    opacity: 1;
+    margin-top: 50px;
+}
+
+button.close {
+    right: 0;
+    border: none;
+}
+

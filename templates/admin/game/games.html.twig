@@ -13,10 +13,10 @@
     <h2>{{ 'admin.games.manage' | trans | title }}</h2>
 
     <p class="text-right">
-{#        <a href="{{ path('game_create_admin') }}" class="btn btn-info">#}
-{#            <i class="fa fa-plus"></i>#}
-{#            {{ 'admin.game.create' | trans }}#}
-{#        </a>#}
+        <a href="{{ path('game_create_admin') }}" class="btn btn-info">
+            <i class="fas fa-plus"></i>
+            {{ 'admin.game.create' | trans }}
+        </a>
     </p>
 
     <table class="table table-striped mt-5">
@@ -71,6 +71,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+{#    TODO#}
 {#    {{ encore_entry_script_tags('games') }}#}
 {% endblock %}
 
