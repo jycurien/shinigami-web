@@ -1,0 +1,59 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'admin.pricings' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.pricings.manage' | trans | title }}</h2>
+
+    {% if pricings is not empty %}
+
+        <table class="table table-striped mt-5">
+            <thead>
+            <tr>
+                <th>{{ 'admin.pricing.designation' | trans }}</th>
+                <th>{{ 'admin.pricing.amount' | trans }}</th>
+                <th>{{ 'admin.pricing.description' | trans }}</th>
+                <th>{{ 'admin.pricing.conditions' | trans }}</th>
+                <th>{{ 'admin.pricing.update' | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for pricing in pricings  %}
+                <tr>
+                    <td>{{ pricing.code | trans }}</td>
+                    <td>{{ pricing.amount }} €</td>
+                    <td>{{ pricing.description }}</td>
+                    <td>
+                        {% if pricing.numberOfGames %}
+                            {{ 'admin.pricing.fidelity_conditions' | trans({'%nbOfGames%': pricing.numberOfGames }) | raw }}
+                        {% elseif pricing.numberOfPlayers %}
+                            {{ 'admin.pricing.group_conditions' | trans({'%numberOfPlayers%': pricing.numberOfPlayers }) | raw }}
+                        {% else %}
+                            {{ 'admin.pricing.no_condition' | trans }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('pricing_update_admin', {'code': pricing.code}) }}" class="btn btn-warning">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                            {{ 'admin.pricing.update' | trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            <p>Aucune tarif à afficher.</p>
+        </div>
+    {% endif %}
+
+{% endblock %}

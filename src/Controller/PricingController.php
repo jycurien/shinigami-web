@@ -15,6 +15,7 @@ use App\Repository\PricingRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,18 +30,15 @@ class PricingController extends AbstractController
      *      },
      *     name="pricing_pricings_admin",
      *     methods={"GET"})
-     * @Security("user.isValidateContract() and has_role('ROLE_ADMIN')")
-     * @param PricingRepository $repository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
+     * @param PricingRepository $pricingRepository
+     * @return Response
      */
-    public function pricings(PricingRepository $repository)
+    public function pricings(PricingRepository $pricingRepository): Response
     {
-        // TODO
-//        $pricings = $repository->findAll();
-//
-//        return $this->render('admin/pricing/pricings.html.twig', [
-//            'pricings' => $pricings
-//        ]);
+        return $this->render('admin/pricing/pricings.html.twig', [
+            'pricings' => $pricingRepository->findAll()
+        ]);
     }
 
     /**
@@ -50,12 +48,12 @@ class PricingController extends AbstractController
      *      },
      *     name="pricing_update_admin",
      *     methods={"GET","POST"})
-     * @Security("user.isValidateContract() and has_role('ROLE_ADMIN')")
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
      * @param Pricing $pricing
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function update(Pricing $pricing, Request $request)
+    public function update(Pricing $pricing, Request $request): Response
     {
         // TODO
 //        $form = $this->createForm(PricingType::class, $pricing)->handleRequest($request);
