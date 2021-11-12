@@ -30,15 +30,16 @@
         <tbody>
         {% for game in games %}
             <tr>
-                <td>{{ game.date | date('d-m-Y - H') }}h
+                <td>
+                    <div class="mb-3">{{ game.date | date('d-m-Y - H') }}h</div>
                     <div>
                         {% if game.status == "created" %}
-                            <a href="{{ path('game_edit_admin', { 'id': game.id }) }}" class="btn btn-warning">
-                                <i class="fa fa-edit"></i>{{ 'admin.game.update' | trans }}
+                            <a href="{{ path('game_edit_admin', { 'id': game.id }) }}" class="btn btn-warning mb-3">
+                                <i class="fas fa-edit"></i>{{ 'admin.game.update' | trans }}
                             </a>
-{#                            <a href="{{ path('game_play_admin', { 'id': game.id }) }}" class="btn btn-info play-game">#}
-{#                                <i class="fa fa-play"></i>{{ 'admin.game.play' | trans }}#}
-{#                            </a>#}
+                            <a href="{{ path('game_play_admin', { 'id': game.id }) }}" class="btn btn-info play-game">
+                                <i class="fas fa-play"></i>{{ 'admin.game.play' | trans }}
+                            </a>
                         {% else %}
                             {{ 'admin.game.ended' | trans }}
                         {% endif %}
@@ -71,8 +72,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-{#    TODO#}
-{#    {{ encore_entry_script_tags('games') }}#}
+    {{ encore_entry_script_tags('games') }}
 {% endblock %}
 
 

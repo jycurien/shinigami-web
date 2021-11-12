@@ -8,6 +8,7 @@ use App\Entity\Game;
 use App\Form\GameType;
 use App\Handler\Game\GameHandler;
 use App\Repository\GameRepository;
+use App\Service\Game\GameResultGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,20 +94,20 @@ class GameController extends  AbstractController
             'action' => 'update'
         ]);
     }
-//
-//    /**
-//     * @Route("/play-game/{id<\d+>}", name="game_play_admin")
-//     * @Security("user.isValidateContract() and has_role('ROLE_STAFF')")
-//     * @param Game $game
-//     * @param GameResultGenerator $resultGenerator
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function play(Game $game, GameResultGenerator $resultGenerator)
-//    {
-//        if ('created' === $game->getStatus()) {
-//            $resultGenerator->generateGameResult($game);
-//        }
-//
-//        return $this->redirectToRoute("game_games_admin");
-//    }
+
+    /**
+     * @Route("/play-game/{id<\d+>}", name="game_play_admin")
+     * @Security("user.isValidateContract() and is_granted('ROLE_STAFF')")
+     * @param Game $game
+     * @param GameResultGenerator $resultGenerator
+     * @return Response
+     */
+    public function play(Game $game, GameResultGenerator $resultGenerator): Response
+    {
+        if ('created' === $game->getStatus()) {
+            $resultGenerator->generateGameResult($game);
+        }
+
+        return $this->redirectToRoute("game_games_admin");
+    }
 }
