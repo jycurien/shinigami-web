@@ -67,7 +67,7 @@ class UserPlayGamesHandler
      * @param UserPlayGame[] $usersPlayGames
      * @return string
      */
-    public function formatUsersWithTeamsInString(array $usersPlayGames)
+    public function formatUsersWithTeamsInString($usersPlayGames): string
     {
         $playersString = '';
 
@@ -111,7 +111,7 @@ class UserPlayGamesHandler
      * @param UserPlayGame[] $usersPlayGames
      * @return string
      */
-    public function formatTeamsInString(array $usersPlayGames): string
+    public function formatTeamsInString($usersPlayGames): string
     {
         return implode(";", $this->getGameTeams($usersPlayGames));
     }

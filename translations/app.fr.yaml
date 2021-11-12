@@ -75,7 +75,7 @@ admin:
     player: Joueur
     team: Equipe
     score: Score
-    update: Modifier
+    update: Modifier une partie
     play: Jouer la partie
     ended: Partie terminée
     total_players: 'Nombre Total de Joueurs :'
@@ -101,3 +101,5 @@ home: Accueil
 concept: Le concept
 reservation: Réservation
 search: Chercher
+create: Créer
+update: Modifier

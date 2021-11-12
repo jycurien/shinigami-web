@@ -75,10 +75,6 @@ class GameType extends AbstractType
                     'teams' => ($game) ? $this->userPlayGamesHandler->formatTeamsInString($game->getUserPlayGames()) : null,
                 ],
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'create',
-                'attr' => ['class' => 'btn btn-lg btn-primary']
-            ])
         ;
     }
 

@@ -90,7 +90,8 @@ function getAddedUsers() {
 
     let initialVal = playerHidden.value;
 
-    let users = initialVal.split(";").map(function(item) {
+    let users = [];
+    users = initialVal.split(";").map(function(item) {
         let user = item.split("-")[0];
         return parseInt(user, 10);
     });
@@ -272,7 +273,7 @@ function setCapacity() {
 }
 
 function checkCapacity() {
-    if (getAddedUsers().length > capacity) {
+    if (capacity > 0 && getAddedUsers().length > capacity) {
         submit.disabled = true;
         capacityReached.classList.add('show');
     } else {

@@ -33,9 +33,9 @@
                 <td>{{ game.date | date('d-m-Y - H') }}h
                     <div>
                         {% if game.status == "created" %}
-{#                            <a href="{{ path('game_edit_admin', { 'id': game.id }) }}" class="btn btn-warning">#}
-{#                                <i class="fa fa-edit"></i>{{ 'admin.game.update' | trans }}#}
-{#                            </a>#}
+                            <a href="{{ path('game_edit_admin', { 'id': game.id }) }}" class="btn btn-warning">
+                                <i class="fa fa-edit"></i>{{ 'admin.game.update' | trans }}
+                            </a>
 {#                            <a href="{{ path('game_play_admin', { 'id': game.id }) }}" class="btn btn-info play-game">#}
 {#                                <i class="fa fa-play"></i>{{ 'admin.game.play' | trans }}#}
 {#                            </a>#}

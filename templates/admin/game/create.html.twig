@@ -5,12 +5,12 @@
 {% trans_default_domain 'app' %}
 
 {% block page_title %}
-    {{ 'admin.game.create' | trans | title }}
+    {{ ('admin.game.' ~ action)  | trans | title }}
 {% endblock %}
 
 {% block content %}
 
-    <h2>{{ 'admin.game.create' | trans | title }}</h2>
+    <h2>{{ ('admin.game.' ~ action) | trans | title }}</h2>
 
     {{ form_start(form) }}
 
@@ -48,7 +48,7 @@
         </div>
 
         <div class="text-center col-12 mt-3">
-            {{ form_widget(form.submit) }}
+            <button type="submit" id="game_submit" class="btn btn-lg btn-primary">{{ action | trans }}</button>
         </div>
 
     </div>

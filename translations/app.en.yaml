@@ -75,7 +75,7 @@ admin:
     player: Player
     team: Team
     score: Score
-    update: Update
+    update: Update game
     play: Play game
     ended: Game over
     total_players: 'Total Number of Players:'
@@ -100,3 +100,5 @@ home: Home
 concept: The concept
 reservation: Reservation
 search: Search
+create: Create
+update: Update
