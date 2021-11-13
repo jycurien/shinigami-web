@@ -9,8 +9,10 @@
 namespace App\Controller;
 
 
+use App\Dto\PricingDto;
 use App\Entity\Pricing;
 //use App\Form\PricingType;
+use App\Form\PricingType;
 use App\Repository\PricingRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,20 +57,21 @@ class PricingController extends AbstractController
      */
     public function update(Pricing $pricing, Request $request): Response
     {
-        // TODO
-//        $form = $this->createForm(PricingType::class, $pricing)->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
+        $pricingDto = new PricingDto($pricing);
+        $form = $this->createForm(PricingType::class, $pricingDto)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($pricingDto);
 //            $this->getDoctrine()->getManager()->flush();
-//
+
 //            $this->addFlash('success', 'pricing.update.ok');
 //
 //            return $this->redirectToRoute('pricing_pricings_admin');
-//        }
-//
-//        return $this->render('admin/pricing/update.html.twig', [
-//            'form' => $form->createView(),
-//            'pricing' => $pricing
-//        ]);
+        }
+
+        return $this->render('admin/pricing/update.html.twig', [
+            'form' => $form->createView(),
+            'pricing' => $pricing
+        ]);
     }
 }
