@@ -12,6 +12,7 @@ use App\Form\UserEditType;
 use App\Handler\User\ChangePasswordHandler;
 use App\Handler\User\ProfileEditHandler;
 use App\Repository\ContractRepository;
+use App\Repository\PricingRepository;
 use App\Repository\UserPlayGameRepository;
 use App\Repository\UserRepository;
 use App\Service\Api\ApiClient;
@@ -152,7 +153,7 @@ class UserController extends AbstractController
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function userPlayStats(User $user, UserPlayGameRepository $userPlayGameRepository)
+    public function userPlayStats(User $user, UserPlayGameRepository $userPlayGameRepository): Response
     {
         $userPlayGames = $userPlayGameRepository->findByUser($user);
 
@@ -164,6 +165,29 @@ class UserController extends AbstractController
             'userPlayGames' => $userPlayGames,
             'victories' => $victories,
             'maxScore' => $maxScore
+        ]);
+    }
+
+    /**
+     * Display offers in user profile
+     * @param User $user
+     * @param UserPlayGameRepository $userPlayGameRepository
+     * @param PricingRepository $pricingRepository
+     * @return Response
+     */
+    public function userOffers(User $user, UserPlayGameRepository $userPlayGameRepository, PricingRepository $pricingRepository): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $nbOfUserPlayGames = count($userPlayGameRepository->findByUser($user));
+
+        $fidelityPricing = $pricingRepository->findOneBy(['code' => 'fidelity']);
+
+        $remainingBeforeNextFreeGame = $fidelityPricing->getNumberOfGames() - ($nbOfUserPlayGames % $fidelityPricing->getNumberOfGames()) - 1;
+
+        return $this->render('component/_user_offers.html.twig', [
+            'remainingBeforeNextFreeGame' => $remainingBeforeNextFreeGame,
+            'fidelityPrice' => $fidelityPricing->getAmount()
         ]);
     }
 

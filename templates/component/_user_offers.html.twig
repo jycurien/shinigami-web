@@ -1,0 +1,14 @@
+<div class="offer">
+    <h2 class="featurette-heading">Vos offres</h2>
+    <p class="lead">En tant que joueur régulier dans nos centres, vous bénéficiez d'offres exclusives.</p>
+    <p class="lead">Plus que <strong>{{ remainingBeforeNextFreeGame }}</strong> parties avant
+        {% if fidelityPrice == 0 %}
+            votre prochaine partie gratuite !
+        {% else %}
+            de bénéficier d'un tarif préférentiel de <strong>{{ fidelityPrice }}€</strong> !
+        {% endif %}
+    </p>
+</div>
+
+<hr class="featurette-divider">
+
