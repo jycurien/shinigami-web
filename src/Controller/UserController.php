@@ -12,8 +12,11 @@ use App\Form\UserEditType;
 use App\Handler\User\ChangePasswordHandler;
 use App\Handler\User\ProfileEditHandler;
 use App\Repository\ContractRepository;
+use App\Repository\UserPlayGameRepository;
 use App\Repository\UserRepository;
 use App\Service\Api\ApiClient;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -138,6 +141,29 @@ class UserController extends AbstractController
         return $this->render('component/_user_cards.html.twig', [
             'cards' => $cards,
             'errorMessage' => $errorMessage
+        ]);
+    }
+
+    /**
+     * Display stats in User profile
+     * @param User $user
+     * @param UserPlayGameRepository $userPlayGameRepository
+     * @return Response
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function userPlayStats(User $user, UserPlayGameRepository $userPlayGameRepository)
+    {
+        $userPlayGames = $userPlayGameRepository->findByUser($user);
+
+        $victories = $userPlayGameRepository->findSingleVictoriesByUser($user);
+
+        $maxScore = $userPlayGameRepository->findMaxScoreByUser($user);
+
+        return $this->render('component/_user_play_stats.html.twig', [
+            'userPlayGames' => $userPlayGames,
+            'victories' => $victories,
+            'maxScore' => $maxScore
         ]);
     }
 

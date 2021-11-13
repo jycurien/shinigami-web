@@ -48,7 +48,7 @@
             </div>
         </div>
 
-{#        {{ render(controller('App\\Controller\\UserController::userPlayStats', {'user': user})) }}#}
+        {{ render(controller('App\\Controller\\UserController::userPlayStats', {'user': user})) }}
 
         <div class="container">
 
@@ -85,4 +85,9 @@
 
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('counter') }}
 {% endblock %}
