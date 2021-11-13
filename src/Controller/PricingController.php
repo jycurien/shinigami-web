@@ -13,6 +13,7 @@ use App\Dto\PricingDto;
 use App\Entity\Pricing;
 //use App\Form\PricingType;
 use App\Form\PricingType;
+use App\Handler\Pricing\PricingHandler;
 use App\Repository\PricingRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -53,20 +54,18 @@ class PricingController extends AbstractController
      * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
      * @param Pricing $pricing
      * @param Request $request
+     * @param PricingHandler $pricingHandler
      * @return Response
      */
-    public function update(Pricing $pricing, Request $request): Response
+    public function update(Pricing $pricing, Request $request, PricingHandler $pricingHandler): Response
     {
         $pricingDto = new PricingDto($pricing);
         $form = $this->createForm(PricingType::class, $pricingDto)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($pricingDto);
-//            $this->getDoctrine()->getManager()->flush();
+            $pricingHandler->handle($pricingDto, $pricing);
 
-//            $this->addFlash('success', 'pricing.update.ok');
-//
-//            return $this->redirectToRoute('pricing_pricings_admin');
+            return $this->redirectToRoute('pricing_pricings_admin');
         }
 
         return $this->render('admin/pricing/update.html.twig', [
