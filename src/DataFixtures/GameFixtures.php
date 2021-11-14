@@ -33,7 +33,7 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
             $game = new Game();
             $day = rand(1,30);
             $month = rand(1,11);
-            $year = 2018;
+            $year = 2021;
             $date = new \DateTime();
             $date->setDate($year, $month, $day);
             $date->setTime(rand(10, 18), 0, 0);
