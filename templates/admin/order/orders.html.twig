@@ -1,0 +1,85 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% trans_default_domain 'app' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'admin.card_orders.title' | trans | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'admin.card_orders.manage' | trans | title }}</h2>
+
+    {% if orders is not empty %}
+
+        <p class="text-right">
+{#            <a href="{{ path('card_order_create_admin') }}" class="btn btn-info">#}
+{#                <i class="fa fa-plus"></i>#}
+{#                {{ 'admin.card_orders.order' | trans }}#}
+{#            </a>#}
+        </p>
+        <table class="table table-striped mt-5">
+            <thead>
+            <tr>
+                <th>{{ 'admin.card_orders.date' | trans }}</th>
+                <th>{{ 'admin.card_orders.center' | trans }}</th>
+                <th>{{ 'admin.card_orders.quantity' | trans }}</th>
+                <th>{{ 'admin.card_orders.numbers' | trans }}</th>
+                <th>{{ 'admin.card_orders.status' | trans }}</th>
+                <th>{{ 'admin.card_orders.receive' | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders  %}
+                <tr>
+                    <td>{{ order.orderedAt | date("d/m/Y") }}</td>
+                    <td>{{ order.centerCode }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ cardNumber(order.centerCode, order.minCardCode) }} - {{ cardNumber(order.centerCode, order.maxCardCode) }}</td>
+                    <td>
+                        {% if order.received %}
+                            {{ 'admin.card_orders.received' | trans }}
+                        {% else %}
+                            {{ 'admin.card_orders.pending' | trans }}
+                        {% endif %}
+
+                    </td>
+                    <td>
+                        {% if not order.received %}
+                            <a href="#" class="btn btn-warning receive-order" data-order_id="{{ order.id }}" data-toggle="modal" data-target="#confirmModal">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                {{ 'admin.card_orders.receive' | trans }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        {% if errorMessage is null %}
+            <div class="alert alert-info" role="alert">
+                <p>{{ 'admin.card_orders.none' | trans }}</p>
+            </div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                <p>{{ 'admin.card_orders.api_error' | trans }}</p>
+                <p><small>{{ errorMessage }}</small></p>
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{#    TODO#}
+{#    {{ encore_entry_script_tags('receive_order') }}#}
+{% endblock %}
+
+
+
