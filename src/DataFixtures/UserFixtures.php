@@ -42,7 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setLastName($this->faker->lastName);
             $user->setUsername('user_'.$i);
             $user->setEnabled(1);
-            $user->setPassword(password_hash('user', PASSWORD_BCRYPT));
+            $user->setPassword($this->passwordHasher->hashPassword($user, 'user'));
             $user->setEmail('user'.$i.'@shinigami.com');
             $user->setImage($i.'.jpg');
             // BirthDate
