@@ -31,6 +31,7 @@ Encore
     .addEntry('input_pseudo', './assets/input_pseudo.js')
     .addEntry('create_game', './assets/create_game.js')
     .addEntry('games', './assets/games.js')
+    .addEntry('receive_order', './assets/receive_order.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

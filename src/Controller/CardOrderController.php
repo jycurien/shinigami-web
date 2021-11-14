@@ -8,6 +8,7 @@ use App\Form\CardOrderType;
 use App\Service\Api\ApiClient;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,22 +81,22 @@ class CardOrderController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-//
-//    /**
-//     * @Route("/receive-order", name="card_order_receive_order" ,methods={"POST"})
-//     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
-//     * @param Request $request
-//     * @return \Symfony\Component\HttpFoundation\JsonResponse
-//     * @throws GuzzleException
-//     */
-//    public function receiveOrder(Request $request)
-//    {
-//        $orderId = json_decode($request->getContent())->orderId;
-//
-//        $body = json_encode(['received' => true]);
-//
-//        $res = $this->apiClient->request('PUT','/api/card_orders/'.$orderId, $body);
-//        $statusCode = $res['res'] ? 200 : 500;
-//        return $this->json($res, $statusCode);
-//    }
+
+    /**
+     * @Route("/receive-order", name="card_order_receive_order" ,methods={"PUT"})
+     * @Security("user.isValidateContract() and is_granted('ROLE_ADMIN')")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function receiveOrder(Request $request)
+    {
+        $orderId = json_decode($request->getContent())->orderId;
+
+        $body = json_encode(['received' => true]);
+
+        $res = $this->apiClient->request('PUT','/orders/'.$orderId, $body);
+
+        $statusCode = $res['res'] ? 200 : 500;
+        return $this->json($res, $statusCode);
+    }
 }
