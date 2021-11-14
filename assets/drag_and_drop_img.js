@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const { files } = e.dataTransfer;
                 previewImage(dropZone, files[0]);
-                input.files = e.dataTransfer.files; // TODO this does not work really upload file...
+                input.files = e.dataTransfer.files;
             });
         })
     }
