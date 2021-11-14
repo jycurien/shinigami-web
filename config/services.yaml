@@ -60,6 +60,9 @@ services:
     App\Service\Api\ApiClient:
         arguments:
             $apiUrl: '%api_url%'
+            $apiTokenUrl: '%api_token_url%'
+            $apiUser: '%api_user%'
+            $apiPassword: '%api_password%'
 
     App\Service\QrCodeGenerator:
         arguments:
