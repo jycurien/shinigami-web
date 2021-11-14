@@ -234,4 +234,16 @@ class UserController extends AbstractController
             'picture' => (null != $user->getImage())? '/picture/users/'.$user->getImage() : '/picture/user.jpg' ,
         ]);
     }
+
+    /**
+     * Display latest games in user profile
+     * @param User $user
+     * @return Response
+     */
+    public function userLatestGames(User $user, UserPlayGameRepository $userPlayGameRepository)
+    {
+        return $this->render('component/_user_latest_games.html.twig', [
+            'userPlayGames' => $userPlayGameRepository->findLatestUserPlayGamesByUser($user)
+        ]);
+    }
 }

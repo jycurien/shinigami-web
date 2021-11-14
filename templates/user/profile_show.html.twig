@@ -72,11 +72,11 @@
             <div class="games">
                 <h2 class="featurette-heading">Dernières Parties Jouées</h2>
 
-{#                {% if not user.userPlayGames is empty %}#}
-{#                    {{ render(controller('App\\Controller\\UserController::userLatestGames', {'user': user})) }}#}
-{#                {% else %}#}
-{#                    <p>Vous n'avez pas encore de parties à afficher. Venez vite nous rendre visite ;)</p>#}
-{#                {% endif %}#}
+                {% if not user.userPlayGames is empty %}
+                    {{ render(controller('App\\Controller\\UserController::userLatestGames', {'user': user})) }}
+                {% else %}
+                    <p>Vous n'avez pas encore de parties à afficher. Venez vite nous rendre visite ;)</p>
+                {% endif %}
 
             </div>
 

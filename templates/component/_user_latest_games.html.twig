@@ -1,0 +1,21 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Equipe</th>
+        <th scope="col">Vainqueur</th>
+        <th scope="col">Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for play in userPlayGames %}
+        <tr>
+            <th scope="row">{{ play.game.date | date('d-m-Y - H') }}h</th>
+            <td>{{ play.team }}</td>
+            <td>{{ play.game.winner.username }}</td>
+            <td>{{ play.score }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
