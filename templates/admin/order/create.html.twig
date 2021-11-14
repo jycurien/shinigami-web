@@ -1,0 +1,17 @@
+{% extends 'layout-admin.html.twig' %}
+
+{% set active = 'admin' %}
+
+{% block page_title %}
+    {{ 'Backoffice-commander-des-cartes' | title }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>Commander des cartes de fidélité</h2>
+
+    {{ form(form) }}
+
+{% endblock %}
+
+
