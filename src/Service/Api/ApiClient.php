@@ -5,6 +5,7 @@ namespace App\Service\Api;
 
 
 use Symfony\Component\HttpClient\Exception\TransportException;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -40,24 +41,24 @@ class ApiClient
     private $apiPassword;
     private $token;
 
-    public function __construct(HttpClientInterface $client, string $apiUrl, SessionInterface $session, string $apiTokenUrl, string $apiUser, string $apiPassword)
+    public function __construct(HttpClientInterface $client, string $apiUrl, RequestStack $requestStack, string $apiTokenUrl, string $apiUser, string $apiPassword)
     {
         $this->client = $client;
         $this->apiUrl = $apiUrl;
-        $this->session = $session;
+        $this->session = $requestStack->getSession();
         $this->apiTokenUrl = $apiTokenUrl;
         $this->apiUser = $apiUser;
         $this->apiPassword = $apiPassword;
 
         // check if a token already exists in session
-        if (null !== $session->get('shinigami-token') && time() < $session->get('shinigami-token-expiration')) {
-            $this->token = $session->get('shinigami-token');
+        if (null !== $this->session->get('shinigami-token') && time() < $this->session->get('shinigami-token-expiration')) {
+            $this->token = $this->session->get('shinigami-token');
         } else {
             // get the token from API
             $this->token = $this->getToken()['token'];
             // store it in session
-            $session->set('shinigami-token', $this->token);
-            $session->set('shinigami-token-expiration', time() + 3600);
+            $this->session->set('shinigami-token', $this->token);
+            $this->session->set('shinigami-token-expiration', time() + 3600);
         }
     }
 

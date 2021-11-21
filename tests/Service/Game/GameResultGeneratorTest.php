@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tests\Service;
+namespace App\Tests\Service\Game;
 
 
 use App\Entity\Game;
