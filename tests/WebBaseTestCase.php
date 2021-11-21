@@ -14,7 +14,7 @@ class WebBaseTestCase extends PantherTestCase
     public function setUp(): void
     {
         $_SERVER['PANTHER_NO_HEADLESS'] = 1;
-        $this->arg = ['window-size=1280,800', 'disable-infobars'];
+        $this->arg = ['window-size=1400,800', 'disable-infobars'];
     }
 
     protected function scrollDown(Client $client, string $element = null)
@@ -22,7 +22,7 @@ class WebBaseTestCase extends PantherTestCase
         if($element) {
             $size = $client->getCrawler()->filter($element)->getLocation()->getY()-100;
         } else {
-            $size = $client->getCrawler()->getSize()->getHeight()-400;
+            $size = $client->getCrawler()->getSize()->getHeight()-200;
         }
 
         for($i=0; $i<$size; $i+=2) {
